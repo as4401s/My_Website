@@ -1,15 +1,19 @@
-import { useRef, useEffect, useMemo } from 'react';
+import { useRef, useEffect, useMemo, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
 interface ParticleFieldProps {
   count?: number;
+  isMobile?: boolean;
 }
 
-function ParticleField({ count = 60 }: ParticleFieldProps) {
+function ParticleField({ count = 60, isMobile = false }: ParticleFieldProps) {
   const meshRef = useRef<THREE.Points>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const { viewport } = useThree();
+
+  // Reduce mouse interaction on mobile for better performance
+  const mouseInteractionEnabled = !isMobile;
 
   // Create particles data
   const [positions, velocities] = useMemo(() => {
@@ -30,6 +34,8 @@ function ParticleField({ count = 60 }: ParticleFieldProps) {
   }, [count]);
 
   useEffect(() => {
+    if (!mouseInteractionEnabled) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -37,7 +43,7 @@ function ParticleField({ count = 60 }: ParticleFieldProps) {
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [mouseInteractionEnabled]);
 
   useFrame(() => {
     if (!meshRef.current) return;
@@ -51,15 +57,17 @@ function ParticleField({ count = 60 }: ParticleFieldProps) {
       posArray[idx] += velocities[idx];
       posArray[idx + 1] += velocities[idx + 1];
       
-      // Mouse repulsion
-      const dx = posArray[idx] - mouseRef.current.x * viewport.width * 0.5;
-      const dy = posArray[idx + 1] - mouseRef.current.y * viewport.height * 0.5;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      
-      if (dist < 3 && dist > 0) {
-        const force = (3 - dist) / 3 * 0.02;
-        posArray[idx] += (dx / dist) * force;
-        posArray[idx + 1] += (dy / dist) * force;
+      // Mouse repulsion (only on desktop)
+      if (mouseInteractionEnabled) {
+        const dx = posArray[idx] - mouseRef.current.x * viewport.width * 0.5;
+        const dy = posArray[idx + 1] - mouseRef.current.y * viewport.height * 0.5;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 3 && dist > 0) {
+          const force = (3 - dist) / 3 * 0.02;
+          posArray[idx] += (dx / dist) * force;
+          posArray[idx + 1] += (dy / dist) * force;
+        }
       }
       
       // Boundary wrap
@@ -144,16 +152,41 @@ function ConnectionLines({ count = 60 }: { count?: number }) {
 }
 
 export default function ParticleBackground() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [particleCount, setParticleCount] = useState(60);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768 ||
+                     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+      setIsMobile(mobile);
+      // Drastically reduce particles on mobile
+      setParticleCount(mobile ? 20 : 60);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <Canvas
         camera={{ position: [0, 0, 8], fov: 75 }}
-        dpr={[1, 1.5]}
-        gl={{ antialias: false, alpha: true }}
+        dpr={isMobile ? [0.5, 1] : [1, 1.5]}
+        gl={{
+          antialias: false,
+          alpha: true,
+          powerPreference: 'high-performance'
+        }}
+        frameloop="demand"
+        performance={{ min: 0.5 }}
       >
         <ambientLight intensity={0.5} />
-        <ParticleField count={60} />
-        <ConnectionLines count={60} />
+        <ParticleField count={particleCount} isMobile={isMobile} />
+        {/* Disable connection lines on mobile for better performance */}
+        {!isMobile && <ConnectionLines count={particleCount} />}
       </Canvas>
     </div>
   );

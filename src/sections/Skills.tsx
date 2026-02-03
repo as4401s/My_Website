@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { GraduationCap, Code, Brain, Database, Cloud, Microscope, Cpu, GitBranch, Container } from 'lucide-react';
+import { GraduationCap, Code, Brain, Database, Cloud, Microscope, Cpu, GitBranch, Container, TrendingUp } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,20 +27,20 @@ const education = [
 ];
 
 const techStack = [
-  { name: 'Deep Learning', icon: Brain, category: 'ai', color: 'text-purple-400' },
-  { name: 'LLM', icon: Brain, category: 'ai', color: 'text-purple-400' },
-  { name: 'AI Agents', icon: Cpu, category: 'ai', color: 'text-purple-400' },
-  { name: 'Python', icon: Code, category: 'language', color: 'text-blue-400' },
-  { name: 'TensorFlow', icon: Brain, category: 'framework', color: 'text-orange-400' },
-  { name: 'PyTorch', icon: Brain, category: 'framework', color: 'text-red-400' },
-  { name: 'Keras', icon: Brain, category: 'framework', color: 'text-red-400' },
-  { name: 'OpenCV', icon: Microscope, category: 'vision', color: 'text-green-400' },
-  { name: 'Docker', icon: Container, category: 'tool', color: 'text-blue-400' },
-  { name: 'AWS', icon: Cloud, category: 'cloud', color: 'text-yellow-400' },
-  { name: 'Git', icon: GitBranch, category: 'tool', color: 'text-orange-400' },
-  { name: 'MLflow', icon: Database, category: 'tool', color: 'text-blue-400' },
-  { name: 'MCP', icon: Cpu, category: 'tool', color: 'text-gray-400' },
-  { name: 'Raspberry Pi', icon: Cpu, category: 'hardware', color: 'text-red-400' },
+  { name: 'Deep Learning', icon: Brain, category: 'ai', color: 'text-purple-400', proficiency: 95 },
+  { name: 'LLM', icon: Brain, category: 'ai', color: 'text-purple-400', proficiency: 90 },
+  { name: 'AI Agents', icon: Cpu, category: 'ai', color: 'text-purple-400', proficiency: 85 },
+  { name: 'Python', icon: Code, category: 'language', color: 'text-blue-400', proficiency: 98 },
+  { name: 'TensorFlow', icon: Brain, category: 'framework', color: 'text-orange-400', proficiency: 90 },
+  { name: 'PyTorch', icon: Brain, category: 'framework', color: 'text-red-400', proficiency: 95 },
+  { name: 'Keras', icon: Brain, category: 'framework', color: 'text-red-400', proficiency: 92 },
+  { name: 'OpenCV', icon: Microscope, category: 'vision', color: 'text-green-400', proficiency: 88 },
+  { name: 'Docker', icon: Container, category: 'tool', color: 'text-blue-400', proficiency: 85 },
+  { name: 'AWS', icon: Cloud, category: 'cloud', color: 'text-yellow-400', proficiency: 80 },
+  { name: 'Git', icon: GitBranch, category: 'tool', color: 'text-orange-400', proficiency: 90 },
+  { name: 'MLflow', icon: Database, category: 'tool', color: 'text-blue-400', proficiency: 82 },
+  { name: 'MCP', icon: Cpu, category: 'tool', color: 'text-gray-400', proficiency: 75 },
+  { name: 'Raspberry Pi', icon: Cpu, category: 'hardware', color: 'text-red-400', proficiency: 78 },
 ];
 
 const domains = [
@@ -57,6 +57,8 @@ const domains = [
 export default function Skills() {
   const sectionRef = useRef<HTMLElement>(null);
   const triggersRef = useRef<ScrollTrigger[]>([]);
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [showProficiency, setShowProficiency] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -96,9 +98,9 @@ export default function Skills() {
         start: 'top 75%',
         onEnter: () => {
           gsap.fromTo(
-            '.skill-tag',
-            { opacity: 0, scale: 0.8 },
-            { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.7)', stagger: 0.04 }
+            '.skill-card',
+            { opacity: 0, x: -30 },
+            { opacity: 1, x: 0, duration: 0.4, ease: 'expo.out', stagger: 0.05 }
           );
 
           gsap.fromTo(
@@ -106,6 +108,23 @@ export default function Skills() {
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out', stagger: 0.05, delay: 0.5 }
           );
+
+          // Animate proficiency bars
+          setTimeout(() => {
+            setShowProficiency(true);
+            gsap.fromTo(
+              '.proficiency-bar',
+              { width: '0%' },
+              {
+                width: function(_index, target) {
+                  return target.getAttribute('data-proficiency') + '%';
+                },
+                duration: 1.2,
+                ease: 'expo.out',
+                stagger: 0.06
+              }
+            );
+          }, 300);
         },
         once: true,
       });
@@ -180,23 +199,65 @@ export default function Skills() {
             <h3 className="text-2xl font-display font-bold text-white">Tech Stack</h3>
           </div>
 
-          {/* Skills Cloud - Centered */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10 max-w-3xl mx-auto">
+          {/* Skills with Proficiency Bars */}
+          <div className="max-w-4xl mx-auto space-y-3 mb-10">
             {techStack.map((skill, index) => {
               const Icon = skill.icon;
               const isAI = skill.category === 'ai';
-              
+              const isHovered = hoveredSkill === skill.name;
+
               return (
                 <div
                   key={index}
-                  className={`skill-tag group flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 cursor-default ${
-                    isAI
-                      ? 'glass-card border-brand-accent/30 text-white hover:bg-brand-accent/20'
-                      : 'glass-card text-gray-300 hover:bg-white/5'
-                  }`}
+                  className="skill-card glass-card rounded-lg p-4 transition-all duration-300 hover:scale-[1.02] hover:bg-white/5 cursor-default"
+                  onMouseEnter={() => setHoveredSkill(skill.name)}
+                  onMouseLeave={() => setHoveredSkill(null)}
                 >
-                  <Icon className={`w-4 h-4 ${skill.color} group-hover:scale-110 transition-transform`} />
-                  <span className="text-sm font-medium">{skill.name}</span>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all ${
+                        isAI ? 'bg-brand-accent/20' : 'bg-white/5'
+                      } ${isHovered ? 'scale-110 bg-brand-accent/30' : ''}`}>
+                        <Icon className={`w-5 h-5 ${skill.color} transition-transform ${isHovered ? 'scale-110' : ''}`} />
+                      </div>
+                      <div>
+                        <span className={`text-sm font-medium transition-colors ${
+                          isAI ? 'text-white' : 'text-gray-300'
+                        } ${isHovered ? 'text-brand-accent' : ''}`}>
+                          {skill.name}
+                        </span>
+                        <div className="text-xs text-gray-500 capitalize">{skill.category}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <TrendingUp className={`w-4 h-4 transition-colors ${isHovered ? 'text-green-400' : 'text-gray-500'}`} />
+                      <span className={`text-sm font-mono font-bold transition-colors ${isHovered ? 'text-brand-accent' : 'text-gray-400'}`}>
+                        {skill.proficiency}%
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Proficiency Bar */}
+                  <div className="relative h-2 bg-black/40 rounded-full overflow-hidden">
+                    <div
+                      className={`proficiency-bar absolute top-0 left-0 h-full rounded-full transition-all duration-500 ${
+                        isAI
+                          ? 'bg-gradient-to-r from-brand-accent via-blue-500 to-brand-purple'
+                          : 'bg-gradient-to-r from-gray-600 to-gray-400'
+                      } ${isHovered ? 'shadow-lg shadow-brand-accent/50' : ''}`}
+                      data-proficiency={skill.proficiency}
+                      style={{ width: showProficiency ? `${skill.proficiency}%` : '0%' }}
+                    >
+                      {/* Animated shimmer effect */}
+                      <div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                        style={{
+                          animation: isHovered ? 'shimmer 1.5s infinite' : 'none',
+                          backgroundSize: '200% 100%',
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
               );
             })}

@@ -20,11 +20,29 @@ import TransformerVisualizer from '../components/demos/TransformerVisualizer';
 import LossFunctionPlayground from '../components/demos/LossFunctionPlayground';
 import RLMaze from '../components/demos/RLMaze';
 import ModelArchitectureExplorer from '../components/demos/ModelArchitectureExplorer';
+import NeuralNetworkPlayground from '../components/demos/NeuralNetworkPlayground';
+import GradientDescentVisualizer from '../components/demos/GradientDescentVisualizer';
 
 gsap.registerPlugin(ScrollTrigger);
 
 // Interactive demos
 const demos = [
+  {
+    id: 'neural-network',
+    title: 'Neural Network Playground',
+    description: 'Build your own neural network! Add/remove layers, adjust neurons, choose activation functions, and watch it train in real-time on the XOR problem.',
+    icon: Brain,
+    color: 'from-cyan-500 to-blue-500',
+    component: NeuralNetworkPlayground,
+  },
+  {
+    id: 'gradient-descent',
+    title: 'Gradient Descent Visualizer',
+    description: 'Visualize how gradient descent navigates loss landscapes. Compare SGD, Momentum, and Adam optimizers on different functions.',
+    icon: Target,
+    color: 'from-pink-500 to-rose-500',
+    component: GradientDescentVisualizer,
+  },
   {
     id: 'transformer',
     title: 'Transformer Visualizer',
@@ -37,7 +55,7 @@ const demos = [
     id: 'loss-functions',
     title: 'Loss Function Playground',
     description: 'Compare MSE, MAE, Huber, and Cross-Entropy loss functions with live training visualization and parameter tuning.',
-    icon: Target,
+    icon: Sparkles,
     color: 'from-purple-500 to-pink-500',
     component: LossFunctionPlayground,
   },
@@ -480,7 +498,7 @@ export default function Lab() {
             { icon: BookOpen, value: '10+', label: 'Articles Published' },
             { icon: Cpu, value: '3.3K', label: 'Medium Followers' },
             { icon: Code2, value: '50K+', label: 'Total Reads' },
-            { icon: Network, value: '4', label: 'Interactive Demos' },
+            { icon: Network, value: '6', label: 'Interactive Demos' },
           ].map((stat, index) => {
             const Icon = stat.icon;
             return (

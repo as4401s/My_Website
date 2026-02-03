@@ -12,4 +12,17 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'three-vendor': ['three', '@react-three/fiber'],
+          'animation-vendor': ['gsap'],
+        },
+      },
+    },
+    minify: 'esbuild',
+    chunkSizeWarningLimit: 1000,
+  },
 });

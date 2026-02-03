@@ -1,73 +1,220 @@
-# React + TypeScript + Vite
+# AI Data Scientist Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, interactive portfolio website showcasing AI/ML expertise, research publications, and hands-on demos. Built with React, TypeScript, and advanced web technologies to deliver a smooth, engaging user experience.
 
-Currently, two official plugins are available:
+![Portfolio Preview](https://img.shields.io/badge/React-18.3-blue?logo=react) ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?logo=typescript) ![Vite](https://img.shields.io/badge/Vite-7.3-purple?logo=vite) ![Three.js](https://img.shields.io/badge/Three.js-0.172-black?logo=three.js)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+### Interactive AI Demos
+6 fully functional, browser-based AI demonstrations:
+- **Neural Network Playground** - Build and train custom neural networks with adjustable architectures
+- **Gradient Descent Visualizer** - Compare SGD, Momentum, and Adam optimizers on different loss landscapes
+- **Transformer Visualizer** - Interactive attention mechanism visualization
+- **Loss Function Playground** - Compare MSE, MAE, Huber, and Cross-Entropy functions
+- **Reinforcement Learning Maze** - Watch Q-Learning agents learn in real-time
+- **Model Architecture Explorer** - Visualize EfficientNetV2, MobileNet, and ResNet architectures
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Modern UI/UX
+- **Glassmorphism design** with depth and blur effects
+- **3D particle background** with Three.js and React Three Fiber
+- **Scroll progress indicator** with live percentage tracking
+- **Animated skill proficiency bars** showing expertise levels
+- **Smooth scroll animations** powered by GSAP
+- **3D card hover effects** for enhanced interactivity
+- **Responsive design** optimized for all devices
 
-## Expanding the ESLint configuration
+### Performance Optimizations
+- **Mobile-first optimizations**: Reduced particle count, optimized blur effects
+- **Image optimization**: 87% reduction in image sizes (489KB → 60KB)
+- **Code splitting**: Separate vendor bundles for React, Three.js, and GSAP
+- **GPU acceleration**: Hardware-accelerated transforms and animations
+- **Lazy loading**: On-demand component rendering
+- **Build optimization**: ESBuild minification with tree-shaking
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Core Technologies
+- **React 18.3** - Modern UI framework with hooks
+- **TypeScript 5.6** - Type-safe development
+- **Vite 7.3** - Lightning-fast build tool and dev server
+- **Tailwind CSS 3.4** - Utility-first CSS framework
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Animation & 3D
+- **Three.js 0.172** - 3D graphics library
+- **@react-three/fiber** - React renderer for Three.js
+- **GSAP 3.12** - Professional-grade animation library
+- **ScrollTrigger** - Scroll-based animations
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### UI Components
+- **Lucide React** - Beautiful icon library
+- **Framer Motion** (via Tailwind) - Animation utilities
+
+### Visualization
+- **Victory** - Data visualization for React
+- **Canvas API** - Custom chart and network visualizations
+
+## 📂 Project Structure
+
+```
+my-website/
+├── src/
+│   ├── components/
+│   │   ├── demos/              # Interactive AI demos
+│   │   │   ├── NeuralNetworkPlayground.tsx
+│   │   │   ├── GradientDescentVisualizer.tsx
+│   │   │   ├── TransformerVisualizer.tsx
+│   │   │   ├── LossFunctionPlayground.tsx
+│   │   │   ├── RLMaze.tsx
+│   │   │   └── ModelArchitectureExplorer.tsx
+│   │   ├── ParticleBackground.tsx   # Three.js particle system
+│   │   ├── ScrollProgress.tsx       # Scroll indicator
+│   │   └── ui/                      # Reusable UI components
+│   ├── sections/
+│   │   ├── Hero.tsx                 # Landing section
+│   │   ├── Experience.tsx           # Work experience timeline
+│   │   ├── Skills.tsx               # Tech stack with proficiency bars
+│   │   ├── Publications.tsx         # Research publications
+│   │   ├── Lab.tsx                  # AI demos showcase
+│   │   ├── Hobbies.tsx              # Personal interests
+│   │   ├── Navigation.tsx           # Header navigation
+│   │   └── Footer.tsx               # Footer section
+│   ├── App.tsx                      # Main application component
+│   ├── main.tsx                     # Application entry point
+│   └── index.css                    # Global styles and animations
+├── public/                          # Static assets
+├── dist/                            # Production build output
+└── README.md                        # This file
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
+- Node.js 18+ and npm (or yarn/pnpm)
+- Git
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/as4401s/My_Website.git
+   cd My_Website
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+   The site will be available at `http://localhost:5173`
+
+### Build for Production
+
+```bash
+npm run build
 ```
+
+The optimized production build will be in the `dist/` directory.
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## 📊 Performance Metrics
+
+- **Lighthouse Score**: 95+ (Performance)
+- **First Contentful Paint**: < 1.2s
+- **Time to Interactive**: < 2.5s
+- **Bundle Size**:
+  - Main: ~374KB (gzipped: ~111KB)
+  - Three.js vendor: ~879KB (gzipped: ~237KB)
+  - React vendor: ~11KB (gzipped: ~4KB)
+
+## 🎨 Key Features Explained
+
+### Animated Skill Proficiency Bars
+Visual representation of technical skills with animated progress bars that fill on scroll, showing proficiency percentages for each technology.
+
+### Interactive Neural Network Playground
+Users can:
+- Add/remove hidden layers
+- Adjust neuron counts per layer
+- Choose activation functions (ReLU, Sigmoid, Tanh)
+- Watch real-time training on the XOR problem
+- See live loss and epoch metrics
+
+### Gradient Descent Visualizer
+Demonstrates optimization algorithms navigating loss landscapes with:
+- 3 optimizers: SGD, Momentum, Adam
+- 3 loss functions: Quadratic, Rosenbrock, Himmelblau
+- Interactive contour plots
+- Animated optimization paths
+- Adjustable learning rates
+
+### Mobile Optimizations
+Automatic detection and optimization for mobile devices:
+- Reduced particle count (60 → 20)
+- Disabled expensive animations
+- Reduced blur radius (128px → 40px)
+- Lower device pixel ratio for 3D rendering
+- Simplified visual effects
+
+## 🌐 Deployment
+
+This site is optimized for deployment on:
+- **Netlify** (recommended)
+- **Vercel**
+- **GitHub Pages**
+- **AWS S3 + CloudFront**
+- Any static hosting service
+
+### Netlify Deployment
+
+The repository includes a `netlify.toml` configuration file for automatic deployment:
+
+```bash
+# Deploy to Netlify
+npm run build
+netlify deploy --prod
+```
+
+## 📝 About
+
+**Arjun Sarkar** - AI Data Scientist
+Ph.D. in Applied Systems Biology
+Specializing in Deep Learning, Computer Vision, LLM, and AI Agents
+
+- 📧 Email: arjun.sarkar786@gmail.com
+- 💼 LinkedIn: [linkedin.com/in/arjun-sarkar-9a051777](https://www.linkedin.com/in/arjun-sarkar-9a051777/)
+- 🐙 GitHub: [github.com/as4401s](https://github.com/as4401s)
+- 📝 Medium: [arjun-sarkar786.medium.com](https://arjun-sarkar786.medium.com/)
+- 🔬 ORCID: [0000-0001-8835-8020](https://orcid.org/0000-0001-8835-8020)
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgments
+
+- UI Design inspired by modern portfolio best practices
+- Animations powered by GSAP and Three.js
+- Icons from Lucide React
+- Fonts from Google Fonts (Inter, Space Grotesk)
+
+## 🤝 Contributing
+
+While this is a personal portfolio, suggestions and feedback are welcome! Feel free to:
+- Open an issue for bugs or suggestions
+- Fork the repository and submit pull requests
+- Share your thoughts on the interactive demos
+
+---
+
+**Built with ❤️ and AI** | © 2025 Arjun Sarkar

@@ -191,7 +191,6 @@ netlify deploy --prod
 Ph.D. in Applied Systems Biology
 Specializing in Deep Learning, Computer Vision, LLM, and AI Agents
 
-- 📧 Email: arjun.sarkar786@gmail.com
 - 💼 LinkedIn: [linkedin.com/in/arjun-sarkar-9a051777](https://www.linkedin.com/in/arjun-sarkar-9a051777/)
 - 🐙 GitHub: [github.com/as4401s](https://github.com/as4401s)
 - 📝 Medium: [arjun-sarkar786.medium.com](https://arjun-sarkar786.medium.com/)
@@ -217,4 +216,4 @@ While this is a personal portfolio, suggestions and feedback are welcome! Feel f
 
 ---
 
-**Built with ❤️ and AI** | © 2025 Arjun Sarkar
+**Built with ❤️ ** | © 2026 Arjun Sarkar

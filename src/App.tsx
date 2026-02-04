@@ -55,8 +55,9 @@ function App() {
       {/* Particle Background */}
       <ParticleBackground />
       
-      {/* Ambient Glow Orbs - Reduced blur on mobile for better performance */}
+      {/* Animated Gradient Background - Performance friendly */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-mesh animate-gradient-shift opacity-30" />
         <div className={`absolute top-0 left-1/4 w-96 h-96 bg-blue-900/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[40px]' : 'blur-[128px]'} ${isMobile ? '' : 'animate-blob'}`} />
         <div className={`absolute top-0 right-1/4 w-96 h-96 bg-purple-900/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[40px]' : 'blur-[128px]'} ${isMobile ? '' : 'animate-blob animation-delay-2000'}`} />
         <div className={`absolute -bottom-32 left-1/3 w-96 h-96 bg-indigo-900/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[40px]' : 'blur-[128px]'} ${isMobile ? '' : 'animate-blob animation-delay-4000'}`} />

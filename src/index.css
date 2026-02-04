@@ -307,3 +307,79 @@
   border-radius: inherit;
   z-index: -1;
 }
+
+/* Animated Gradient Mesh Background */
+.bg-gradient-mesh {
+  background: linear-gradient(125deg, #050505 0%, #0a0a14 25%, #050510 50%, #0a0a14 75%, #050505 100%);
+  background-size: 400% 400%;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 20s ease infinite;
+}
+
+/* Dark Reader Compatibility Fixes */
+html[data-darkreader-mode] body,
+html[data-darkreader-scheme="dark"] body {
+  /* Force specific colors that work with Dark Reader */
+  color: #e5e5e5 !important;
+}
+
+html[data-darkreader-mode] .text-white,
+html[data-darkreader-scheme="dark"] .text-white {
+  color: #ffffff !important;
+}
+
+html[data-darkreader-mode] .text-gray-400,
+html[data-darkreader-scheme="dark"] .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+html[data-darkreader-mode] .text-gray-500,
+html[data-darkreader-scheme="dark"] .text-gray-500 {
+  color: #6b7280 !important;
+}
+
+html[data-darkreader-mode] .text-brand-accent,
+html[data-darkreader-scheme="dark"] .text-brand-accent {
+  color: #3b82f6 !important;
+}
+
+html[data-darkreader-mode] .text-gradient,
+html[data-darkreader-scheme="dark"] .text-gradient {
+  background: linear-gradient(to right, #3b82f6, #8b5cf6) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html[data-darkreader-mode] .glass-card,
+html[data-darkreader-scheme="dark"] .glass-card {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Ensure buttons and interactive elements remain visible */
+html[data-darkreader-mode] button,
+html[data-darkreader-scheme="dark"] button,
+html[data-darkreader-mode] a,
+html[data-darkreader-scheme="dark"] a {
+  color: inherit !important;
+}
+
+html[data-darkreader-mode] .bg-brand-accent,
+html[data-darkreader-scheme="dark"] .bg-brand-accent {
+  background-color: #3b82f6 !important;
+}

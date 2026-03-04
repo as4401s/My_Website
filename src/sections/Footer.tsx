@@ -13,6 +13,7 @@ const socialLinks = [
 
 export default function Footer() {
   useEffect(() => {
+    if (window.innerWidth < 768) return;
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: '.footer-content',

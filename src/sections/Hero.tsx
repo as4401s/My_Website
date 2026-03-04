@@ -39,8 +39,8 @@ export default function Hero() {
       // Description
       gsap.fromTo(
         '.hero-description',
-        { autoAlpha: 0, filter: 'blur(10px)' },
-        { autoAlpha: 1, filter: 'blur(0px)', duration: 0.7, ease: 'power2.out', delay: 2 }
+        { autoAlpha: 0, y: 20 },
+        { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 2 }
       );
 
       // Social icons
@@ -169,7 +169,7 @@ export default function Hero() {
           <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
               {/* Glow Effect */}
-              <div className="profile-glow absolute inset-0 bg-gradient-to-tr from-brand-accent to-brand-purple rounded-full opacity-0 blur-3xl animate-pulse-glow" />
+              <div className="hidden md:block profile-glow absolute inset-0 bg-gradient-to-tr from-brand-accent to-brand-purple rounded-full opacity-0 blur-3xl animate-pulse-glow" />
 
               {/* Image Container */}
               <div className="profile-image-container relative w-full h-full">

@@ -59,6 +59,7 @@ export default function Skills() {
   const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
+    if (window.innerWidth < 768) return;
     const ctx = gsap.context(() => {
       // Section title animation
       const titleTrigger = ScrollTrigger.create({
@@ -127,7 +128,7 @@ export default function Skills() {
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title - Centered */}
-        <h2 className="skills-section-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-16 text-center opacity-0">
+        <h2 className="skills-section-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-16 text-center md:opacity-0">
           Education & <span className="text-gradient">Tech Stack</span>
         </h2>
 
@@ -142,9 +143,8 @@ export default function Skills() {
             {education.map((edu, index) => (
               <div
                 key={index}
-                className={`education-card glass-card p-5 rounded-xl transition-all duration-300 hover:scale-[1.02] group ${
-                  edu.highlight ? 'border-l-4 border-l-brand-accent bg-brand-accent/5' : ''
-                }`}
+                className={`education-card glass-card p-5 rounded-xl transition-all duration-300 hover:scale-[1.02] group ${edu.highlight ? 'border-l-4 border-l-brand-accent bg-brand-accent/5' : ''
+                  }`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <div>
@@ -152,9 +152,8 @@ export default function Skills() {
                       {edu.degree}
                     </h4>
                     <p
-                      className={`text-sm mt-0.5 ${
-                        edu.highlight ? 'text-brand-accent' : 'text-gray-400'
-                      }`}
+                      className={`text-sm mt-0.5 ${edu.highlight ? 'text-brand-accent' : 'text-gray-400'
+                        }`}
                     >
                       {edu.institution}
                     </p>
@@ -189,11 +188,10 @@ export default function Skills() {
               return (
                 <div
                   key={index}
-                  className={`skill-tag group flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 hover:scale-105 cursor-default ${
-                    isAI
+                  className={`skill-tag group flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 hover:scale-105 cursor-default ${isAI
                       ? 'glass-card border-brand-accent/30 text-white hover:bg-brand-accent/20'
                       : 'glass-card text-gray-300 hover:bg-white/5'
-                  }`}
+                    }`}
                 >
                   <Icon className={`w-4 h-4 ${skill.color} group-hover:scale-110 transition-transform`} />
                   <div className="flex flex-col">

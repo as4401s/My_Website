@@ -277,10 +277,28 @@
     animation: none !important;
   }
 
-  /* Reduce backdrop blur on mobile */
-  .backdrop-blur-xl {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  /* COMPLETELY disable backdrop blur on mobile to fix layout thrashing & scroll lag */
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-sm,
+  .glass-card,
+  .glass-card-hover,
+  .nav-blur,
+  .backdrop-blur {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Fallback solid colors for performance */
+  .glass-card,
+  .glass-card-hover {
+    background-color: #171c26 !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+  }
+
+  .nav-blur {
+    background-color: rgba(11, 13, 18, 0.98) !important;
   }
 
   /* Force GPU acceleration for transforms */

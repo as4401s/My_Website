@@ -37,6 +37,7 @@ export default function Hobbies() {
   const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
+    if (window.innerWidth < 768) return;
     const ctx = gsap.context(() => {
       // Section title animation
       const titleTrigger = ScrollTrigger.create({
@@ -108,7 +109,7 @@ export default function Hobbies() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <h2 className="hobbies-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-16 text-center opacity-0">
+        <h2 className="hobbies-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-16 text-center md:opacity-0">
           Beyond the <span className="text-gradient">Code</span>
         </h2>
 
@@ -154,7 +155,7 @@ export default function Hobbies() {
             return (
               <div
                 key={hobby.id}
-                className={`hobby-card-${index} relative z-10 opacity-0`}
+                className={`hobby-card-${index} relative z-10 md:opacity-0`}
               >
                 <div className="glass-card p-8 rounded-2xl text-center transition-all duration-350 hover:scale-105 hover:border-brand-accent/50 hover:bg-brand-accent/5 hover:shadow-xl hover:shadow-brand-accent/10 group cursor-default">
                   {/* Icon Container */}

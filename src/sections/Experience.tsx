@@ -74,6 +74,8 @@ export default function Experience() {
   const [selectedExp, setSelectedExp] = useState<typeof experiences[0] | null>(null);
 
   useEffect(() => {
+    if (window.innerWidth < 768) return;
+
     const ctx = gsap.context(() => {
       // Section title animation
       const titleTrigger = ScrollTrigger.create({
@@ -146,7 +148,7 @@ export default function Experience() {
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <h2 className="experience-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-16 text-center opacity-0">
+        <h2 className="experience-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-16 text-center md:opacity-0">
           Professional <span className="text-gradient">Journey</span>
         </h2>
 
@@ -170,11 +172,10 @@ export default function Experience() {
                   <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8 items-center">
                     {/* Left Content */}
                     <div className={`${isLeft ? 'text-right' : 'order-3 text-left'}`}>
-                      <div className={`experience-card-${index} opacity-0`}>
-                        <div 
-                          className={`glass-card p-6 rounded-xl transition-all duration-300 hover:border-brand-accent/50 hover:bg-brand-accent/5 cursor-pointer group ${
-                            exp.details ? 'hover:shadow-lg hover:shadow-brand-accent/10' : ''
-                          }`}
+                      <div className={`experience-card-${index} md:opacity-0`}>
+                        <div
+                          className={`glass-card p-6 rounded-xl transition-all duration-300 hover:border-brand-accent/50 hover:bg-brand-accent/5 cursor-pointer group ${exp.details ? 'hover:shadow-lg hover:shadow-brand-accent/10' : ''
+                            }`}
                           onClick={() => exp.details && setSelectedExp(exp)}
                         >
                           <h3 className="text-xl font-bold text-white group-hover:text-brand-accent transition-colors">
@@ -182,9 +183,9 @@ export default function Experience() {
                           </h3>
                           <p className="text-brand-accent text-sm mt-1">{exp.company}</p>
                           <p className="text-gray-500 text-xs mt-1 font-mono">{exp.date}</p>
-                          
+
                           {exp.details && (
-                            <div className="mt-3 flex items-center gap-1 text-brand-accent text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="mt-3 flex items-center gap-1 text-brand-accent text-sm md:opacity-0 group-hover:opacity-100 transition-opacity">
                               <span>View details</span>
                               <ChevronRight className="w-4 h-4" />
                             </div>
@@ -196,11 +197,10 @@ export default function Experience() {
                     {/* Center Node */}
                     <div className="relative flex justify-center order-2">
                       <div
-                        className={`experience-node-${index} w-12 h-12 rounded-full flex items-center justify-center border-4 border-brand-dark transition-all duration-300 ${
-                          exp.current
+                        className={`experience-node-${index} w-12 h-12 rounded-full flex items-center justify-center border-4 border-brand-dark transition-all duration-300 ${exp.current
                             ? 'bg-brand-accent shadow-lg shadow-brand-accent/50'
                             : 'bg-gray-700'
-                        }`}
+                          }`}
                       >
                         <Icon className="w-5 h-5 text-white" />
                       </div>
@@ -208,7 +208,7 @@ export default function Experience() {
 
                     {/* Right Content */}
                     <div className={`${isLeft ? 'order-3' : 'text-right'}`}>
-                      <div className={`experience-card-${index} opacity-0`}>
+                      <div className={`experience-card-${index} md:opacity-0`}>
                         <div className="glass-card p-6 rounded-xl">
                           <p className="text-gray-400 text-sm leading-relaxed">
                             {exp.description}
@@ -228,11 +228,10 @@ export default function Experience() {
                     {/* Timeline Node */}
                     <div className="flex flex-col items-center">
                       <div
-                        className={`experience-node-${index} w-10 h-10 rounded-full flex items-center justify-center border-4 border-brand-dark flex-shrink-0 ${
-                          exp.current
+                        className={`experience-node-${index} w-10 h-10 rounded-full flex items-center justify-center border-4 border-brand-dark flex-shrink-0 ${exp.current
                             ? 'bg-brand-accent shadow-lg shadow-brand-accent/50'
                             : 'bg-gray-700'
-                        }`}
+                          }`}
                       >
                         <Icon className="w-4 h-4 text-white" />
                       </div>
@@ -242,11 +241,10 @@ export default function Experience() {
                     </div>
 
                     {/* Content Card */}
-                    <div className={`experience-card-${index} flex-1 opacity-0 pb-8`}>
-                      <div 
-                        className={`glass-card p-5 rounded-xl ${
-                          exp.details ? 'cursor-pointer hover:border-brand-accent/50 hover:bg-brand-accent/5 transition-all' : ''
-                        }`}
+                    <div className={`experience-card-${index} flex-1 md:opacity-0 pb-8`}>
+                      <div
+                        className={`glass-card p-5 rounded-xl ${exp.details ? 'cursor-pointer hover:border-brand-accent/50 hover:bg-brand-accent/5 transition-all' : ''
+                          }`}
                         onClick={() => exp.details && setSelectedExp(exp)}
                       >
                         <h3 className="text-lg font-bold text-white">{exp.title}</h3>
@@ -278,11 +276,11 @@ export default function Experience() {
 
       {/* Details Modal */}
       {selectedExp && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
           onClick={() => setSelectedExp(null)}
         >
-          <div 
+          <div
             className="glass-card max-w-2xl w-full max-h-[80vh] overflow-y-auto rounded-2xl p-6 md:p-8 animate-in fade-in zoom-in duration-300"
             onClick={(e) => e.stopPropagation()}
           >
@@ -304,7 +302,7 @@ export default function Experience() {
             {/* Modal Content */}
             <div className="space-y-4">
               <p className="text-gray-300">{selectedExp.description}</p>
-              
+
               {selectedExp.achievement && (
                 <div className="p-4 rounded-lg bg-brand-accent/10 border border-brand-accent/30">
                   <p className="text-sm text-brand-accent">

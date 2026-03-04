@@ -55,6 +55,7 @@ export default function Publications() {
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
+    if (window.innerWidth < 768) return;
     const ctx = gsap.context(() => {
       // Section title animation
       const titleTrigger = ScrollTrigger.create({
@@ -80,13 +81,13 @@ export default function Publications() {
             gsap.fromTo(
               `.publication-card-${index}`,
               { opacity: 0, y: 80, rotateX: 15 },
-              { 
-                opacity: 1, 
-                y: 0, 
+              {
+                opacity: 1,
+                y: 0,
                 rotateX: 0,
-                duration: 0.7, 
+                duration: 0.7,
                 ease: 'expo.out',
-                delay: index * 0.13 
+                delay: index * 0.13
               }
             );
           },
@@ -136,7 +137,7 @@ export default function Publications() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <h2 className="publications-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-12 text-center opacity-0">
+        <h2 className="publications-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-12 text-center md:opacity-0">
           Selected <span className="text-gradient">Publications</span>
         </h2>
 
@@ -153,9 +154,8 @@ export default function Publications() {
                 href={pub.doi}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`publication-card-${index} glass-card p-8 rounded-2xl group transition-all duration-300 preserve-3d opacity-0 ${
-                  isHovered ? 'border-brand-accent/50 shadow-xl shadow-brand-accent/10' : ''
-                }`}
+                className={`publication-card-${index} glass-card p-8 rounded-2xl group transition-all duration-300 preserve-3d md:opacity-0 ${isHovered ? 'border-brand-accent/50 shadow-xl shadow-brand-accent/10' : ''
+                  }`}
                 onMouseMove={(e) => handleMouseMove(e, index)}
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => handleMouseLeave(index)}
@@ -176,10 +176,9 @@ export default function Publications() {
                       </span>
                     </div>
                   </div>
-                  <ExternalLink 
-                    className={`w-5 h-5 transition-all duration-200 ${
-                      isHovered ? 'text-brand-accent translate-x-1 -translate-y-1' : 'text-gray-600'
-                    }`} 
+                  <ExternalLink
+                    className={`w-5 h-5 transition-all duration-200 ${isHovered ? 'text-brand-accent translate-x-1 -translate-y-1' : 'text-gray-600'
+                      }`}
                   />
                 </div>
 
@@ -194,7 +193,7 @@ export default function Publications() {
                 </p>
 
                 {/* Shine Effect */}
-                <div 
+                <div
                   className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`}
                 />
               </a>

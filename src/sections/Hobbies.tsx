@@ -33,6 +33,8 @@ const hobbies = [
     icon: Plane,
     emoji: '✈️',
     description: 'Exploring new cultures and landscapes. Every journey brings a new dataset of experiences.',
+    routePath: '/travel',
+    linkLabel: 'Explore the world 🌏',
     color: 'from-teal-500 to-cyan-500',
   },
 ];

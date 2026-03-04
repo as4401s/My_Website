@@ -18,6 +18,7 @@ const ParticleBackground = lazy(() => import('./components/ParticleBackground'))
 
 // New Pages
 const ChessGame = lazy(() => import('./pages/ChessGame'));
+const TravelMap = lazy(() => import('./pages/TravelMap'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -95,8 +96,8 @@ function App() {
         <ParticleBackground />
       </Suspense>
 
-      {/* Navigation Layer */}
-      <Navigation />
+      {/* Navigation Layer - Hidden on full-screen pages */}
+      {location.pathname === '/' && <Navigation />}
 
       {/* Main Routing Layer */}
       <main className="relative z-10">
@@ -104,14 +105,17 @@ function App() {
           <Routes>
             <Route path="/" element={<Home isMobile={isMobile} />} />
             <Route path="/chess" element={<ChessGame />} />
+            <Route path="/travel" element={<TravelMap />} />
           </Routes>
         </Suspense>
       </main>
 
-      {/* Footer */}
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+      {/* Footer - Hidden on full-screen pages */}
+      {location.pathname === '/' && (
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      )}
     </div>
   );
 }

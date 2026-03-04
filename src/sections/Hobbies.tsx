@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Camera, Plane, Gamepad2 } from 'lucide-react';
@@ -12,6 +13,8 @@ const hobbies = [
     icon: Gamepad2,
     emoji: '♟️',
     description: 'Strategizing on the 64 squares. It keeps the mind sharp for algorithmic challenges.',
+    routePath: '/chess',
+    linkLabel: 'Play 30 3D puzzles 🔥',
     color: 'from-amber-500 to-orange-500',
   },
   {
@@ -175,7 +178,15 @@ export default function Hobbies() {
                     {hobby.description}
                   </p>
 
-                  {/* Optional External Link */}
+                  {/* Optional React Router Link */}
+                  {hobby.routePath && (
+                    <Link
+                      to={hobby.routePath}
+                      className="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-xs font-semibold hover:bg-brand-accent/20 transition-all duration-300"
+                    >
+                      <span>{hobby.linkLabel}</span>
+                    </Link>
+                  )}
                   {hobby.link && (
                     <a
                       href={hobby.link}

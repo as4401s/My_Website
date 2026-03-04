@@ -14,7 +14,7 @@ const hobbies = [
     emoji: '♟️',
     description: 'Strategizing on the 64 squares. It keeps the mind sharp for algorithmic challenges.',
     routePath: '/chess',
-    linkLabel: 'Play 30 3D puzzles 🔥',
+    linkLabel: 'Play to know your level vs Stockfish ♟️',
     color: 'from-amber-500 to-orange-500',
   },
   {

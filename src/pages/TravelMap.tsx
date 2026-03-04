@@ -21,13 +21,14 @@ export default function TravelMap() {
     const [position, setPosition] = useState({ coordinates: [0, 0] as [number, number], zoom: 1 });
 
     const handleCountryClick = useCallback((geo: any) => {
-        const id = geo.id || geo.properties.iso_n3;
+        const id = geo.id || geo.properties?.iso_n3 || geo.properties?.id;
         const data = getCountryData(id);
+        const countryName = geo.properties?.name || geo.properties?.NAME || "Unknown Region";
         if (data) {
             setSelectedCountry(data);
         } else {
             setSelectedCountry({
-                name: geo.properties.name || "Unknown",
+                name: countryName,
                 capital: "Consulting maps...",
                 currency: "N/A",
                 cities: [],
@@ -115,17 +116,18 @@ export default function TravelMap() {
                         onMoveEnd={handleMoveEnd}
                     >
                         <Geographies geography={geoUrl}>
-                            {({ geographies }: { geographies: any[] }) =>
-                                geographies.map((geo: any) => {
-                                    const id = geo.id || geo.properties.iso_n3;
+                            {({ geographies }: { geographies?: any[] }) =>
+                                (geographies || []).map((geo: any) => {
+                                    const id = geo.id || geo.properties?.iso_n3 || geo.properties?.id;
                                     const isCurated = !!getCountryData(id);
-                                    const isSelected = selectedCountry?.name === (geo.properties.name || geo.properties.NAME);
+                                    const countryName = geo.properties?.name || geo.properties?.NAME;
+                                    const isSelected = selectedCountry?.name === countryName;
 
                                     return (
                                         <Geography
                                             key={geo.rsmKey}
                                             geography={geo}
-                                            onMouseEnter={() => setHoveredCountryName(geo.properties.name || geo.properties.NAME)}
+                                            onMouseEnter={() => setHoveredCountryName(countryName)}
                                             onMouseLeave={() => setHoveredCountryName(null)}
                                             onClick={() => handleCountryClick(geo)}
                                             style={{

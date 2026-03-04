@@ -331,6 +331,7 @@ export const countryMetadata: Record<string, CountryData> = {
     }
 };
 
-export const getCountryData = (id: string): CountryData | undefined => {
-    return countryMetadata[id.padStart(3, '0')];
+export const getCountryData = (id?: string | number): CountryData | undefined => {
+    if (!id) return undefined;
+    return countryMetadata[String(id).padStart(3, '0')];
 };

@@ -20,6 +20,8 @@ const hobbies = [
     icon: Camera,
     emoji: '📸',
     description: 'Capturing moments and perspectives. Finding patterns in the chaos of the real world.',
+    link: 'https://ourtravelphotobook.netlify.app/#home',
+    linkLabel: 'Explore my visual journey 🌍',
     color: 'from-rose-500 to-pink-500',
   },
   {
@@ -169,9 +171,21 @@ export default function Hobbies() {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                  <p className="text-gray-400 text-sm leading-relaxed mb-2">
                     {hobby.description}
                   </p>
+
+                  {/* Optional External Link */}
+                  {hobby.link && (
+                    <a
+                      href={hobby.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-xs font-semibold hover:bg-brand-accent/20 transition-all duration-300"
+                    >
+                      <span>{hobby.linkLabel}</span>
+                    </a>
+                  )}
 
                   {/* Decorative Element */}
                   <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-brand-accent/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

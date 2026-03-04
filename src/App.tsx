@@ -79,8 +79,8 @@ function App() {
           <Experience />
           <Skills />
           <Publications />
-          <Hobbies />
           <Lab />
+          <Hobbies />
         </Suspense>
       </main>
 

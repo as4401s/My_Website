@@ -120,11 +120,18 @@ export default function Experience() {
               { scale: 1, duration: 0.4, ease: 'back.out(1.7)', delay: index * 0.1 }
             );
 
-            // Card slide in
+            // Left Card slide in (Job Title)
             gsap.fromTo(
-              `.experience-card-${index}`,
-              { opacity: 0, y: 50 },
-              { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out', delay: index * 0.1 + 0.1 }
+              `.experience-item-${index} .text-right .experience-card-${index}`,
+              { opacity: 0, x: -50 },
+              { opacity: 1, x: 0, duration: 0.7, ease: 'expo.out', delay: index * 0.1 + 0.1 }
+            );
+
+            // Right Card slide in (Description)
+            gsap.fromTo(
+              `.experience-item-${index} .text-left .experience-card-${index}`,
+              { opacity: 0, x: 50 },
+              { opacity: 1, x: 0, duration: 0.7, ease: 'expo.out', delay: index * 0.1 + 0.2 }
             );
           },
           once: true,
@@ -161,17 +168,15 @@ export default function Experience() {
           <div className="space-y-12 md:space-y-16">
             {experiences.map((exp, index) => {
               const Icon = exp.icon;
-              const isLeft = index % 2 === 0;
 
               return (
                 <div
                   key={exp.id}
                   className={`experience-item-${index} relative`}
                 >
-                  {/* Desktop Layout */}
                   <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8 items-center">
-                    {/* Left Content */}
-                    <div className={`${isLeft ? 'text-right' : 'order-3 text-left'}`}>
+                    {/* Left Content (Title, Company, Date) */}
+                    <div className="text-right">
                       <div className={`experience-card-${index} md:opacity-0`}>
                         <div
                           className={`glass-card p-6 rounded-xl transition-all duration-300 hover:border-brand-accent/50 hover:bg-brand-accent/5 cursor-pointer group ${exp.details ? 'hover:shadow-lg hover:shadow-brand-accent/10' : ''
@@ -198,16 +203,16 @@ export default function Experience() {
                     <div className="relative flex justify-center order-2">
                       <div
                         className={`experience-node-${index} w-12 h-12 rounded-full flex items-center justify-center border-4 border-brand-dark transition-all duration-300 ${exp.current
-                            ? 'bg-brand-accent shadow-lg shadow-brand-accent/50'
-                            : 'bg-gray-700'
+                          ? 'bg-brand-accent shadow-lg shadow-brand-accent/50'
+                          : 'bg-gray-700'
                           }`}
                       >
                         <Icon className="w-5 h-5 text-white" />
                       </div>
                     </div>
 
-                    {/* Right Content */}
-                    <div className={`${isLeft ? 'order-3' : 'text-right'}`}>
+                    {/* Right Content (Description, Highlights) */}
+                    <div className="text-left">
                       <div className={`experience-card-${index} md:opacity-0`}>
                         <div className="glass-card p-6 rounded-xl">
                           <p className="text-gray-400 text-sm leading-relaxed">
@@ -229,8 +234,8 @@ export default function Experience() {
                     <div className="flex flex-col items-center">
                       <div
                         className={`experience-node-${index} w-10 h-10 rounded-full flex items-center justify-center border-4 border-brand-dark flex-shrink-0 ${exp.current
-                            ? 'bg-brand-accent shadow-lg shadow-brand-accent/50'
-                            : 'bg-gray-700'
+                          ? 'bg-brand-accent shadow-lg shadow-brand-accent/50'
+                          : 'bg-gray-700'
                           }`}
                       >
                         <Icon className="w-4 h-4 text-white" />

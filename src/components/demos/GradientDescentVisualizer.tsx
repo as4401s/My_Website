@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, Pause, RotateCcw, Mountain, Zap } from 'lucide-react';
 
 type OptimizationType = 'sgd' | 'momentum' | 'adam';
@@ -46,68 +46,7 @@ export default function GradientDescentVisualizer() {
 
   const currentFunc = functions[functionType];
 
-  useEffect(() => {
-    drawLandscape();
-  }, [functionType, position, path]);
-
-  useEffect(() => {
-    if (isRunning) {
-      const interval = setInterval(() => {
-        performStep();
-      }, 50);
-      return () => clearInterval(interval);
-    }
-  }, [isRunning, optimizer, learningRate, position, functionType]);
-
-  const performStep = () => {
-    const grad = currentFunc.grad(position.x, position.y);
-    let newPos = { ...position };
-
-    if (optimizer === 'sgd') {
-      newPos.x -= learningRate * grad.x;
-      newPos.y -= learningRate * grad.y;
-    } else if (optimizer === 'momentum') {
-      const momentum = 0.9;
-      velocityRef.current.x = momentum * velocityRef.current.x - learningRate * grad.x;
-      velocityRef.current.y = momentum * velocityRef.current.y - learningRate * grad.y;
-      newPos.x += velocityRef.current.x;
-      newPos.y += velocityRef.current.y;
-    } else if (optimizer === 'adam') {
-      const beta1 = 0.9;
-      const beta2 = 0.999;
-      const epsilon = 1e-8;
-
-      momentumRef.current.x = beta1 * momentumRef.current.x + (1 - beta1) * grad.x;
-      momentumRef.current.y = beta1 * momentumRef.current.y + (1 - beta1) * grad.y;
-      momentumRef.current.v =
-        beta2 * momentumRef.current.v + (1 - beta2) * (grad.x ** 2 + grad.y ** 2);
-
-      const m_hat_x = momentumRef.current.x / (1 - beta1);
-      const m_hat_y = momentumRef.current.y / (1 - beta1);
-      const v_hat = momentumRef.current.v / (1 - beta2);
-
-      newPos.x -= (learningRate * m_hat_x) / (Math.sqrt(v_hat) + epsilon);
-      newPos.y -= (learningRate * m_hat_y) / (Math.sqrt(v_hat) + epsilon);
-    }
-
-    // Bounds checking
-    newPos.x = Math.max(-5, Math.min(5, newPos.x));
-    newPos.y = Math.max(-5, Math.min(5, newPos.y));
-
-    setPosition(newPos);
-    setPath((prev) => [...prev.slice(-50), newPos]);
-    setIteration((prev) => prev + 1);
-
-    // Stop if converged
-    const distance = Math.sqrt(
-      (newPos.x - currentFunc.minima.x) ** 2 + (newPos.y - currentFunc.minima.y) ** 2
-    );
-    if (distance < 0.01) {
-      setIsRunning(false);
-    }
-  };
-
-  const drawLandscape = () => {
+  const drawLandscape = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -250,7 +189,68 @@ export default function GradientDescentVisualizer() {
     ctx.strokeStyle = '#ffffff';
     ctx.lineWidth = 2;
     ctx.stroke();
-  };
+  }, [currentFunc, position, path]);
+
+  const performStep = useCallback(() => {
+    const grad = currentFunc.grad(position.x, position.y);
+    const newPos = { ...position };
+
+    if (optimizer === 'sgd') {
+      newPos.x -= learningRate * grad.x;
+      newPos.y -= learningRate * grad.y;
+    } else if (optimizer === 'momentum') {
+      const momentum = 0.9;
+      velocityRef.current.x = momentum * velocityRef.current.x - learningRate * grad.x;
+      velocityRef.current.y = momentum * velocityRef.current.y - learningRate * grad.y;
+      newPos.x += velocityRef.current.x;
+      newPos.y += velocityRef.current.y;
+    } else if (optimizer === 'adam') {
+      const beta1 = 0.9;
+      const beta2 = 0.999;
+      const epsilon = 1e-8;
+
+      momentumRef.current.x = beta1 * momentumRef.current.x + (1 - beta1) * grad.x;
+      momentumRef.current.y = beta1 * momentumRef.current.y + (1 - beta1) * grad.y;
+      momentumRef.current.v =
+        beta2 * momentumRef.current.v + (1 - beta2) * (grad.x ** 2 + grad.y ** 2);
+
+      const m_hat_x = momentumRef.current.x / (1 - beta1);
+      const m_hat_y = momentumRef.current.y / (1 - beta1);
+      const v_hat = momentumRef.current.v / (1 - beta2);
+
+      newPos.x -= (learningRate * m_hat_x) / (Math.sqrt(v_hat) + epsilon);
+      newPos.y -= (learningRate * m_hat_y) / (Math.sqrt(v_hat) + epsilon);
+    }
+
+    // Bounds checking
+    newPos.x = Math.max(-5, Math.min(5, newPos.x));
+    newPos.y = Math.max(-5, Math.min(5, newPos.y));
+
+    setPosition(newPos);
+    setPath((prev) => [...prev.slice(-50), newPos]);
+    setIteration((prev) => prev + 1);
+
+    // Stop if converged
+    const distance = Math.sqrt(
+      (newPos.x - currentFunc.minima.x) ** 2 + (newPos.y - currentFunc.minima.y) ** 2
+    );
+    if (distance < 0.01) {
+      setIsRunning(false);
+    }
+  }, [position, optimizer, learningRate, currentFunc]);
+
+  useEffect(() => {
+    drawLandscape();
+  }, [drawLandscape]);
+
+  useEffect(() => {
+    if (isRunning) {
+      const interval = setInterval(() => {
+        performStep();
+      }, 50);
+      return () => clearInterval(interval);
+    }
+  }, [isRunning, performStep]);
 
   const reset = () => {
     setIsRunning(false);
@@ -372,11 +372,10 @@ export default function GradientDescentVisualizer() {
                     setOptimizer(opt);
                     reset();
                   }}
-                  className={`w-full px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                    optimizer === opt
-                      ? 'bg-brand-accent/30 text-brand-accent border border-brand-accent/50'
-                      : 'bg-white/5 text-gray-400 hover:bg-white/10'
-                  }`}
+                  className={`w-full px-3 py-2 rounded-lg text-sm font-medium transition-all ${optimizer === opt
+                    ? 'bg-brand-accent/30 text-brand-accent border border-brand-accent/50'
+                    : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                    }`}
                 >
                   {opt === 'sgd' && 'SGD (Stochastic Gradient Descent)'}
                   {opt === 'momentum' && 'SGD with Momentum'}
@@ -388,11 +387,10 @@ export default function GradientDescentVisualizer() {
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => setIsRunning(!isRunning)}
-                className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
-                  isRunning
-                    ? 'bg-orange-500/20 text-orange-400 hover:bg-orange-500/30'
-                    : 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
-                }`}
+                className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${isRunning
+                  ? 'bg-orange-500/20 text-orange-400 hover:bg-orange-500/30'
+                  : 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
+                  }`}
               >
                 {isRunning ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                 {isRunning ? 'Pause' : 'Start'}

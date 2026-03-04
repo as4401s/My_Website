@@ -14,7 +14,7 @@ const publications = [
     doi: 'https://doi.org/10.1016/j.snb.2024.136866',
     description: 'Deep Learning supported analysis of angle resolved scattered-light images of picoliter droplet cultivations.',
     icon: Microscope,
-    color: 'from-blue-500 to-cyan-500',
+    color: 'from-cyan-500 to-sky-500',
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const publications = [
     doi: 'https://doi.org/10.1016/j.csbj.2024.03.006',
     description: 'Deep learning-based characterization of immune response phenotypes.',
     icon: Brain,
-    color: 'from-purple-500 to-pink-500',
+    color: 'from-rose-500 to-pink-500',
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ const publications = [
     doi: 'https://doi.org/10.1007/s42979-021-00496-w',
     description: 'Comparing Cognex VisionPro Deep Learning software with open source convolutional neural networks.',
     icon: FileText,
-    color: 'from-green-500 to-emerald-500',
+    color: 'from-emerald-500 to-teal-500',
   },
 ];
 

@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -16,22 +16,25 @@ function ParticleField({ count = 60, isMobile = false }: ParticleFieldProps) {
   const mouseInteractionEnabled = !isMobile;
 
   // Create particles data
-  const [positions, velocities] = useMemo(() => {
+  const [positions] = useState(() => {
     const pos = new Float32Array(count * 3);
-    const vel = new Float32Array(count * 3);
-    
     for (let i = 0; i < count; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 20;
       pos[i * 3 + 1] = (Math.random() - 0.5) * 20;
       pos[i * 3 + 2] = (Math.random() - 0.5) * 10;
-      
+    }
+    return pos;
+  });
+
+  const [velocities] = useState(() => {
+    const vel = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
       vel[i * 3] = (Math.random() - 0.5) * 0.01;
       vel[i * 3 + 1] = (Math.random() - 0.5) * 0.01;
       vel[i * 3 + 2] = 0;
     }
-    
-    return [pos, vel];
-  }, [count]);
+    return vel;
+  });
 
   useEffect(() => {
     if (!mouseInteractionEnabled) return;
@@ -49,14 +52,14 @@ function ParticleField({ count = 60, isMobile = false }: ParticleFieldProps) {
     if (!meshRef.current) return;
 
     const posArray = meshRef.current.geometry.attributes.position.array as Float32Array;
-    
+
     for (let i = 0; i < count; i++) {
       const idx = i * 3;
-      
+
       // Update position with velocity
       posArray[idx] += velocities[idx];
       posArray[idx + 1] += velocities[idx + 1];
-      
+
       // Mouse repulsion (only on desktop)
       if (mouseInteractionEnabled) {
         const dx = posArray[idx] - mouseRef.current.x * viewport.width * 0.5;
@@ -69,14 +72,14 @@ function ParticleField({ count = 60, isMobile = false }: ParticleFieldProps) {
           posArray[idx + 1] += (dy / dist) * force;
         }
       }
-      
+
       // Boundary wrap
       if (posArray[idx] > 10) posArray[idx] = -10;
       if (posArray[idx] < -10) posArray[idx] = 10;
       if (posArray[idx + 1] > 10) posArray[idx + 1] = -10;
       if (posArray[idx + 1] < -10) posArray[idx + 1] = 10;
     }
-    
+
     meshRef.current.geometry.attributes.position.needsUpdate = true;
   });
 
@@ -90,7 +93,7 @@ function ParticleField({ count = 60, isMobile = false }: ParticleFieldProps) {
       </bufferGeometry>
       <pointsMaterial
         size={0.05}
-        color="#3b82f6"
+        color="#22d3ee"
         transparent
         opacity={0.6}
         sizeAttenuation
@@ -104,7 +107,7 @@ function ConnectionLines({ count = 60 }: { count?: number }) {
   const maxConnections = 3;
   const connectionDistance = 2.5;
 
-  const particles = useMemo(() => {
+  const [particles] = useState(() => {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 20;
@@ -112,13 +115,13 @@ function ConnectionLines({ count = 60 }: { count?: number }) {
       pos[i * 3 + 2] = (Math.random() - 0.5) * 10;
     }
     return pos;
-  }, [count]);
+  });
 
   useFrame(() => {
     if (!lineRef.current) return;
-    
+
     const positions: number[] = [];
-    
+
     for (let i = 0; i < count; i++) {
       let connections = 0;
       for (let j = i + 1; j < count && connections < maxConnections; j++) {
@@ -126,7 +129,7 @@ function ConnectionLines({ count = 60 }: { count?: number }) {
         const dy = particles[i * 3 + 1] - particles[j * 3 + 1];
         const dz = particles[i * 3 + 2] - particles[j * 3 + 2];
         const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        
+
         if (dist < connectionDistance) {
           positions.push(
             particles[i * 3], particles[i * 3 + 1], particles[i * 3 + 2],
@@ -136,7 +139,7 @@ function ConnectionLines({ count = 60 }: { count?: number }) {
         }
       }
     }
-    
+
     lineRef.current.geometry.setAttribute(
       'position',
       new THREE.Float32BufferAttribute(positions, 3)
@@ -146,7 +149,7 @@ function ConnectionLines({ count = 60 }: { count?: number }) {
   return (
     <lineSegments ref={lineRef}>
       <bufferGeometry />
-      <lineBasicMaterial color="#3b82f6" transparent opacity={0.1} />
+      <lineBasicMaterial color="#22d3ee" transparent opacity={0.1} />
     </lineSegments>
   );
 }
@@ -158,7 +161,7 @@ export default function ParticleBackground() {
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth < 768 ||
-                     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
       setIsMobile(mobile);
       // Drastically reduce particles on mobile
@@ -170,6 +173,8 @@ export default function ParticleBackground() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  if (isMobile) return null; // Fully disable on mobile for better performance
+
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <Canvas
@@ -180,7 +185,7 @@ export default function ParticleBackground() {
           alpha: true,
           powerPreference: 'high-performance'
         }}
-        frameloop="demand"
+        frameloop="always"
         performance={{ min: 0.5 }}
       >
         <ambientLight intensity={0.5} />

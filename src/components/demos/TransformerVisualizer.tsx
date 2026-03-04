@@ -206,7 +206,7 @@ export default function TransformerVisualizer() {
         {/* Legend */}
         <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-500">
           <span>Low Attention</span>
-          <div className="w-24 h-2 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500" />
+          <div className="w-24 h-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-amber-500" />
           <span>High Attention</span>
         </div>
       </div>

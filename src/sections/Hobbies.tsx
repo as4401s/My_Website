@@ -12,7 +12,7 @@ const hobbies = [
     icon: Gamepad2,
     emoji: '♟️',
     description: 'Strategizing on the 64 squares. It keeps the mind sharp for algorithmic challenges.',
-    color: 'from-amber-500 to-yellow-500',
+    color: 'from-amber-500 to-orange-500',
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const hobbies = [
     icon: Camera,
     emoji: '📸',
     description: 'Capturing moments and perspectives. Finding patterns in the chaos of the real world.',
-    color: 'from-purple-500 to-pink-500',
+    color: 'from-rose-500 to-pink-500',
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const hobbies = [
     icon: Plane,
     emoji: '✈️',
     description: 'Exploring new cultures and landscapes. Every journey brings a new dataset of experiences.',
-    color: 'from-blue-500 to-cyan-500',
+    color: 'from-teal-500 to-cyan-500',
   },
 ];
 
@@ -104,7 +104,7 @@ export default function Hobbies() {
     <section
       id="hobbies"
       ref={sectionRef}
-      className="py-24 bg-black/30 relative overflow-hidden"
+      className="py-24 bg-brand-gray/60 relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
@@ -144,8 +144,8 @@ export default function Hobbies() {
             />
             <defs>
               <linearGradient id="hobby-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#3b82f6" />
-                <stop offset="100%" stopColor="#8b5cf6" />
+                <stop offset="0%" stopColor="#22d3ee" />
+                <stop offset="100%" stopColor="#f97316" />
               </linearGradient>
             </defs>
           </svg>

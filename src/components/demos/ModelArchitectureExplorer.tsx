@@ -86,9 +86,9 @@ export default function ModelArchitectureExplorer() {
     switch (type) {
       case 'input':
       case 'output':
-        return 'bg-blue-500/20 border-blue-500/50 text-blue-400';
+        return 'bg-sky-500/20 border-sky-500/50 text-sky-400';
       case 'conv':
-        return 'bg-purple-500/20 border-purple-500/50 text-purple-400';
+        return 'bg-cyan-500/20 border-cyan-500/50 text-cyan-400';
       case 'pool':
         return 'bg-amber-500/20 border-amber-500/50 text-amber-400';
       case 'dense':
@@ -209,7 +209,7 @@ export default function ModelArchitectureExplorer() {
             </div>
             <div>
               <p className="text-gray-500 mb-1">Layer Type</p>
-              <p className="text-purple-400 capitalize">{selectedLayer.type}</p>
+              <p className="text-cyan-400 capitalize">{selectedLayer.type}</p>
             </div>
           </div>
         </div>

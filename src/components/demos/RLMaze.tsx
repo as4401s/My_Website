@@ -44,12 +44,12 @@ export default function RLMaze() {
       newMaze[y] = [];
       for (let x = 0; x < MAZE_SIZE; x++) {
         // Create walls around edges and some internal walls
-        const isWall = 
-          x === 0 || x === MAZE_SIZE - 1 || 
+        const isWall =
+          x === 0 || x === MAZE_SIZE - 1 ||
           y === 0 || y === MAZE_SIZE - 1 ||
           (x === 3 && y > 1 && y < 6) ||
           (y === 4 && x > 3 && x < 7);
-        
+
         newMaze[y][x] = {
           x,
           y,
@@ -66,14 +66,14 @@ export default function RLMaze() {
     setMaze(initMaze());
   }, [initMaze]);
 
-  const getBestAction = (x: number, y: number): string => {
+  const getBestAction = useCallback((x: number, y: number): string => {
     const cell = maze[y][x];
     const actions = Object.entries(cell.qValues);
     actions.sort((a, b) => b[1] - a[1]);
     return actions[0][0];
-  };
+  }, [maze]);
 
-  const chooseAction = (x: number, y: number): string => {
+  const chooseAction = useCallback((x: number, y: number): string => {
     // Epsilon-greedy
     if (Math.random() < epsilon) {
       const validActions = DIRECTIONS.filter(d => {
@@ -84,13 +84,13 @@ export default function RLMaze() {
       return validActions[Math.floor(Math.random() * validActions.length)].action;
     }
     return getBestAction(x, y);
-  };
+  }, [epsilon, maze, getBestAction]);
 
   const step = useCallback(() => {
     setAgent((prevAgent) => {
       const action = chooseAction(prevAgent.x, prevAgent.y);
       const dir = DIRECTIONS.find(d => d.action === action);
-      
+
       if (!dir) return prevAgent;
 
       const newX = prevAgent.x + dir.dx;
@@ -117,11 +117,11 @@ export default function RLMaze() {
         const cell = newMaze[prevAgent.y][prevAgent.x];
         const nextCell = newMaze[newY][newX];
         const bestNextQ = Math.max(...Object.values(nextCell.qValues));
-        
-        cell.qValues[action as keyof typeof cell.qValues] = 
+
+        cell.qValues[action as keyof typeof cell.qValues] =
           (1 - learningRate) * cell.qValues[action as keyof typeof cell.qValues] +
           learningRate * (reward + 0.9 * bestNextQ);
-        
+
         return newMaze;
       });
 
@@ -137,7 +137,7 @@ export default function RLMaze() {
 
       return { x: newX, y: newY };
     });
-  }, [maze, epsilon, learningRate]);
+  }, [maze, learningRate, chooseAction]);
 
   useEffect(() => {
     if (isTraining) {
@@ -284,7 +284,7 @@ export default function RLMaze() {
         </div>
         <div className="glass-card p-3 rounded-lg text-center">
           <div className="flex items-center justify-center gap-1 mb-1">
-            <Brain className="w-4 h-4 text-purple-400" />
+            <Brain className="w-4 h-4 text-amber-400" />
             <span className="text-xs text-gray-500">Reward</span>
           </div>
           <p className={`text-2xl font-bold ${totalReward >= 0 ? 'text-green-400' : 'text-red-400'}`}>
@@ -295,9 +295,9 @@ export default function RLMaze() {
 
       {/* Maze */}
       <div className="glass-card p-4 rounded-xl overflow-x-auto">
-        <div 
+        <div
           className="inline-grid gap-0.5 mx-auto"
-          style={{ 
+          style={{
             gridTemplateColumns: `repeat(${MAZE_SIZE}, ${CELL_SIZE}px)`,
           }}
         >
@@ -309,13 +309,12 @@ export default function RLMaze() {
               return (
                 <div
                   key={`${x}-${y}`}
-                  className={`relative flex items-center justify-center text-xs font-mono transition-all duration-200 ${
-                    cell.isWall
-                      ? 'bg-gray-800'
-                      : cell.isGoal
+                  className={`relative flex items-center justify-center text-xs font-mono transition-all duration-200 ${cell.isWall
+                    ? 'bg-gray-800'
+                    : cell.isGoal
                       ? 'bg-green-500/30 border-2 border-green-500'
                       : ''
-                  }`}
+                    }`}
                   style={{
                     width: CELL_SIZE,
                     height: CELL_SIZE,

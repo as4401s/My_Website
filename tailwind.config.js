@@ -17,8 +17,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Space Grotesk', 'sans-serif'],
+        sans: ['Manrope', 'sans-serif'],
+        display: ['Bricolage Grotesque', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -27,12 +27,12 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         brand: {
-          dark: '#050505',
-          gray: '#0a0a0a',
-          accent: '#3b82f6',
-          purple: '#8b5cf6',
-          text: '#e5e5e5',
-          'text-secondary': '#9ca3af',
+          dark: '#0b0d12',
+          gray: '#0f131b',
+          accent: '#22d3ee',
+          purple: '#f97316',
+          text: '#e7edf5',
+          'text-secondary': '#9aa8b7',
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",

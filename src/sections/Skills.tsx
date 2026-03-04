@@ -27,19 +27,19 @@ const education = [
 ];
 
 const techStack = [
-  { name: 'Deep Learning', icon: Brain, category: 'AI', color: 'text-purple-400' },
-  { name: 'LLM', icon: Brain, category: 'AI', color: 'text-purple-400' },
-  { name: 'AI Agents', icon: Cpu, category: 'AI', color: 'text-purple-400' },
-  { name: 'Python', icon: Code, category: 'Language', color: 'text-blue-400' },
-  { name: 'TensorFlow', icon: Brain, category: 'Framework', color: 'text-orange-400' },
-  { name: 'PyTorch', icon: Brain, category: 'Framework', color: 'text-red-400' },
-  { name: 'Keras', icon: Brain, category: 'Framework', color: 'text-red-400' },
-  { name: 'OpenCV', icon: Microscope, category: 'Vision', color: 'text-green-400' },
-  { name: 'Docker', icon: Container, category: 'Tool', color: 'text-blue-400' },
-  { name: 'AWS', icon: Cloud, category: 'Cloud', color: 'text-yellow-400' },
+  { name: 'Deep Learning', icon: Brain, category: 'AI', color: 'text-cyan-400' },
+  { name: 'LLM', icon: Brain, category: 'AI', color: 'text-cyan-400' },
+  { name: 'AI Agents', icon: Cpu, category: 'AI', color: 'text-cyan-400' },
+  { name: 'Python', icon: Code, category: 'Language', color: 'text-sky-400' },
+  { name: 'TensorFlow', icon: Brain, category: 'Framework', color: 'text-amber-400' },
+  { name: 'PyTorch', icon: Brain, category: 'Framework', color: 'text-rose-400' },
+  { name: 'Keras', icon: Brain, category: 'Framework', color: 'text-rose-400' },
+  { name: 'OpenCV', icon: Microscope, category: 'Vision', color: 'text-emerald-400' },
+  { name: 'Docker', icon: Container, category: 'Tool', color: 'text-sky-400' },
+  { name: 'AWS', icon: Cloud, category: 'Cloud', color: 'text-amber-400' },
   { name: 'Git', icon: GitBranch, category: 'Tool', color: 'text-orange-400' },
-  { name: 'MLflow', icon: Database, category: 'Tool', color: 'text-blue-400' },
-  { name: 'MCP', icon: Cpu, category: 'Tool', color: 'text-gray-400' },
+  { name: 'MLflow', icon: Database, category: 'Tool', color: 'text-teal-400' },
+  { name: 'MCP', icon: Cpu, category: 'Tool', color: 'text-slate-400' },
   { name: 'Raspberry Pi', icon: Cpu, category: 'Hardware', color: 'text-red-400' },
 ];
 
@@ -123,7 +123,7 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="py-24 bg-black/30 relative"
+      className="py-24 bg-brand-gray/60 relative"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title - Centered */}
@@ -239,8 +239,8 @@ export default function Skills() {
         />
         <defs>
           <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#3b82f6" />
-            <stop offset="100%" stopColor="#8b5cf6" />
+            <stop offset="0%" stopColor="#22d3ee" />
+            <stop offset="100%" stopColor="#f97316" />
           </linearGradient>
         </defs>
       </svg>

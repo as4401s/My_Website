@@ -48,7 +48,7 @@ export default function Navigation() {
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#050505]/95 backdrop-blur-xl border-b border-white/5 py-3'
+          ? 'bg-brand-dark/95 backdrop-blur-xl border-b border-white/5 py-3'
           : 'bg-transparent py-4'
       }`}
     >
@@ -98,7 +98,7 @@ export default function Navigation() {
 
       {/* Mobile Menu Panel */}
       <div
-        className={`md:hidden absolute top-full left-0 right-0 bg-[#050505]/98 backdrop-blur-xl border-b border-white/10 transition-all duration-300 ${
+        className={`md:hidden absolute top-full left-0 right-0 bg-brand-dark/98 backdrop-blur-xl border-b border-white/10 transition-all duration-300 ${
           isMobileMenuOpen
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 -translate-y-4 pointer-events-none'

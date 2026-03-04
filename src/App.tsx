@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense, lazy } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
-import Experience from './sections/Experience';
-import Skills from './sections/Skills';
-import Publications from './sections/Publications';
-import Hobbies from './sections/Hobbies';
-import Lab from './sections/Lab';
-import Footer from './sections/Footer';
-import ParticleBackground from './components/ParticleBackground';
 import ScrollProgress from './components/ScrollProgress';
+
+// Lazy load non-critical components to improve initial load time
+const Experience = lazy(() => import('./sections/Experience'));
+const Skills = lazy(() => import('./sections/Skills'));
+const Publications = lazy(() => import('./sections/Publications'));
+const Hobbies = lazy(() => import('./sections/Hobbies'));
+const Lab = lazy(() => import('./sections/Lab'));
+const Footer = lazy(() => import('./sections/Footer'));
+const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -48,19 +50,23 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-[#e5e5e5] overflow-x-hidden">
+    <div className="relative min-h-screen bg-brand-dark text-brand-text overflow-x-hidden">
       {/* Scroll Progress Indicator */}
       <ScrollProgress />
 
       {/* Particle Background */}
-      <ParticleBackground />
-      
+      <Suspense fallback={null}>
+        <ParticleBackground />
+      </Suspense>
+
       {/* Animated Gradient Background - Performance friendly */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-mesh animate-gradient-shift opacity-30" />
-        <div className={`absolute top-0 left-1/4 w-96 h-96 bg-blue-900/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[40px]' : 'blur-[128px]'} ${isMobile ? '' : 'animate-blob'}`} />
-        <div className={`absolute top-0 right-1/4 w-96 h-96 bg-purple-900/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[40px]' : 'blur-[128px]'} ${isMobile ? '' : 'animate-blob animation-delay-2000'}`} />
-        <div className={`absolute -bottom-32 left-1/3 w-96 h-96 bg-indigo-900/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[40px]' : 'blur-[128px]'} ${isMobile ? '' : 'animate-blob animation-delay-4000'}`} />
+        <div className="absolute inset-0 bg-gradient-mesh animate-gradient-shift opacity-40" />
+        <div className="absolute inset-0 bg-grid opacity-[0.12]" />
+        <div className="absolute inset-0 bg-grain opacity-[0.18]" />
+        <div className={`absolute top-0 left-1/4 w-96 h-96 bg-brand-accent/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob'}`} />
+        <div className={`absolute top-10 right-1/4 w-96 h-96 bg-brand-purple/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob animation-delay-2000'}`} />
+        <div className={`absolute -bottom-32 left-1/3 w-96 h-96 bg-teal-900/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob animation-delay-4000'}`} />
       </div>
 
       {/* Navigation */}
@@ -69,15 +75,19 @@ function App() {
       {/* Main Content */}
       <main className="relative z-10">
         <Hero />
-        <Experience />
-        <Skills />
-        <Publications />
-        <Hobbies />
-        <Lab />
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-4 border-brand-accent border-t-transparent rounded-full animate-spin"></div></div>}>
+          <Experience />
+          <Skills />
+          <Publications />
+          <Hobbies />
+          <Lab />
+        </Suspense>
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }

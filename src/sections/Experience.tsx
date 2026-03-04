@@ -196,7 +196,7 @@ export default function Experience() {
                     {/* Center Node */}
                     <div className="relative flex justify-center order-2">
                       <div
-                        className={`experience-node-${index} w-12 h-12 rounded-full flex items-center justify-center border-4 border-[#050505] transition-all duration-300 ${
+                        className={`experience-node-${index} w-12 h-12 rounded-full flex items-center justify-center border-4 border-brand-dark transition-all duration-300 ${
                           exp.current
                             ? 'bg-brand-accent shadow-lg shadow-brand-accent/50'
                             : 'bg-gray-700'
@@ -228,7 +228,7 @@ export default function Experience() {
                     {/* Timeline Node */}
                     <div className="flex flex-col items-center">
                       <div
-                        className={`experience-node-${index} w-10 h-10 rounded-full flex items-center justify-center border-4 border-[#050505] flex-shrink-0 ${
+                        className={`experience-node-${index} w-10 h-10 rounded-full flex items-center justify-center border-4 border-brand-dark flex-shrink-0 ${
                           exp.current
                             ? 'bg-brand-accent shadow-lg shadow-brand-accent/50'
                             : 'bg-gray-700'

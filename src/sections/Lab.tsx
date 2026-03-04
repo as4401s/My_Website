@@ -32,7 +32,7 @@ const demos = [
     title: 'Neural Network Playground',
     description: 'Build your own neural network! Add/remove layers, adjust neurons, choose activation functions, and watch it train in real-time on the XOR problem.',
     icon: Brain,
-    color: 'from-cyan-500 to-blue-500',
+    color: 'from-cyan-500 to-sky-500',
     component: NeuralNetworkPlayground,
   },
   {
@@ -40,7 +40,7 @@ const demos = [
     title: 'Gradient Descent Visualizer',
     description: 'Visualize how gradient descent navigates loss landscapes. Compare SGD, Momentum, and Adam optimizers on different functions.',
     icon: Target,
-    color: 'from-pink-500 to-rose-500',
+    color: 'from-rose-500 to-pink-500',
     component: GradientDescentVisualizer,
   },
   {
@@ -48,7 +48,7 @@ const demos = [
     title: 'Transformer Visualizer',
     description: 'Interactive attention mechanism visualization. See how Transformers process sequences word by word with real-time attention heatmaps.',
     icon: Network,
-    color: 'from-blue-500 to-cyan-500',
+    color: 'from-teal-500 to-cyan-500',
     component: TransformerVisualizer,
   },
   {
@@ -56,7 +56,7 @@ const demos = [
     title: 'Loss Function Playground',
     description: 'Compare MSE, MAE, Huber, and Cross-Entropy loss functions with live training visualization and parameter tuning.',
     icon: Sparkles,
-    color: 'from-purple-500 to-pink-500',
+    color: 'from-amber-500 to-orange-500',
     component: LossFunctionPlayground,
   },
   {

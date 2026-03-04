@@ -83,7 +83,7 @@ export default function NeuralNetworkPlayground() {
       layerPositions[i].forEach(start => {
         layerPositions[i + 1].forEach(end => {
           const weight = Math.random();
-          ctx.strokeStyle = `rgba(59, 130, 246, ${weight * 0.3})`;
+          ctx.strokeStyle = `rgba(34, 211, 238, ${weight * 0.3})`;
           ctx.lineWidth = 1 + weight * 2;
           ctx.beginPath();
           ctx.moveTo(start.x, start.y);
@@ -98,9 +98,9 @@ export default function NeuralNetworkPlayground() {
       layerPositions[layerIndex].forEach((pos, neuronIndex) => {
         // Neuron glow
         const gradient = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, 15);
-        gradient.addColorStop(0, 'rgba(59, 130, 246, 0.8)');
-        gradient.addColorStop(0.5, 'rgba(59, 130, 246, 0.4)');
-        gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        gradient.addColorStop(0, 'rgba(34, 211, 238, 0.8)');
+        gradient.addColorStop(0.5, 'rgba(34, 211, 238, 0.4)');
+        gradient.addColorStop(1, 'rgba(34, 211, 238, 0)');
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
@@ -108,13 +108,13 @@ export default function NeuralNetworkPlayground() {
         ctx.fill();
 
         // Neuron core
-        ctx.fillStyle = isTraining ? '#3b82f6' : '#1e40af';
+        ctx.fillStyle = isTraining ? '#22d3ee' : '#0891b2';
         ctx.beginPath();
         ctx.arc(pos.x, pos.y, 8, 0, Math.PI * 2);
         ctx.fill();
 
         // Neuron border
-        ctx.strokeStyle = '#60a5fa';
+        ctx.strokeStyle = '#67e8f9';
         ctx.lineWidth = 2;
         ctx.stroke();
 
@@ -129,8 +129,8 @@ export default function NeuralNetworkPlayground() {
       });
 
       // Layer label
-      ctx.fillStyle = '#9ca3af';
-      ctx.font = '12px Inter, sans-serif';
+      ctx.fillStyle = '#9aa8b7';
+      ctx.font = '12px Manrope, sans-serif';
       ctx.textAlign = 'center';
       const x = layerSpacing * (layerIndex + 1);
       const label = layerIndex === 0 ? 'Input' : layerIndex === layers.length - 1 ? 'Output' : `Hidden ${layerIndex}`;
@@ -246,7 +246,7 @@ export default function NeuralNetworkPlayground() {
                 </div>
                 <select
                   value={layer.activation}
-                  onChange={(e) => updateActivation(index, e.target.value as any)}
+                  onChange={(e) => updateActivation(index, e.target.value as 'relu' | 'sigmoid' | 'tanh')}
                   className="flex-1 bg-white/5 border border-white/10 rounded px-2 py-1 text-xs text-white"
                   disabled={index === 0}
                 >
@@ -287,11 +287,10 @@ export default function NeuralNetworkPlayground() {
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={toggleTraining}
-                className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
-                  isTraining
+                className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${isTraining
                     ? 'bg-orange-500/20 text-orange-400 hover:bg-orange-500/30'
                     : 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
-                }`}
+                  }`}
               >
                 {isTraining ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                 {isTraining ? 'Pause' : 'Train'}

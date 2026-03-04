@@ -18,50 +18,50 @@ export default function Hero() {
       // Location badge animation
       gsap.fromTo(
         '.hero-badge',
-        { opacity: 0, x: -30 },
-        { opacity: 1, x: 0, duration: 0.6, ease: 'expo.out', delay: 0.4 }
+        { autoAlpha: 0, x: -30 },
+        { autoAlpha: 1, x: 0, duration: 0.6, ease: 'expo.out', delay: 0.4 }
       );
 
       // Hi, I'm text
       gsap.fromTo(
         '.hero-greeting',
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out', delay: 0.5 }
+        { autoAlpha: 0, y: 40 },
+        { autoAlpha: 1, y: 0, duration: 0.8, ease: 'expo.out', delay: 0.5 }
       );
 
       // Name gradient reveal
       gsap.fromTo(
         '.hero-name',
-        { opacity: 0, clipPath: 'circle(0% at 50% 50%)' },
-        { opacity: 1, clipPath: 'circle(100% at 50% 50%)', duration: 1, ease: 'expo.out', delay: 0.9 }
+        { autoAlpha: 0, clipPath: 'circle(0% at 50% 50%)' },
+        { autoAlpha: 1, clipPath: 'circle(100% at 50% 50%)', duration: 1, ease: 'expo.out', delay: 0.9 }
       );
 
       // Description
       gsap.fromTo(
         '.hero-description',
-        { opacity: 0, filter: 'blur(10px)' },
-        { opacity: 1, filter: 'blur(0px)', duration: 0.7, ease: 'power2.out', delay: 2 }
+        { autoAlpha: 0, filter: 'blur(10px)' },
+        { autoAlpha: 1, filter: 'blur(0px)', duration: 0.7, ease: 'power2.out', delay: 2 }
       );
 
       // Social icons
       gsap.fromTo(
         '.social-icon',
-        { opacity: 0, scale: 0 },
-        { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.7)', stagger: 0.08, delay: 2.2 }
+        { autoAlpha: 0, scale: 0 },
+        { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(1.7)', stagger: 0.08, delay: 2.2 }
       );
 
       // Profile image
       gsap.fromTo(
         '.profile-image-container',
-        { opacity: 0, clipPath: 'circle(0% at 50% 50%)' },
-        { opacity: 1, clipPath: 'circle(100% at 50% 50%)', duration: 1, ease: 'expo.out', delay: 0.8 }
+        { autoAlpha: 0, clipPath: 'circle(0% at 50% 50%)' },
+        { autoAlpha: 1, clipPath: 'circle(100% at 50% 50%)', duration: 1, ease: 'expo.out', delay: 0.8 }
       );
 
       // Profile glow
       gsap.fromTo(
         '.profile-glow',
-        { opacity: 0 },
-        { opacity: 0.75, duration: 0.6, ease: 'power2.out', delay: 1.6 }
+        { autoAlpha: 0 },
+        { autoAlpha: 0.75, duration: 0.6, ease: 'power2.out', delay: 1.6 }
       );
     });
 
@@ -170,7 +170,7 @@ export default function Hero() {
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
               {/* Glow Effect */}
               <div className="profile-glow absolute inset-0 bg-gradient-to-tr from-brand-accent to-brand-purple rounded-full opacity-0 blur-3xl animate-pulse-glow" />
-              
+
               {/* Image Container */}
               <div className="profile-image-container relative w-full h-full">
                 <img
@@ -178,7 +178,7 @@ export default function Hero() {
                   alt="Arjun Sarkar"
                   className="w-full h-full object-cover rounded-full border-4 border-white/10 shadow-2xl transition-all duration-400 hover:scale-103 hover:border-white/20"
                 />
-                
+
                 {/* Orbiting Elements */}
                 <div className="absolute -top-2 -right-2 w-12 h-12 bg-brand-accent/20 rounded-full flex items-center justify-center animate-float">
                   <span className="text-lg">🤖</span>

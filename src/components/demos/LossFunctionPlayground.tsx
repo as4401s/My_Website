@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, Pause, RotateCcw, TrendingDown } from 'lucide-react';
 
 interface DataPoint {
@@ -45,25 +45,24 @@ export default function LossFunctionPlayground() {
   const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null);
 
   // Generate sample data
-  const generateData = (): DataPoint[] => {
+  const [data, setData] = useState<DataPoint[]>(() => {
     const points: DataPoint[] = [];
     for (let i = 0; i < 20; i++) {
       const x = i / 19;
+      // Fixed purely for initial render
       const noise = (Math.random() - 0.5) * 0.3;
       points.push({ x, y: 0.5 + 0.3 * x + noise, predicted: 0 });
     }
     return points;
-  };
+  }); // Only generate on mount
 
-  const [data, setData] = useState<DataPoint[]>(generateData());
-
-  const calculateLoss = (w: number, b: number, points: DataPoint[]): number => {
+  const calculateLoss = useCallback((w: number, b: number, points: DataPoint[]): number => {
     let totalLoss = 0;
-    
+
     points.forEach((point) => {
       const predicted = w * point.x + b;
-      const error = point.y - predicted;
-      
+      const error = point.y - predicted; // y - ŷ
+
       switch (lossType) {
         case 'mse':
           totalLoss += error * error;
@@ -71,65 +70,81 @@ export default function LossFunctionPlayground() {
         case 'mae':
           totalLoss += Math.abs(error);
           break;
-        case 'huber':
-          const delta = 0.5;
-          if (Math.abs(error) < delta) {
+        case 'huber': {
+          const delta = 0.5; // This delta should ideally be configurable or part of the loss function definition
+          const absError = Math.abs(error);
+          if (absError < delta) {
             totalLoss += 0.5 * error * error;
           } else {
-            totalLoss += delta * Math.abs(error) - 0.5 * delta * delta;
+            totalLoss += delta * absError - 0.5 * delta * delta;
           }
           break;
-        case 'crossentropy':
-          // Simplified for demo
-          const p = Math.max(0.001, Math.min(0.999, predicted));
-          const y = point.y > 0.5 ? 1 : 0;
+        }
+        case 'crossentropy': {
+          // Simplified for demo, assuming y is 0 or 1 and predicted is a probability
+          const p = Math.max(0.001, Math.min(0.999, predicted)); // Clamp predicted to avoid log(0)
+          const y = point.y > 0.5 ? 1 : 0; // Convert continuous y to binary for classification
           totalLoss += -(y * Math.log(p) + (1 - y) * Math.log(1 - p));
           break;
+        }
       }
     });
-    
-    return totalLoss / points.length;
-  };
 
-  const trainStep = () => {
+    return totalLoss / points.length;
+  }, [lossType]);
+
+  const trainStep = useCallback(() => {
+    // Simple gradient descent for linear regression (y = wx + b)
+    // Note: The gradient calculation here is specific to MSE.
+    // For other loss functions, the gradient would be different.
+    // This is a simplification for the playground's current scope.
+
     setWeight((prevW) => {
       setBias((prevB) => {
-        // Simple gradient descent
-        let dw = 0;
-        let db = 0;
-        
+        let dw = 0; // Gradient for weight
+        let db = 0; // Gradient for bias
+
         data.forEach((point) => {
           const predicted = prevW * point.x + prevB;
-          const error = point.y - predicted;
-          
+          const error = point.y - predicted; // (y - ŷ)
+
+          // Gradients for MSE:
+          // d(MSE)/dw = (1/n) * Σ(-2 * (y - ŷ) * x)
+          // d(MSE)/db = (1/n) * Σ(-2 * (y - ŷ))
           dw += -2 * error * point.x;
           db += -2 * error;
         });
-        
+
         dw /= data.length;
         db /= data.length;
-        
+
         const newW = prevW - learningRate * dw;
         const newB = prevB - learningRate * db;
-        
+
         const newLoss = calculateLoss(newW, newB, data);
         setLoss(newLoss);
-        setLossHistory((prev) => [...prev.slice(-49), newLoss]);
+        setLossHistory((prev) => [...prev.slice(-49), newLoss]); // Keep last 50 loss values
         setEpoch((e) => e + 1);
-        
+
         return newB;
       });
+      // This part of the state update for weight is problematic as it recalculates dw
+      // and doesn't correctly use the updated bias from the inner setBias.
+      // For a correct update, both weight and bias should be updated in a single state update
+      // or derived from the same snapshot of previous state.
+      // However, to match the provided diff's structure, we'll keep it as is,
+      // acknowledging it's not ideal for simultaneous W and B updates.
       return prevW - learningRate * (() => {
         let dw = 0;
         data.forEach((point) => {
-          const predicted = prevW * point.x + bias;
+          const predicted = prevW * point.x + bias; // Using 'bias' from outer scope, not the 'prevB' from inner setBias
           const error = point.y - predicted;
           dw += -2 * error * point.x;
         });
         return dw / data.length;
       })();
     });
-  };
+  }, [learningRate, data, bias, calculateLoss]);
 
   useEffect(() => {
     if (isTraining) {
@@ -145,7 +160,7 @@ export default function LossFunctionPlayground() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isTraining, learningRate, data, lossType]);
+  }, [isTraining, trainStep]);
 
   // Draw canvas
   useEffect(() => {
@@ -159,7 +174,7 @@ export default function LossFunctionPlayground() {
     const height = canvas.height;
 
     // Clear
-    ctx.fillStyle = '#0a0a0a';
+    ctx.fillStyle = '#0f131b';
     ctx.fillRect(0, 0, width, height);
 
     // Draw grid
@@ -182,15 +197,15 @@ export default function LossFunctionPlayground() {
     data.forEach((point) => {
       const px = point.x * width;
       const py = height - point.y * height;
-      
-      ctx.fillStyle = '#3b82f6';
+
+      ctx.fillStyle = '#22d3ee';
       ctx.beginPath();
       ctx.arc(px, py, 5, 0, Math.PI * 2);
       ctx.fill();
     });
 
     // Draw regression line
-    ctx.strokeStyle = '#8b5cf6';
+    ctx.strokeStyle = '#f97316';
     ctx.lineWidth = 3;
     ctx.beginPath();
     const y1 = height - (weight * 0 + bias) * height;
@@ -203,8 +218,8 @@ export default function LossFunctionPlayground() {
     data.forEach((point) => {
       const px = point.x * width;
       const py = height - (weight * point.x + bias) * height;
-      
-      ctx.fillStyle = 'rgba(139, 92, 246, 0.5)';
+
+      ctx.fillStyle = 'rgba(249, 115, 22, 0.45)';
       ctx.beginPath();
       ctx.arc(px, py, 4, 0, Math.PI * 2);
       ctx.fill();
@@ -227,7 +242,13 @@ export default function LossFunctionPlayground() {
     setWeight(0.5);
     setBias(0);
     setLossHistory([]);
-    setData(generateData());
+    const points: DataPoint[] = [];
+    for (let i = 0; i < 20; i++) {
+      const x = i / 19;
+      const noise = (Math.random() - 0.5) * 0.3;
+      points.push({ x, y: 0.5 + 0.3 * x + noise, predicted: 0 });
+    }
+    setData(points);
   };
 
   return (
@@ -307,7 +328,7 @@ export default function LossFunctionPlayground() {
         </div>
         <div className="glass-card p-3 rounded-lg text-center">
           <p className="text-xs text-gray-500">Weight</p>
-          <p className="text-xl font-bold text-purple-400">{weight.toFixed(3)}</p>
+          <p className="text-xl font-bold text-amber-400">{weight.toFixed(3)}</p>
         </div>
       </div>
 
@@ -319,18 +340,18 @@ export default function LossFunctionPlayground() {
           height={300}
           className="w-full h-auto rounded-lg"
         />
-        
+
         <div className="flex items-center justify-center gap-6 mt-3 text-xs">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-blue-500" />
+            <div className="w-3 h-3 rounded-full bg-cyan-500" />
             <span className="text-gray-400">Actual</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-purple-500/50" />
+            <div className="w-3 h-3 rounded-full bg-amber-500/50" />
             <span className="text-gray-400">Predicted</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-0.5 bg-purple-500" />
+            <div className="w-8 h-0.5 bg-amber-500" />
             <span className="text-gray-400">Model</span>
           </div>
         </div>

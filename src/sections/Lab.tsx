@@ -355,7 +355,7 @@ export default function Lab() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="lab-title text-center mb-16 md:opacity-0">
+        <div className="lab-title text-center mb-20 md:opacity-0">
           <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full glass-card border-brand-accent/30 mb-6">
             <FlaskConical className="w-5 h-5 text-brand-accent" />
             <span className="text-brand-accent text-sm font-medium">Interactive Learning</span>

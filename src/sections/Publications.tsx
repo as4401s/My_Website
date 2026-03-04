@@ -137,7 +137,7 @@ export default function Publications() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <h2 className="publications-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-12 text-center md:opacity-0">
+        <h2 className="publications-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-20 text-center md:opacity-0">
           Selected <span className="text-gradient">Publications</span>
         </h2>
 

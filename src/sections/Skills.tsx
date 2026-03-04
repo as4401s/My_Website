@@ -128,7 +128,7 @@ export default function Skills() {
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title - Centered */}
-        <h2 className="skills-section-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-16 text-center md:opacity-0">
+        <h2 className="skills-section-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-20 text-center md:opacity-0">
           Education & <span className="text-gradient">Tech Stack</span>
         </h2>
 
@@ -189,8 +189,8 @@ export default function Skills() {
                 <div
                   key={index}
                   className={`skill-tag group flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 hover:scale-105 cursor-default ${isAI
-                      ? 'glass-card border-brand-accent/30 text-white hover:bg-brand-accent/20'
-                      : 'glass-card text-gray-300 hover:bg-white/5'
+                    ? 'glass-card border-brand-accent/30 text-white hover:bg-brand-accent/20'
+                    : 'glass-card text-gray-300 hover:bg-white/5'
                     }`}
                 >
                   <Icon className={`w-4 h-4 ${skill.color} group-hover:scale-110 transition-transform`} />

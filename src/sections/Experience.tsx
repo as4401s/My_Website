@@ -155,7 +155,7 @@ export default function Experience() {
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <h2 className="experience-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-16 text-center md:opacity-0">
+        <h2 className="experience-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-20 text-center md:opacity-0">
           Professional <span className="text-gradient">Journey</span>
         </h2>
 
@@ -200,7 +200,7 @@ export default function Experience() {
                     </div>
 
                     {/* Center Node */}
-                    <div className="relative flex justify-center order-2">
+                    <div className="relative flex justify-center z-10">
                       <div
                         className={`experience-node-${index} w-12 h-12 rounded-full flex items-center justify-center border-4 border-brand-dark transition-all duration-300 ${exp.current
                           ? 'bg-brand-accent shadow-lg shadow-brand-accent/50'

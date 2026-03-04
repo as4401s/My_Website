@@ -94,7 +94,7 @@ export default function Hero() {
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center justify-center pt-20 pb-12 relative"
+      className="min-h-screen flex items-center justify-center pt-32 pb-24 relative"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-16">

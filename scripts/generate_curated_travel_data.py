@@ -117,6 +117,10 @@ def process_country(country):
         if curated.get('landmark'):
             image_url = fetch_wikipedia_image(curated['landmark'])
             
+        # Extract precise coordinates
+        latlng = country.get('latlng', [0, 0])
+        lat, lng = latlng[0], latlng[1] if len(latlng) == 2 else 0
+
         return {
             "id": ccn3,
             "data": {
@@ -126,7 +130,9 @@ def process_country(country):
                 "cities": [capital] if capital != "Unknown" else [],
                 "places": [curated.get('landmark').replace('_', ' ')] if curated.get('landmark') else [],
                 "funFact": fact,
-                "imageUrl": image_url
+                "imageUrl": image_url,
+                "lat": lat,
+                "lng": lng
             }
         }
     except Exception as e:

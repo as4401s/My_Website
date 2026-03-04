@@ -8,6 +8,8 @@ export interface CountryData {
     places: string[];
     funFact: string;
     imageUrl?: string;
+    lat?: number;
+    lng?: number;
 }
 
 export const countryMetadata: Record<string, CountryData> = countriesDataRaw as Record<string, CountryData>;

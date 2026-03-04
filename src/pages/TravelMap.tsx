@@ -1,217 +1,234 @@
-import { useState, useCallback, useMemo } from 'react';
-import {
-    ComposableMap,
-    Geographies,
-    Geography,
-    ZoomableGroup,
-    Marker
-} from 'react-simple-maps';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Info, X, MapPin, Landmark, Coins, Sparkles, Search } from 'lucide-react';
+import { ArrowLeft, MapPin, Search, X, Navigation } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { countryMetadata } from '../data/countriesData';
 import type { CountryData } from '../data/countriesData';
-import { getCountryData, countryMetadata } from '../data/countriesData';
 
-const geoUrl = "/world-110m.json";
+const customIcon = new L.DivIcon({
+    className: 'custom-pin',
+    html: `<div style="width: 12px; height: 12px; background-color: #22d3ee; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px #22d3ee;"></div>`,
+    iconSize: [12, 12],
+    iconAnchor: [6, 6]
+});
+
+// A component to handle map flying
+const MapController = ({
+    center,
+    zoom,
+    selectedCountry
+}: {
+    center: [number, number],
+    zoom: number,
+    selectedCountry: (CountryData & { id: string }) | null
+}) => {
+    const map = useMap();
+
+    useEffect(() => {
+        map.flyTo(center, zoom, {
+            duration: 1.5,
+        });
+    }, [center, zoom, map]);
+
+    // Force resize calculation if sidebar opens/closes
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            map.invalidateSize();
+        }, 300);
+        return () => clearTimeout(timeout);
+    }, [selectedCountry, map]);
+
+    return null;
+};
 
 export default function TravelMap() {
     const navigate = useNavigate();
-    const [selectedCountry, setSelectedCountry] = useState<CountryData | null>(null);
-    const [hoveredCountryName, setHoveredCountryName] = useState<string | null>(null);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [position, setPosition] = useState({ coordinates: [0, 0] as [number, number], zoom: 1 });
+    const [selectedCountry, setSelectedCountry] = useState<(CountryData & { id: string }) | null>(null);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [isSearching, setIsSearching] = useState(false);
 
-    const handleCountryClick = useCallback((geo: any) => {
-        const id = geo.id || geo.properties?.iso_n3 || geo.properties?.id;
-        const data = getCountryData(id);
-        const countryName = geo.properties?.name || geo.properties?.NAME || "Unknown Region";
-        if (data) {
-            setSelectedCountry(data);
-        } else {
-            setSelectedCountry({
-                name: countryName,
-                capital: "Consulting maps...",
-                currency: "N/A",
-                cities: [],
-                places: [],
-                funFact: "Currently expanding our travel database for this region! Check back soon for more curated insights."
-            });
-        }
+    const [mapCenter, setMapCenter] = useState<[number, number]>([20, 0]);
+    const [mapZoom, setMapZoom] = useState(2);
+
+    // Convert the dictionary to an array for searching and mapping
+    const allParsedCountries = useMemo(() => {
+        return Object.entries(countryMetadata).map(([id, data]) => ({
+            id,
+            ...data
+        })).filter(c => c.lat !== undefined && c.lng !== undefined);
     }, []);
 
-    const filteredCountries = useMemo(() => {
-        if (!searchQuery.trim()) return [];
-        return Object.values(countryMetadata).filter(c =>
-            c.name.toLowerCase().includes(searchQuery.toLowerCase())
-        ).slice(0, 5);
-    }, [searchQuery]);
+    // Curated countries have images and facts, these get pins on the map
+    const curatedCountries = useMemo(() => {
+        return allParsedCountries.filter(c => c.imageUrl && c.places.length > 0);
+    }, [allParsedCountries]);
 
-    const handleSearchSelect = (country: CountryData) => {
+    const matchingCountries = useMemo(() => {
+        if (!searchQuery.trim()) return [];
+        return allParsedCountries.filter(c =>
+            c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            c.capital.toLowerCase().includes(searchQuery.toLowerCase())
+        ).slice(0, 5);
+    }, [searchQuery, allParsedCountries]);
+
+    const handleCountrySelect = (country: CountryData & { id: string }) => {
         setSelectedCountry(country);
         setSearchQuery("");
-        // Find numeric ID to zoom? (Simplified for now)
+        setIsSearching(false);
+        if (country.lat !== undefined && country.lng !== undefined) {
+            // Shift center slightly to left so sidebar doesn't cover if on desktop
+            setMapCenter([country.lat, country.lng]);
+            setMapZoom(5);
+        }
     };
 
-    const handleMoveEnd = (position: { coordinates: [number, number], zoom: number }) => {
-        setPosition(position);
+    const handleClosePanel = () => {
+        setSelectedCountry(null);
+        setMapZoom(2);
+        setMapCenter([20, 0]);
     };
 
     return (
-        <div className="min-h-screen bg-[#020617] text-slate-200 relative overflow-hidden font-sans">
-            {/* Navigation Header */}
-            <header className="absolute top-0 left-0 right-0 z-50 p-6 flex items-center justify-between pointer-events-none">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="w-full h-screen bg-slate-950 flex flex-col relative overflow-hidden font-sans"
+        >
+            {/* Header controls over map */}
+            <div className="absolute top-0 left-0 right-0 z-[1000] p-6 flex justify-between items-start pointer-events-none">
                 <button
                     onClick={() => navigate('/')}
-                    className="pointer-events-auto flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700 text-slate-200 hover:bg-slate-700 transition-all duration-300 shadow-lg backdrop-blur-md"
+                    className="flex items-center gap-2 px-4 py-2 bg-slate-900/80 hover:bg-slate-800 text-white rounded-full backdrop-blur-md transition-all border border-slate-700 pointer-events-auto shadow-lg"
                 >
-                    <ArrowLeft size={18} />
-                    <span className="font-medium">Portfolio</span>
+                    <ArrowLeft size={16} />
+                    <span className="text-sm font-medium">Portfolio</span>
                 </button>
 
-                <div className="pointer-events-auto relative group flex flex-col items-end">
-                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700 shadow-lg backdrop-blur-md">
-                        <Search size={18} className="text-slate-400" />
+                <div className="relative pointer-events-auto">
+                    <div className="relative">
+                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                         <input
                             type="text"
                             placeholder="Search country..."
                             value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="bg-transparent border-none focus:outline-none text-sm w-32 sm:w-64 text-white"
+                            onChange={(e) => {
+                                setSearchQuery(e.target.value);
+                                setIsSearching(true);
+                            }}
+                            onFocus={() => setIsSearching(true)}
+                            className="bg-slate-900/80 border border-slate-700 text-white px-11 py-2.5 rounded-full w-64 md:w-80 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 backdrop-blur-md shadow-lg transition-all"
                         />
+                        {searchQuery && (
+                            <button
+                                onClick={() => setSearchQuery('')}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                            >
+                                <X size={16} />
+                            </button>
+                        )}
                     </div>
 
-                    {/* Search Dropdown */}
-                    <AnimatePresence>
-                        {filteredCountries.length > 0 && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                className="absolute top-12 right-0 w-64 bg-slate-800 border border-slate-700 rounded-xl mt-2 overflow-hidden shadow-2xl z-50"
-                            >
-                                {filteredCountries.map((c, i) => (
-                                    <button
-                                        key={i}
-                                        onClick={() => handleSearchSelect(c)}
-                                        className="w-full text-left px-4 py-3 hover:bg-slate-700 text-sm transition-colors flex items-center gap-3 border-b border-slate-700/50 last:border-none"
-                                    >
-                                        <MapPin size={14} className="text-cyan-400" />
-                                        {c.name}
-                                    </button>
-                                ))}
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                    {isSearching && matchingCountries.length > 0 && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="absolute top-full mt-2 left-0 right-0 bg-slate-900/95 border border-slate-700 rounded-2xl overflow-hidden backdrop-blur-xl shadow-2xl z-[1000]"
+                        >
+                            {matchingCountries.map((c) => (
+                                <button
+                                    key={c.id}
+                                    onClick={() => handleCountrySelect(c)}
+                                    className="w-full text-left px-4 py-3 hover:bg-slate-800 flex items-center justify-between group transition-colors border-b border-slate-800/50 last:border-0"
+                                >
+                                    <div>
+                                        <div className="text-white font-medium">{c.name}</div>
+                                        <div className="text-slate-400 text-xs">{c.capital}</div>
+                                    </div>
+                                    <Navigation size={14} className="text-slate-600 group-hover:text-cyan-400 transition-colors" />
+                                </button>
+                            ))}
+                        </motion.div>
+                    )}
                 </div>
-            </header>
+            </div>
 
             {/* Map Container */}
-            <main className="w-full h-screen">
-                <ComposableMap
-                    projectionConfig={{ scale: 140 }}
-                    style={{ width: "100%", height: "100%" }}
+            <div className="flex-1 w-full h-full relative z-0">
+                <MapContainer
+                    center={[20, 0]}
+                    zoom={2}
+                    minZoom={2}
+                    zoomControl={false}
+                    className="w-full h-full bg-[#0f172a]"
+                    worldCopyJump={true}
                 >
-                    <ZoomableGroup
-                        center={position.coordinates}
-                        zoom={position.zoom}
-                        onMoveEnd={handleMoveEnd}
-                    >
-                        <Geographies geography={geoUrl}>
-                            {({ geographies }: { geographies?: any[] }) =>
-                                (geographies || []).map((geo: any) => {
-                                    const id = geo.id || geo.properties?.iso_n3 || geo.properties?.id;
-                                    const isCurated = !!getCountryData(id);
-                                    const countryName = geo.properties?.name || geo.properties?.NAME;
-                                    const isSelected = selectedCountry?.name === countryName;
+                    {/* CartoDB Dark Matter tiles - beautifully detailed and high contrast */}
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                    />
 
-                                    return (
-                                        <Geography
-                                            key={geo.rsmKey}
-                                            geography={geo}
-                                            onMouseEnter={() => setHoveredCountryName(countryName)}
-                                            onMouseLeave={() => setHoveredCountryName(null)}
-                                            onClick={() => handleCountryClick(geo)}
-                                            style={{
-                                                default: {
-                                                    fill: isSelected ? "#22d3ee" : (isCurated ? "#334155" : "#1e293b"),
-                                                    stroke: "#475569",
-                                                    strokeWidth: 0.5,
-                                                    outline: "none",
-                                                },
-                                                hover: {
-                                                    fill: "#22d3ee",
-                                                    stroke: "#22d3ee",
-                                                    strokeWidth: 0.75,
-                                                    outline: "none",
-                                                    cursor: "pointer",
-                                                },
-                                                pressed: {
-                                                    fill: "#0891b2",
-                                                    stroke: "#0891b2",
-                                                    outline: "none",
-                                                },
-                                            }}
-                                            className="transition-all duration-300"
-                                        />
-                                    );
-                                })
-                            }
-                        </Geographies>
+                    <MapController center={mapCenter} zoom={mapZoom} selectedCountry={selectedCountry} />
 
-                        {/* Add Markers for curated countries */}
-                        <Marker coordinates={[78.9629, 20.5937]}>
-                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.5, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
+                    {/* Highly curated markers */}
+                    {curatedCountries.map((country) => (
+                        <Marker
+                            key={`marker-${country.id}`}
+                            position={[country.lat!, country.lng!]}
+                            icon={customIcon}
+                            eventHandlers={{
+                                click: () => handleCountrySelect(country),
+                            }}
+                        >
+                            <Popup className="dark-popup">
+                                <div className="text-sm font-semibold text-slate-900">{country.name}</div>
+                                <div className="text-xs text-slate-600">{country.capital}</div>
+                            </Popup>
                         </Marker>
-                        <Marker coordinates={[2.2137, 46.2276]}>
-                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.6, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
-                        </Marker>
-                        <Marker coordinates={[138.2529, 36.2048]}>
-                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.7, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
-                        </Marker>
-                        <Marker coordinates={[-95.7129, 37.0902]}>
-                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.8, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
-                        </Marker>
-                        <Marker coordinates={[-51.9253, -14.2350]}>
-                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.9, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
-                        </Marker>
-                        <Marker coordinates={[133.7751, -25.2744]}>
-                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.0, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
-                        </Marker>
+                    ))}
 
-                    </ZoomableGroup>
-                </ComposableMap>
+                    {/* Selected marker fallback (if they search for a country that isn't heavily curated) */}
+                    {selectedCountry && !curatedCountries.find(c => c.id === selectedCountry.id) && selectedCountry.lat && selectedCountry.lng && (
+                        <Marker
+                            position={[selectedCountry.lat, selectedCountry.lng]}
+                            icon={customIcon}
+                        />
+                    )}
 
-                {/* Floating Tooltip */}
-                {hoveredCountryName && !selectedCountry && (
-                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 px-6 py-2 bg-slate-800/90 border border-slate-700 rounded-full shadow-2xl backdrop-blur-md text-cyan-400 font-bold pointer-events-none animate-in fade-in slide-in-from-bottom-2">
-                        {hoveredCountryName}
-                    </div>
-                )}
-            </main>
+                </MapContainer>
+            </div>
 
-            {/* Detail Overlay */}
-            <AnimatePresence mode="wait">
+            {/* Sidebar Details */}
+            <AnimatePresence>
                 {selectedCountry && (
                     <motion.div
-                        initial={{ opacity: 0, x: 100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 100 }}
-                        className="absolute top-0 right-0 w-full sm:w-[450px] h-full bg-slate-900/95 backdrop-blur-2xl border-l border-white/10 z-[100] shadow-2xl flex flex-col pt-24"
+                        initial={{ x: '100%', opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: '100%', opacity: 0 }}
+                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                        className="absolute right-0 top-0 bottom-0 w-full md:w-[450px] bg-slate-900/40 backdrop-blur-2xl border-l border-white/5 shadow-2xl z-[1050] flex flex-col"
                     >
+                        {/* Glassmorphism gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent pointer-events-none" />
+
                         <button
-                            onClick={() => setSelectedCountry(null)}
-                            className="absolute top-8 right-8 p-3 rounded-full bg-slate-800 text-white hover:bg-slate-700 transition-all border border-slate-700 active:scale-95"
+                            onClick={handleClosePanel}
+                            className="absolute top-6 right-6 p-2 rounded-full bg-slate-800/50 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors z-10"
                         >
                             <X size={20} />
                         </button>
 
-                        <div className="flex-1 overflow-y-auto px-10 pb-16 space-y-8 scrollbar-hide">
-                            {selectedCountry.imageUrl && (
+                        <div className="flex-1 overflow-y-auto px-10 pb-16 space-y-8 scrollbar-hide pt-16">
+                            {selectedCountry.imageUrl && selectedCountry.imageUrl.trim() !== "" && (
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ delay: 0.1 }}
-                                    className="w-full h-56 rounded-2xl overflow-hidden mt-6 border border-white/10 shadow-2xl relative"
+                                    className="w-full h-56 rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative"
                                 >
                                     <img
                                         src={selectedCountry.imageUrl}
@@ -226,86 +243,59 @@ export default function TravelMap() {
                                 <h2 className="text-5xl font-display font-black text-white mb-2 tracking-tight">
                                     {selectedCountry.name}
                                 </h2>
-                                <div className="flex items-center gap-2 text-cyan-400 font-semibold bg-cyan-400/10 w-fit px-3 py-1 rounded-full text-sm">
+                                <div className="flex items-center gap-2 text-cyan-400 font-semibold bg-cyan-400/10 w-fit px-3 py-1 rounded-full text-sm border border-cyan-400/20">
                                     <MapPin size={14} />
                                     <span>{selectedCountry.capital}</span>
                                 </div>
                             </motion.div>
 
-                            <div className="space-y-6">
-                                <div className="group p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/50 transition-colors">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <div className="p-2.5 rounded-xl bg-orange-500/20 text-orange-400">
-                                            <Coins size={22} />
-                                        </div>
-                                        <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500">Currency</h3>
+                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="space-y-6">
+                                <div className="p-5 rounded-2xl bg-slate-800/40 border border-slate-700/50 hover:bg-slate-800/60 transition-colors">
+                                    <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+                                        Currency
                                     </div>
-                                    <p className="text-xl font-bold text-slate-100">{selectedCountry.currency}</p>
+                                    <div className="text-lg font-medium text-slate-200">
+                                        {selectedCountry.currency}
+                                    </div>
                                 </div>
 
-                                <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/50 transition-colors">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400">
-                                            <Sparkles size={22} />
-                                        </div>
-                                        <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500">Fun Fact</h3>
+                                <div className="p-5 rounded-2xl bg-slate-800/40 border border-slate-700/50 hover:bg-slate-800/60 transition-colors relative overflow-hidden">
+                                    <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+                                        Fun Fact
                                     </div>
-                                    <p className="text-lg text-slate-300 leading-relaxed font-medium italic">
+                                    <p className="text-slate-300 leading-relaxed relative z-10 italic">
                                         "{selectedCountry.funFact}"
                                     </p>
                                 </div>
-                            </div>
 
-                            {selectedCountry.places.length > 0 && (
-                                <div className="space-y-4">
-                                    <div className="flex items-center gap-2 text-white font-bold border-b border-white/10 pb-3">
-                                        <Landmark size={20} className="text-cyan-400" />
-                                        <span>Top Destinations</span>
+                                {selectedCountry.places.length > 0 && (
+                                    <div className="p-5 rounded-2xl bg-slate-800/40 border border-slate-700/50">
+                                        <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                            Top Destination
+                                        </div>
+                                        <div className="flex flex-wrap gap-2">
+                                            {selectedCountry.places.map((place, i) => (
+                                                <span key={i} className="px-3 py-1.5 bg-slate-900 text-slate-300 rounded-lg text-sm border border-slate-700">
+                                                    {place}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="grid grid-cols-1 gap-2">
-                                        {selectedCountry.places.map((place, i) => (
-                                            <motion.div
-                                                key={i}
-                                                initial={{ opacity: 0, x: -10 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: 0.3 + i * 0.1 }}
-                                                className="px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-200 text-sm font-medium hover:bg-slate-700 transition-colors cursor-default"
-                                            >
-                                                {place}
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {selectedCountry.cities.length > 0 && (
-                                <div className="space-y-4">
-                                    <div className="flex items-center gap-2 text-white font-bold border-b border-white/10 pb-3">
-                                        <Info size={20} className="text-cyan-400" />
-                                        <span>Notable Cities</span>
-                                    </div>
-                                    <div className="flex flex-wrap gap-2">
-                                        {selectedCountry.cities.map((city, i) => (
-                                            <span key={i} className="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-400 text-xs">
-                                                {city}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
+                                )}
+                            </motion.div>
                         </div>
 
-                        <div className="p-10 border-t border-white/5 bg-black/20">
-                            <p className="text-[10px] text-slate-600 uppercase tracking-widest font-bold">
+                        <div className="mt-auto p-6 border-t border-slate-800/50 text-center">
+                            <p className="text-xs text-slate-500 font-medium uppercase tracking-widest">
                                 Curated Wanderlust Experience • Arjun Sarkar
                             </p>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[150px] pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-purple-600/10 rounded-full blur-[150px] pointer-events-none" />
-        </div>
+        </motion.div>
     );
 }

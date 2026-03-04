@@ -64,9 +64,9 @@ function App() {
         <div className="absolute inset-0 bg-gradient-mesh animate-gradient-shift opacity-40" />
         <div className="absolute inset-0 bg-grid opacity-[0.12]" />
         <div className="absolute inset-0 bg-grain opacity-[0.18]" />
-        <div className={`absolute top-0 left-1/4 w-96 h-96 bg-brand-accent/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob'}`} />
-        <div className={`absolute top-10 right-1/4 w-96 h-96 bg-brand-purple/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob animation-delay-2000'}`} />
-        <div className={`absolute -bottom-32 left-1/3 w-96 h-96 bg-teal-900/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob animation-delay-4000'}`} />
+        <div className={`hidden md:block absolute top-0 left-1/4 w-96 h-96 bg-brand-accent/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob'}`} />
+        <div className={`hidden md:block absolute top-10 right-1/4 w-96 h-96 bg-brand-purple/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob animation-delay-2000'}`} />
+        <div className={`hidden md:block absolute -bottom-32 left-1/3 w-96 h-96 bg-teal-900/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob animation-delay-4000'}`} />
       </div>
 
       {/* Navigation */}

@@ -62,13 +62,13 @@ export default function Hobbies() {
             gsap.fromTo(
               `.hobby-card-${index}`,
               { opacity: 0, scale: 0, rotation: index % 2 === 0 ? -180 : 180 },
-              { 
-                opacity: 1, 
-                scale: 1, 
+              {
+                opacity: 1,
+                scale: 1,
                 rotation: 0,
-                duration: 0.8, 
+                duration: 0.8,
                 ease: 'expo.out',
-                delay: index * 0.2 
+                delay: index * 0.2
               }
             );
           },
@@ -182,8 +182,8 @@ export default function Hobbies() {
       </div>
 
       {/* Background Decorative Elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-brand-accent/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-40 h-40 bg-brand-purple/5 rounded-full blur-3xl" />
+      <div className="hidden md:block absolute top-20 left-10 w-32 h-32 bg-brand-accent/5 rounded-full blur-3xl" />
+      <div className="hidden md:block absolute bottom-20 right-10 w-40 h-40 bg-brand-purple/5 rounded-full blur-3xl" />
     </section>
   );
 }

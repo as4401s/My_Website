@@ -26,7 +26,7 @@
     --input: 220 18% 18%;
     --ring: 191 95% 45%;
     --radius: 0.75rem;
-    
+
     /* Custom Colors */
     --brand-dark: #0b0d12;
     --brand-gray: #0f131b;
@@ -34,7 +34,7 @@
     --brand-purple: #f97316;
     --brand-text: #e7edf5;
     --brand-text-secondary: #9aa8b7;
-    
+
     /* Animation Easings */
     --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-expo-in: cubic-bezier(0.7, 0, 0.84, 0);
@@ -63,7 +63,12 @@
     text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Bricolage Grotesque', sans-serif;
   }
 }
@@ -104,19 +109,19 @@
   .animation-delay-2000 {
     animation-delay: 2s;
   }
-  
+
   .animation-delay-4000 {
     animation-delay: 4s;
   }
-  
+
   .perspective-1000 {
     perspective: 1000px;
   }
-  
+
   .preserve-3d {
     transform-style: preserve-3d;
   }
-  
+
   .backface-hidden {
     backface-visibility: hidden;
   }
@@ -148,7 +153,10 @@
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -160,31 +168,40 @@
   0% {
     transform: translate3d(0px, 0px, 0) scale(1);
   }
+
   33% {
     transform: translate3d(30px, -50px, 0) scale(1.1);
   }
+
   66% {
     transform: translate3d(-20px, 20px, 0) scale(0.9);
   }
+
   100% {
     transform: translate3d(0px, 0px, 0) scale(1);
   }
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate3d(0px, 0px, 0);
   }
+
   50% {
     transform: translate3d(0px, -10px, 0);
   }
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.6;
     transform: scale3d(1, 1, 1);
   }
+
   50% {
     opacity: 0.8;
     transform: scale3d(1.05, 1.05, 1);
@@ -192,9 +209,12 @@
 }
 
 @keyframes blink {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
@@ -204,6 +224,7 @@
   from {
     stroke-dashoffset: 1000;
   }
+
   to {
     stroke-dashoffset: 0;
   }
@@ -213,6 +234,7 @@
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
@@ -267,6 +289,17 @@
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
   }
+
+  /* Disable expensive grain mix blending */
+  .bg-grain {
+    mix-blend-mode: normal !important;
+    opacity: 0.05 !important;
+  }
+
+  /* Strip heavy mesh background animations */
+  .bg-gradient-mesh {
+    animation: none !important;
+  }
 }
 
 /* 3D Card Effects */
@@ -285,9 +318,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -322,9 +357,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }

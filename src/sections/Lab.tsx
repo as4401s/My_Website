@@ -348,8 +348,8 @@ export default function Lab() {
     >
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-brand-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-brand-purple/5 rounded-full blur-3xl" />
+        <div className="hidden md:block absolute top-20 left-10 w-64 h-64 bg-brand-accent/5 rounded-full blur-3xl" />
+        <div className="hidden md:block absolute bottom-20 right-10 w-80 h-80 bg-brand-purple/5 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -379,8 +379,8 @@ export default function Lab() {
                 {/* Demo Card */}
                 <div
                   className={`demo-card glass-card p-6 rounded-2xl transition-all duration-300 ${isActive
-                      ? 'border-brand-accent bg-brand-accent/5'
-                      : 'hover:border-brand-accent/50 hover:bg-brand-accent/5 cursor-pointer'
+                    ? 'border-brand-accent bg-brand-accent/5'
+                    : 'hover:border-brand-accent/50 hover:bg-brand-accent/5 cursor-pointer'
                     }`}
                   onClick={() => setActiveDemo(isActive ? null : demo.id)}
                 >

@@ -174,20 +174,22 @@ export default function Experience() {
                   key={exp.id}
                   className={`experience-item-${index} relative`}
                 >
-                  <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8 items-center">
+                  <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_48px_minmax(0,1fr)] md:gap-8 items-center w-full">
                     {/* Left Content (Title, Company, Date) */}
-                    <div className="text-right">
-                      <div className={`experience-card-${index} md:opacity-0`}>
+                    <div className="text-right flex justify-end">
+                      <div className={`experience-card-${index} md:opacity-0 w-full xl:w-4/5`}>
                         <div
                           className={`glass-card p-6 rounded-xl transition-all duration-300 hover:border-brand-accent/50 hover:bg-brand-accent/5 cursor-pointer group ${exp.details ? 'hover:shadow-lg hover:shadow-brand-accent/10' : ''
                             }`}
                           onClick={() => exp.details && setSelectedExp(exp)}
                         >
-                          <h3 className="text-xl font-bold text-white group-hover:text-brand-accent transition-colors">
+                          <div className="inline-block px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-xs font-mono mb-3">
+                            {exp.date}
+                          </div>
+                          <h3 className="text-2xl font-bold text-white group-hover:text-brand-accent transition-colors">
                             {exp.title}
                           </h3>
-                          <p className="text-brand-accent text-sm mt-1">{exp.company}</p>
-                          <p className="text-gray-500 text-xs mt-1 font-mono">{exp.date}</p>
+                          <p className="text-gray-400 text-base mt-2 font-medium">{exp.company}</p>
 
                           {exp.details && (
                             <div className="mt-3 flex items-center gap-1 text-brand-accent text-sm md:opacity-0 group-hover:opacity-100 transition-opacity">
@@ -212,16 +214,18 @@ export default function Experience() {
                     </div>
 
                     {/* Right Content (Description, Highlights) */}
-                    <div className="text-left">
-                      <div className={`experience-card-${index} md:opacity-0`}>
-                        <div className="glass-card p-6 rounded-xl">
-                          <p className="text-gray-400 text-sm leading-relaxed">
+                    <div className="text-left flex justify-start">
+                      <div className={`experience-card-${index} md:opacity-0 w-full xl:w-4/5`}>
+                        <div className="glass-card p-6 rounded-xl h-full flex flex-col justify-center">
+                          <p className="text-gray-300 text-base leading-relaxed">
                             {exp.description}
                           </p>
                           {exp.achievement && (
-                            <p className="mt-3 text-xs text-brand-accent/80">
-                              <span className="font-semibold">Key Achievement:</span> {exp.achievement}
-                            </p>
+                            <div className="mt-4 p-3 rounded-lg bg-brand-accent/5 border border-brand-accent/20">
+                              <p className="text-sm text-brand-accent/90">
+                                <span className="font-semibold text-brand-accent">Highlight:</span> {exp.achievement}
+                              </p>
+                            </div>
                           )}
                         </div>
                       </div>
@@ -252,16 +256,20 @@ export default function Experience() {
                           }`}
                         onClick={() => exp.details && setSelectedExp(exp)}
                       >
-                        <h3 className="text-lg font-bold text-white">{exp.title}</h3>
-                        <p className="text-brand-accent text-sm">{exp.company}</p>
-                        <p className="text-gray-500 text-xs mt-1 font-mono">{exp.date}</p>
+                        <div className="inline-block px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-xs font-mono mb-3">
+                          {exp.date}
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-1">{exp.title}</h3>
+                        <p className="text-gray-300 text-base font-medium">{exp.company}</p>
                         <p className="text-gray-400 text-sm mt-3 leading-relaxed">
                           {exp.description}
                         </p>
                         {exp.achievement && (
-                          <p className="mt-2 text-xs text-brand-accent/80">
-                            <span className="font-semibold">Key Achievement:</span> {exp.achievement}
-                          </p>
+                          <div className="mt-3 p-3 rounded-lg bg-brand-accent/5 border border-brand-accent/20">
+                            <p className="text-xs text-brand-accent/90">
+                              <span className="font-semibold text-brand-accent">Highlight:</span> {exp.achievement}
+                            </p>
+                          </div>
                         )}
                         {exp.details && (
                           <div className="mt-3 flex items-center gap-1 text-brand-accent text-sm">

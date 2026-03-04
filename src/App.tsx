@@ -17,7 +17,7 @@ const Footer = lazy(() => import('./sections/Footer'));
 const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
 
 // New Pages
-const ChessPuzzle = lazy(() => import('./pages/ChessPuzzle'));
+const ChessGame = lazy(() => import('./pages/ChessGame'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -103,7 +103,7 @@ function App() {
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-4 border-brand-accent border-t-transparent rounded-full animate-spin"></div></div>}>
           <Routes>
             <Route path="/" element={<Home isMobile={isMobile} />} />
-            <Route path="/chess" element={<ChessPuzzle />} />
+            <Route path="/chess" element={<ChessGame />} />
           </Routes>
         </Suspense>
       </main>

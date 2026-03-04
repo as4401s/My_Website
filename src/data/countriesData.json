@@ -1,0 +1,2813 @@
+{
+  "533": {
+    "name": "Aruba",
+    "capital": "Oranjestad",
+    "currency": "Aruban florin (ƒ)",
+    "cities": [
+      "Oranjestad"
+    ],
+    "places": [],
+    "funFact": "The capital of Aruba is Oranjestad, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "004": {
+    "name": "Afghanistan",
+    "capital": "Kabul",
+    "currency": "Afghan afghani (؋)",
+    "cities": [
+      "Kabul"
+    ],
+    "places": [],
+    "funFact": "The capital of Afghanistan is Kabul, a fascinating cultural hub in Southern Asia.",
+    "imageUrl": ""
+  },
+  "024": {
+    "name": "Angola",
+    "capital": "Luanda",
+    "currency": "Angolan kwanza (Kz)",
+    "cities": [
+      "Luanda"
+    ],
+    "places": [],
+    "funFact": "The capital of Angola is Luanda, a fascinating cultural hub in Middle Africa.",
+    "imageUrl": ""
+  },
+  "660": {
+    "name": "Anguilla",
+    "capital": "The Valley",
+    "currency": "Eastern Caribbean dollar ($)",
+    "cities": [
+      "The Valley"
+    ],
+    "places": [],
+    "funFact": "The capital of Anguilla is The Valley, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "248": {
+    "name": "Åland Islands",
+    "capital": "Mariehamn",
+    "currency": "Euro (€)",
+    "cities": [
+      "Mariehamn"
+    ],
+    "places": [],
+    "funFact": "The capital of Åland Islands is Mariehamn, a fascinating cultural hub in Northern Europe.",
+    "imageUrl": ""
+  },
+  "008": {
+    "name": "Albania",
+    "capital": "Tirana",
+    "currency": "Albanian lek (L)",
+    "cities": [
+      "Tirana"
+    ],
+    "places": [],
+    "funFact": "The capital of Albania is Tirana, a fascinating cultural hub in Southeast Europe.",
+    "imageUrl": ""
+  },
+  "020": {
+    "name": "Andorra",
+    "capital": "Andorra la Vella",
+    "currency": "Euro (€)",
+    "cities": [
+      "Andorra la Vella"
+    ],
+    "places": [],
+    "funFact": "The capital of Andorra is Andorra la Vella, a fascinating cultural hub in Southern Europe.",
+    "imageUrl": ""
+  },
+  "784": {
+    "name": "United Arab Emirates",
+    "capital": "Abu Dhabi",
+    "currency": "United Arab Emirates dirham (د.إ)",
+    "cities": [
+      "Abu Dhabi"
+    ],
+    "places": [
+      "Burj Khalifa"
+    ],
+    "funFact": "Dubai's Burj Khalifa is so tall that you can watch the sunset from the base, take the elevator, and watch it set again from the top.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/90/Burj_Khalifa_%28worlds_tallest_building%29_and_the_Dubai_skyline_%2825781049892%29.jpg"
+  },
+  "032": {
+    "name": "Argentina",
+    "capital": "Buenos Aires",
+    "currency": "Argentine peso ($)",
+    "cities": [
+      "Buenos Aires"
+    ],
+    "places": [
+      "Iguazu Falls"
+    ],
+    "funFact": "Argentina is home to the highest point in the Southern and Western Hemispheres, Mount Aconcagua.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Iguazu_Cataratas2.jpg"
+  },
+  "051": {
+    "name": "Armenia",
+    "capital": "Yerevan",
+    "currency": "Armenian dram (֏)",
+    "cities": [
+      "Yerevan"
+    ],
+    "places": [],
+    "funFact": "The capital of Armenia is Yerevan, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "016": {
+    "name": "American Samoa",
+    "capital": "Pago Pago",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Pago Pago"
+    ],
+    "places": [],
+    "funFact": "The capital of American Samoa is Pago Pago, a fascinating cultural hub in Polynesia.",
+    "imageUrl": ""
+  },
+  "010": {
+    "name": "Antarctica",
+    "capital": "Unknown",
+    "currency": "N/A",
+    "cities": [],
+    "places": [],
+    "funFact": "Located in , Antarctica is waiting to be explored.",
+    "imageUrl": ""
+  },
+  "260": {
+    "name": "French Southern and Antarctic Lands",
+    "capital": "Port-aux-Français",
+    "currency": "Euro (€)",
+    "cities": [
+      "Port-aux-Français"
+    ],
+    "places": [],
+    "funFact": "The capital of French Southern and Antarctic Lands is Port-aux-Français, a fascinating cultural hub in .",
+    "imageUrl": ""
+  },
+  "028": {
+    "name": "Antigua and Barbuda",
+    "capital": "Saint John's",
+    "currency": "Eastern Caribbean dollar ($)",
+    "cities": [
+      "Saint John's"
+    ],
+    "places": [],
+    "funFact": "The capital of Antigua and Barbuda is Saint John's, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "036": {
+    "name": "Australia",
+    "capital": "Canberra",
+    "currency": "Australian dollar ($)",
+    "cities": [
+      "Canberra"
+    ],
+    "places": [
+      "Sydney Opera House"
+    ],
+    "funFact": "Australia's Great Barrier Reef is the largest coral reef system in the world and can be seen from space.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Sydney_Australia._%2821339175489%29.jpg"
+  },
+  "040": {
+    "name": "Austria",
+    "capital": "Vienna",
+    "currency": "Euro (€)",
+    "cities": [
+      "Vienna"
+    ],
+    "places": [
+      "Schönbrunn Palace"
+    ],
+    "funFact": "Austria has the oldest zoo in the world, Tiergarten Schönbrunn in Vienna, which opened in 1752.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Wien_-_Schloss_Sch%C3%B6nbrunn.JPG"
+  },
+  "031": {
+    "name": "Azerbaijan",
+    "capital": "Baku",
+    "currency": "Azerbaijani manat (₼)",
+    "cities": [
+      "Baku"
+    ],
+    "places": [],
+    "funFact": "The capital of Azerbaijan is Baku, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "108": {
+    "name": "Burundi",
+    "capital": "Gitega",
+    "currency": "Burundian franc (Fr)",
+    "cities": [
+      "Gitega"
+    ],
+    "places": [],
+    "funFact": "The capital of Burundi is Gitega, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "056": {
+    "name": "Belgium",
+    "capital": "Brussels",
+    "currency": "Euro (€)",
+    "cities": [
+      "Brussels"
+    ],
+    "places": [],
+    "funFact": "The capital of Belgium is Brussels, a fascinating cultural hub in Western Europe.",
+    "imageUrl": ""
+  },
+  "204": {
+    "name": "Benin",
+    "capital": "Porto-Novo",
+    "currency": "West African CFA franc (Fr)",
+    "cities": [
+      "Porto-Novo"
+    ],
+    "places": [],
+    "funFact": "The capital of Benin is Porto-Novo, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "854": {
+    "name": "Burkina Faso",
+    "capital": "Ouagadougou",
+    "currency": "West African CFA franc (Fr)",
+    "cities": [
+      "Ouagadougou"
+    ],
+    "places": [],
+    "funFact": "The capital of Burkina Faso is Ouagadougou, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "050": {
+    "name": "Bangladesh",
+    "capital": "Dhaka",
+    "currency": "Bangladeshi taka (৳)",
+    "cities": [
+      "Dhaka"
+    ],
+    "places": [],
+    "funFact": "The capital of Bangladesh is Dhaka, a fascinating cultural hub in Southern Asia.",
+    "imageUrl": ""
+  },
+  "100": {
+    "name": "Bulgaria",
+    "capital": "Sofia",
+    "currency": "Bulgarian lev (лв)",
+    "cities": [
+      "Sofia"
+    ],
+    "places": [],
+    "funFact": "The capital of Bulgaria is Sofia, a fascinating cultural hub in Southeast Europe.",
+    "imageUrl": ""
+  },
+  "048": {
+    "name": "Bahrain",
+    "capital": "Manama",
+    "currency": "Bahraini dinar (.د.ب)",
+    "cities": [
+      "Manama"
+    ],
+    "places": [],
+    "funFact": "The capital of Bahrain is Manama, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "044": {
+    "name": "Bahamas",
+    "capital": "Nassau",
+    "currency": "Bahamian dollar ($)",
+    "cities": [
+      "Nassau"
+    ],
+    "places": [],
+    "funFact": "The capital of Bahamas is Nassau, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "070": {
+    "name": "Bosnia and Herzegovina",
+    "capital": "Sarajevo",
+    "currency": "Bosnia and Herzegovina convertible mark (KM)",
+    "cities": [
+      "Sarajevo"
+    ],
+    "places": [],
+    "funFact": "The capital of Bosnia and Herzegovina is Sarajevo, a fascinating cultural hub in Southeast Europe.",
+    "imageUrl": ""
+  },
+  "652": {
+    "name": "Saint Barthélemy",
+    "capital": "Gustavia",
+    "currency": "Euro (€)",
+    "cities": [
+      "Gustavia"
+    ],
+    "places": [],
+    "funFact": "The capital of Saint Barthélemy is Gustavia, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "654": {
+    "name": "Saint Helena, Ascension and Tristan da Cunha",
+    "capital": "Jamestown",
+    "currency": "Pound sterling (£)",
+    "cities": [
+      "Jamestown"
+    ],
+    "places": [],
+    "funFact": "The capital of Saint Helena, Ascension and Tristan da Cunha is Jamestown, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "112": {
+    "name": "Belarus",
+    "capital": "Minsk",
+    "currency": "Belarusian ruble (Br)",
+    "cities": [
+      "Minsk"
+    ],
+    "places": [],
+    "funFact": "The capital of Belarus is Minsk, a fascinating cultural hub in Eastern Europe.",
+    "imageUrl": ""
+  },
+  "084": {
+    "name": "Belize",
+    "capital": "Belmopan",
+    "currency": "Belize dollar ($)",
+    "cities": [
+      "Belmopan"
+    ],
+    "places": [],
+    "funFact": "The capital of Belize is Belmopan, a fascinating cultural hub in Central America.",
+    "imageUrl": ""
+  },
+  "060": {
+    "name": "Bermuda",
+    "capital": "Hamilton",
+    "currency": "Bermudian dollar ($)",
+    "cities": [
+      "Hamilton"
+    ],
+    "places": [],
+    "funFact": "The capital of Bermuda is Hamilton, a fascinating cultural hub in North America.",
+    "imageUrl": ""
+  },
+  "068": {
+    "name": "Bolivia",
+    "capital": "Sucre",
+    "currency": "Bolivian boliviano (Bs.)",
+    "cities": [
+      "Sucre"
+    ],
+    "places": [],
+    "funFact": "The capital of Bolivia is Sucre, a fascinating cultural hub in South America.",
+    "imageUrl": ""
+  },
+  "535": {
+    "name": "Caribbean Netherlands",
+    "capital": "Kralendijk",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Kralendijk"
+    ],
+    "places": [],
+    "funFact": "The capital of Caribbean Netherlands is Kralendijk, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "076": {
+    "name": "Brazil",
+    "capital": "Brasília",
+    "currency": "Brazilian real (R$)",
+    "cities": [
+      "Brasília"
+    ],
+    "places": [
+      "Christ the Redeemer (statue)"
+    ],
+    "funFact": "Brazil is home to 60% of the Amazon Rainforest, the most biodiverse region on Earth.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Christ_the_Redeemer_-_Cristo_Redentor.jpg"
+  },
+  "052": {
+    "name": "Barbados",
+    "capital": "Bridgetown",
+    "currency": "Barbadian dollar ($)",
+    "cities": [
+      "Bridgetown"
+    ],
+    "places": [],
+    "funFact": "The capital of Barbados is Bridgetown, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "096": {
+    "name": "Brunei",
+    "capital": "Bandar Seri Begawan",
+    "currency": "Brunei dollar ($)",
+    "cities": [
+      "Bandar Seri Begawan"
+    ],
+    "places": [],
+    "funFact": "The capital of Brunei is Bandar Seri Begawan, a fascinating cultural hub in South-Eastern Asia.",
+    "imageUrl": ""
+  },
+  "064": {
+    "name": "Bhutan",
+    "capital": "Thimphu",
+    "currency": "Bhutanese ngultrum (Nu.)",
+    "cities": [
+      "Thimphu"
+    ],
+    "places": [],
+    "funFact": "The capital of Bhutan is Thimphu, a fascinating cultural hub in Southern Asia.",
+    "imageUrl": ""
+  },
+  "074": {
+    "name": "Bouvet Island",
+    "capital": "Unknown",
+    "currency": "N/A",
+    "cities": [],
+    "places": [],
+    "funFact": "Located in , Bouvet Island is waiting to be explored.",
+    "imageUrl": ""
+  },
+  "072": {
+    "name": "Botswana",
+    "capital": "Gaborone",
+    "currency": "Botswana pula (P)",
+    "cities": [
+      "Gaborone"
+    ],
+    "places": [],
+    "funFact": "The capital of Botswana is Gaborone, a fascinating cultural hub in Southern Africa.",
+    "imageUrl": ""
+  },
+  "140": {
+    "name": "Central African Republic",
+    "capital": "Bangui",
+    "currency": "Central African CFA franc (Fr)",
+    "cities": [
+      "Bangui"
+    ],
+    "places": [],
+    "funFact": "The capital of Central African Republic is Bangui, a fascinating cultural hub in Middle Africa.",
+    "imageUrl": ""
+  },
+  "124": {
+    "name": "Canada",
+    "capital": "Ottawa",
+    "currency": "Canadian dollar ($)",
+    "cities": [
+      "Ottawa"
+    ],
+    "places": [
+      "Banff National Park"
+    ],
+    "funFact": "Canada has more lakes than the rest of the world's lakes combined, making it a paradise for nature lovers.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Moraine_Lake_17092005.jpg"
+  },
+  "166": {
+    "name": "Cocos (Keeling) Islands",
+    "capital": "West Island",
+    "currency": "Australian dollar ($)",
+    "cities": [
+      "West Island"
+    ],
+    "places": [],
+    "funFact": "The capital of Cocos (Keeling) Islands is West Island, a fascinating cultural hub in Australia and New Zealand.",
+    "imageUrl": ""
+  },
+  "756": {
+    "name": "Switzerland",
+    "capital": "Bern",
+    "currency": "Swiss franc (Fr.)",
+    "cities": [
+      "Bern"
+    ],
+    "places": [
+      "Matterhorn"
+    ],
+    "funFact": "Switzerland has 7000 lakes and over 1,500 of them are located in the Alps, offering pristine glacial waters.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/60/Matterhorn_from_Domh%C3%BCtte_-_2.jpg"
+  },
+  "152": {
+    "name": "Chile",
+    "capital": "Santiago",
+    "currency": "Chilean peso ($)",
+    "cities": [
+      "Santiago"
+    ],
+    "places": [],
+    "funFact": "The capital of Chile is Santiago, a fascinating cultural hub in South America.",
+    "imageUrl": ""
+  },
+  "156": {
+    "name": "China",
+    "capital": "Beijing",
+    "currency": "Chinese yuan (¥)",
+    "cities": [
+      "Beijing"
+    ],
+    "places": [
+      "Great Wall of China"
+    ],
+    "funFact": "The Great Wall of China is a series of fortifications that stretches over 13,000 miles across northern China.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/23/The_Great_Wall_of_China_at_Jinshanling-edit.jpg"
+  },
+  "384": {
+    "name": "Ivory Coast",
+    "capital": "Yamoussoukro",
+    "currency": "West African CFA franc (Fr)",
+    "cities": [
+      "Yamoussoukro"
+    ],
+    "places": [],
+    "funFact": "The capital of Ivory Coast is Yamoussoukro, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "120": {
+    "name": "Cameroon",
+    "capital": "Yaoundé",
+    "currency": "Central African CFA franc (Fr)",
+    "cities": [
+      "Yaoundé"
+    ],
+    "places": [],
+    "funFact": "The capital of Cameroon is Yaoundé, a fascinating cultural hub in Middle Africa.",
+    "imageUrl": ""
+  },
+  "180": {
+    "name": "DR Congo",
+    "capital": "Kinshasa",
+    "currency": "Congolese franc (FC)",
+    "cities": [
+      "Kinshasa"
+    ],
+    "places": [],
+    "funFact": "The capital of DR Congo is Kinshasa, a fascinating cultural hub in Middle Africa.",
+    "imageUrl": ""
+  },
+  "178": {
+    "name": "Congo",
+    "capital": "Brazzaville",
+    "currency": "Central African CFA franc (Fr)",
+    "cities": [
+      "Brazzaville"
+    ],
+    "places": [],
+    "funFact": "The capital of Congo is Brazzaville, a fascinating cultural hub in Middle Africa.",
+    "imageUrl": ""
+  },
+  "184": {
+    "name": "Cook Islands",
+    "capital": "Avarua",
+    "currency": "Cook Islands dollar ($)",
+    "cities": [
+      "Avarua"
+    ],
+    "places": [],
+    "funFact": "The capital of Cook Islands is Avarua, a fascinating cultural hub in Polynesia.",
+    "imageUrl": ""
+  },
+  "170": {
+    "name": "Colombia",
+    "capital": "Bogotá",
+    "currency": "Colombian peso ($)",
+    "cities": [
+      "Bogotá"
+    ],
+    "places": [
+      "Castillo San Felipe de Barajas"
+    ],
+    "funFact": "Colombia is the second most biodiverse country in the world, hosting almost 20% of the planet's bird species.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/62_-_Carthag%C3%A8ne_-_D%C3%A9cembre_2008.jpg"
+  },
+  "174": {
+    "name": "Comoros",
+    "capital": "Moroni",
+    "currency": "Comorian franc (Fr)",
+    "cities": [
+      "Moroni"
+    ],
+    "places": [],
+    "funFact": "The capital of Comoros is Moroni, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "132": {
+    "name": "Cape Verde",
+    "capital": "Praia",
+    "currency": "Cape Verdean escudo (Esc)",
+    "cities": [
+      "Praia"
+    ],
+    "places": [],
+    "funFact": "The capital of Cape Verde is Praia, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "188": {
+    "name": "Costa Rica",
+    "capital": "San José",
+    "currency": "Costa Rican colón (₡)",
+    "cities": [
+      "San José"
+    ],
+    "places": [],
+    "funFact": "The capital of Costa Rica is San José, a fascinating cultural hub in Central America.",
+    "imageUrl": ""
+  },
+  "192": {
+    "name": "Cuba",
+    "capital": "Havana",
+    "currency": "Cuban convertible peso ($)",
+    "cities": [
+      "Havana"
+    ],
+    "places": [],
+    "funFact": "The capital of Cuba is Havana, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "531": {
+    "name": "Curaçao",
+    "capital": "Willemstad",
+    "currency": "Netherlands Antillean guilder (ƒ)",
+    "cities": [
+      "Willemstad"
+    ],
+    "places": [],
+    "funFact": "The capital of Curaçao is Willemstad, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "162": {
+    "name": "Christmas Island",
+    "capital": "Flying Fish Cove",
+    "currency": "Australian dollar ($)",
+    "cities": [
+      "Flying Fish Cove"
+    ],
+    "places": [],
+    "funFact": "The capital of Christmas Island is Flying Fish Cove, a fascinating cultural hub in Australia and New Zealand.",
+    "imageUrl": ""
+  },
+  "136": {
+    "name": "Cayman Islands",
+    "capital": "George Town",
+    "currency": "Cayman Islands dollar ($)",
+    "cities": [
+      "George Town"
+    ],
+    "places": [],
+    "funFact": "The capital of Cayman Islands is George Town, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "196": {
+    "name": "Cyprus",
+    "capital": "Nicosia",
+    "currency": "Euro (€)",
+    "cities": [
+      "Nicosia"
+    ],
+    "places": [],
+    "funFact": "The capital of Cyprus is Nicosia, a fascinating cultural hub in Southern Europe.",
+    "imageUrl": ""
+  },
+  "203": {
+    "name": "Czechia",
+    "capital": "Prague",
+    "currency": "Czech koruna (Kč)",
+    "cities": [
+      "Prague"
+    ],
+    "places": [
+      "Charles Bridge"
+    ],
+    "funFact": "The Czech Republic has the highest beer consumption per capita in the world and invented the Pilsner.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/22/Prague_07-2016_view_from_Lesser_Town_Tower_of_Charles_Bridge_img3.jpg"
+  },
+  "276": {
+    "name": "Germany",
+    "capital": "Berlin",
+    "currency": "Euro (€)",
+    "cities": [
+      "Berlin"
+    ],
+    "places": [
+      "Neuschwanstein Castle"
+    ],
+    "funFact": "Germany boasts over 20,000 castles and has more zoos than any other country in the world.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Schloss_Neuschwanstein_2013.jpg"
+  },
+  "262": {
+    "name": "Djibouti",
+    "capital": "Djibouti",
+    "currency": "Djiboutian franc (Fr)",
+    "cities": [
+      "Djibouti"
+    ],
+    "places": [],
+    "funFact": "The capital of Djibouti is Djibouti, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "212": {
+    "name": "Dominica",
+    "capital": "Roseau",
+    "currency": "Eastern Caribbean dollar ($)",
+    "cities": [
+      "Roseau"
+    ],
+    "places": [],
+    "funFact": "The capital of Dominica is Roseau, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "208": {
+    "name": "Denmark",
+    "capital": "Copenhagen",
+    "currency": "Danish krone (kr)",
+    "cities": [
+      "Copenhagen"
+    ],
+    "places": [
+      "Nyhavn"
+    ],
+    "funFact": "Denmark consistently ranks as one of the happiest countries, famous for the concept of 'Hygge' (comfy coziness).",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Nyhavn_Copenhagen_2.jpg"
+  },
+  "214": {
+    "name": "Dominican Republic",
+    "capital": "Santo Domingo",
+    "currency": "Dominican peso ($)",
+    "cities": [
+      "Santo Domingo"
+    ],
+    "places": [],
+    "funFact": "The capital of Dominican Republic is Santo Domingo, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "012": {
+    "name": "Algeria",
+    "capital": "Algiers",
+    "currency": "Algerian dinar (د.ج)",
+    "cities": [
+      "Algiers"
+    ],
+    "places": [],
+    "funFact": "The capital of Algeria is Algiers, a fascinating cultural hub in Northern Africa.",
+    "imageUrl": ""
+  },
+  "218": {
+    "name": "Ecuador",
+    "capital": "Quito",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Quito"
+    ],
+    "places": [],
+    "funFact": "The capital of Ecuador is Quito, a fascinating cultural hub in South America.",
+    "imageUrl": ""
+  },
+  "818": {
+    "name": "Egypt",
+    "capital": "Cairo",
+    "currency": "Egyptian pound (£)",
+    "cities": [
+      "Cairo"
+    ],
+    "places": [
+      "Giza pyramid complex"
+    ],
+    "funFact": "The Great Pyramid of Giza is the oldest of the Seven Wonders of the Ancient World and the only one to remain largely intact.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/96/Pyramids_of_the_Giza_Necropolis.jpg"
+  },
+  "232": {
+    "name": "Eritrea",
+    "capital": "Asmara",
+    "currency": "Eritrean nakfa (Nfk)",
+    "cities": [
+      "Asmara"
+    ],
+    "places": [],
+    "funFact": "The capital of Eritrea is Asmara, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "732": {
+    "name": "Western Sahara",
+    "capital": "El Aaiún",
+    "currency": "Algerian dinar (دج)",
+    "cities": [
+      "El Aaiún"
+    ],
+    "places": [],
+    "funFact": "The capital of Western Sahara is El Aaiún, a fascinating cultural hub in Northern Africa.",
+    "imageUrl": ""
+  },
+  "724": {
+    "name": "Spain",
+    "capital": "Madrid",
+    "currency": "Euro (€)",
+    "cities": [
+      "Madrid"
+    ],
+    "places": [
+      "Sagrada Família"
+    ],
+    "funFact": "Spain is home to the only desert in Europe (Tabernas) and the world's oldest existing lighthouse (Tower of Hercules).",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/%CE%A3%CE%B1%CE%B3%CF%81%CE%AC%CE%B4%CE%B1_%CE%A6%CE%B1%CE%BC%CE%AF%CE%BB%CE%B9%CE%B1_2941.jpg"
+  },
+  "233": {
+    "name": "Estonia",
+    "capital": "Tallinn",
+    "currency": "Euro (€)",
+    "cities": [
+      "Tallinn"
+    ],
+    "places": [],
+    "funFact": "The capital of Estonia is Tallinn, a fascinating cultural hub in Northern Europe.",
+    "imageUrl": ""
+  },
+  "231": {
+    "name": "Ethiopia",
+    "capital": "Addis Ababa",
+    "currency": "Ethiopian birr (Br)",
+    "cities": [
+      "Addis Ababa"
+    ],
+    "places": [],
+    "funFact": "The capital of Ethiopia is Addis Ababa, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "246": {
+    "name": "Finland",
+    "capital": "Helsinki",
+    "currency": "Euro (€)",
+    "cities": [
+      "Helsinki"
+    ],
+    "places": [],
+    "funFact": "The capital of Finland is Helsinki, a fascinating cultural hub in Northern Europe.",
+    "imageUrl": ""
+  },
+  "242": {
+    "name": "Fiji",
+    "capital": "Suva",
+    "currency": "Fijian dollar ($)",
+    "cities": [
+      "Suva"
+    ],
+    "places": [],
+    "funFact": "The capital of Fiji is Suva, a fascinating cultural hub in Melanesia.",
+    "imageUrl": ""
+  },
+  "238": {
+    "name": "Falkland Islands",
+    "capital": "Stanley",
+    "currency": "Falkland Islands pound (£)",
+    "cities": [
+      "Stanley"
+    ],
+    "places": [],
+    "funFact": "The capital of Falkland Islands is Stanley, a fascinating cultural hub in South America.",
+    "imageUrl": ""
+  },
+  "250": {
+    "name": "France",
+    "capital": "Paris",
+    "currency": "Euro (€)",
+    "cities": [
+      "Paris"
+    ],
+    "places": [
+      "Eiffel Tower"
+    ],
+    "funFact": "France is the most visited country in the world, renowned for its gastronomy, art, and diverse landscapes.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg"
+  },
+  "234": {
+    "name": "Faroe Islands",
+    "capital": "Tórshavn",
+    "currency": "Danish krone (kr)",
+    "cities": [
+      "Tórshavn"
+    ],
+    "places": [],
+    "funFact": "The capital of Faroe Islands is Tórshavn, a fascinating cultural hub in Northern Europe.",
+    "imageUrl": ""
+  },
+  "583": {
+    "name": "Micronesia",
+    "capital": "Palikir",
+    "currency": "N/A",
+    "cities": [
+      "Palikir"
+    ],
+    "places": [],
+    "funFact": "The capital of Micronesia is Palikir, a fascinating cultural hub in Micronesia.",
+    "imageUrl": ""
+  },
+  "266": {
+    "name": "Gabon",
+    "capital": "Libreville",
+    "currency": "Central African CFA franc (Fr)",
+    "cities": [
+      "Libreville"
+    ],
+    "places": [],
+    "funFact": "The capital of Gabon is Libreville, a fascinating cultural hub in Middle Africa.",
+    "imageUrl": ""
+  },
+  "826": {
+    "name": "United Kingdom",
+    "capital": "London",
+    "currency": "British pound (£)",
+    "cities": [
+      "London"
+    ],
+    "places": [
+      "Big Ben"
+    ],
+    "funFact": "London's transport system is so vast that the London Underground has been running since 1863.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/43/Elizabeth_Tower%2C_June_2022.jpg"
+  },
+  "268": {
+    "name": "Georgia",
+    "capital": "Tbilisi",
+    "currency": "lari (₾)",
+    "cities": [
+      "Tbilisi"
+    ],
+    "places": [],
+    "funFact": "The capital of Georgia is Tbilisi, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "831": {
+    "name": "Guernsey",
+    "capital": "St. Peter Port",
+    "currency": "British pound (£)",
+    "cities": [
+      "St. Peter Port"
+    ],
+    "places": [],
+    "funFact": "The capital of Guernsey is St. Peter Port, a fascinating cultural hub in Northern Europe.",
+    "imageUrl": ""
+  },
+  "288": {
+    "name": "Ghana",
+    "capital": "Accra",
+    "currency": "Ghanaian cedi (₵)",
+    "cities": [
+      "Accra"
+    ],
+    "places": [],
+    "funFact": "The capital of Ghana is Accra, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "292": {
+    "name": "Gibraltar",
+    "capital": "Gibraltar",
+    "currency": "Gibraltar pound (£)",
+    "cities": [
+      "Gibraltar"
+    ],
+    "places": [],
+    "funFact": "The capital of Gibraltar is Gibraltar, a fascinating cultural hub in Southern Europe.",
+    "imageUrl": ""
+  },
+  "324": {
+    "name": "Guinea",
+    "capital": "Conakry",
+    "currency": "Guinean franc (Fr)",
+    "cities": [
+      "Conakry"
+    ],
+    "places": [],
+    "funFact": "The capital of Guinea is Conakry, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "312": {
+    "name": "Guadeloupe",
+    "capital": "Basse-Terre",
+    "currency": "Euro (€)",
+    "cities": [
+      "Basse-Terre"
+    ],
+    "places": [],
+    "funFact": "The capital of Guadeloupe is Basse-Terre, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "270": {
+    "name": "Gambia",
+    "capital": "Banjul",
+    "currency": "dalasi (D)",
+    "cities": [
+      "Banjul"
+    ],
+    "places": [],
+    "funFact": "The capital of Gambia is Banjul, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "624": {
+    "name": "Guinea-Bissau",
+    "capital": "Bissau",
+    "currency": "West African CFA franc (Fr)",
+    "cities": [
+      "Bissau"
+    ],
+    "places": [],
+    "funFact": "The capital of Guinea-Bissau is Bissau, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "226": {
+    "name": "Equatorial Guinea",
+    "capital": "Malabo",
+    "currency": "Central African CFA franc (Fr)",
+    "cities": [
+      "Malabo"
+    ],
+    "places": [],
+    "funFact": "The capital of Equatorial Guinea is Malabo, a fascinating cultural hub in Middle Africa.",
+    "imageUrl": ""
+  },
+  "300": {
+    "name": "Greece",
+    "capital": "Athens",
+    "currency": "Euro (€)",
+    "cities": [
+      "Athens"
+    ],
+    "places": [
+      "Acropolis of Athens"
+    ],
+    "funFact": "Greece has the longest coastline in Europe and features thousands of islands, though only 227 are inhabited.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/1029_Acropolis_of_Athens_in_Greece_at_night_Photo_by_Giles_Laurent.jpg"
+  },
+  "308": {
+    "name": "Grenada",
+    "capital": "St. George's",
+    "currency": "Eastern Caribbean dollar ($)",
+    "cities": [
+      "St. George's"
+    ],
+    "places": [],
+    "funFact": "The capital of Grenada is St. George's, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "304": {
+    "name": "Greenland",
+    "capital": "Nuuk",
+    "currency": "krone (kr.)",
+    "cities": [
+      "Nuuk"
+    ],
+    "places": [],
+    "funFact": "The capital of Greenland is Nuuk, a fascinating cultural hub in North America.",
+    "imageUrl": ""
+  },
+  "320": {
+    "name": "Guatemala",
+    "capital": "Guatemala City",
+    "currency": "Guatemalan quetzal (Q)",
+    "cities": [
+      "Guatemala City"
+    ],
+    "places": [],
+    "funFact": "The capital of Guatemala is Guatemala City, a fascinating cultural hub in Central America.",
+    "imageUrl": ""
+  },
+  "254": {
+    "name": "French Guiana",
+    "capital": "Cayenne",
+    "currency": "Euro (€)",
+    "cities": [
+      "Cayenne"
+    ],
+    "places": [],
+    "funFact": "The capital of French Guiana is Cayenne, a fascinating cultural hub in South America.",
+    "imageUrl": ""
+  },
+  "316": {
+    "name": "Guam",
+    "capital": "Hagåtña",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Hagåtña"
+    ],
+    "places": [],
+    "funFact": "The capital of Guam is Hagåtña, a fascinating cultural hub in Micronesia.",
+    "imageUrl": ""
+  },
+  "328": {
+    "name": "Guyana",
+    "capital": "Georgetown",
+    "currency": "Guyanese dollar ($)",
+    "cities": [
+      "Georgetown"
+    ],
+    "places": [],
+    "funFact": "The capital of Guyana is Georgetown, a fascinating cultural hub in South America.",
+    "imageUrl": ""
+  },
+  "344": {
+    "name": "Hong Kong",
+    "capital": "City of Victoria",
+    "currency": "Hong Kong dollar ($)",
+    "cities": [
+      "City of Victoria"
+    ],
+    "places": [],
+    "funFact": "The capital of Hong Kong is City of Victoria, a fascinating cultural hub in Eastern Asia.",
+    "imageUrl": ""
+  },
+  "334": {
+    "name": "Heard Island and McDonald Islands",
+    "capital": "Unknown",
+    "currency": "N/A",
+    "cities": [],
+    "places": [],
+    "funFact": "Located in , Heard Island and McDonald Islands is waiting to be explored.",
+    "imageUrl": ""
+  },
+  "340": {
+    "name": "Honduras",
+    "capital": "Tegucigalpa",
+    "currency": "Honduran lempira (L)",
+    "cities": [
+      "Tegucigalpa"
+    ],
+    "places": [],
+    "funFact": "The capital of Honduras is Tegucigalpa, a fascinating cultural hub in Central America.",
+    "imageUrl": ""
+  },
+  "191": {
+    "name": "Croatia",
+    "capital": "Zagreb",
+    "currency": "Euro (€)",
+    "cities": [
+      "Zagreb"
+    ],
+    "places": [
+      "Plitvice Lakes National Park"
+    ],
+    "funFact": "Croatia's spectacular Dalmatian Coast features over 1,200 islands surrounded by crystal-clear Adriatic waters.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/39/View_in_Plitvice_Lakes_National_Park.jpg"
+  },
+  "332": {
+    "name": "Haiti",
+    "capital": "Port-au-Prince",
+    "currency": "Haitian gourde (G)",
+    "cities": [
+      "Port-au-Prince"
+    ],
+    "places": [],
+    "funFact": "The capital of Haiti is Port-au-Prince, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "348": {
+    "name": "Hungary",
+    "capital": "Budapest",
+    "currency": "Hungarian forint (Ft)",
+    "cities": [
+      "Budapest"
+    ],
+    "places": [],
+    "funFact": "The capital of Hungary is Budapest, a fascinating cultural hub in Central Europe.",
+    "imageUrl": ""
+  },
+  "360": {
+    "name": "Indonesia",
+    "capital": "Jakarta",
+    "currency": "Indonesian rupiah (Rp)",
+    "cities": [
+      "Jakarta"
+    ],
+    "places": [
+      "Borobudur"
+    ],
+    "funFact": "Indonesia is the world's largest island country, comprising over 17,000 islands along the equator.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/25/Pradaksina.jpg"
+  },
+  "833": {
+    "name": "Isle of Man",
+    "capital": "Douglas",
+    "currency": "British pound (£)",
+    "cities": [
+      "Douglas"
+    ],
+    "places": [],
+    "funFact": "The capital of Isle of Man is Douglas, a fascinating cultural hub in Northern Europe.",
+    "imageUrl": ""
+  },
+  "356": {
+    "name": "India",
+    "capital": "New Delhi",
+    "currency": "Indian rupee (₹)",
+    "cities": [
+      "New Delhi"
+    ],
+    "places": [
+      "Taj Mahal"
+    ],
+    "funFact": "India is incredibly diverse, boasting 40 UNESCO World Heritage Sites and over 19,500 spoken languages or dialects.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Taj_Mahal_%28Edited%29.jpeg"
+  },
+  "086": {
+    "name": "British Indian Ocean Territory",
+    "capital": "Diego Garcia",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Diego Garcia"
+    ],
+    "places": [],
+    "funFact": "The capital of British Indian Ocean Territory is Diego Garcia, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "372": {
+    "name": "Ireland",
+    "capital": "Dublin",
+    "currency": "Euro (€)",
+    "cities": [
+      "Dublin"
+    ],
+    "places": [
+      "Cliffs of Moher"
+    ],
+    "funFact": "Ireland is entirely free of wild snakes, a phenomenon supposedly attributed to Saint Patrick.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Cliffs-Of-Moher-OBriens-From-South.JPG"
+  },
+  "364": {
+    "name": "Iran",
+    "capital": "Tehran",
+    "currency": "Iranian rial (﷼)",
+    "cities": [
+      "Tehran"
+    ],
+    "places": [],
+    "funFact": "The capital of Iran is Tehran, a fascinating cultural hub in Southern Asia.",
+    "imageUrl": ""
+  },
+  "368": {
+    "name": "Iraq",
+    "capital": "Baghdad",
+    "currency": "Iraqi dinar (ع.د)",
+    "cities": [
+      "Baghdad"
+    ],
+    "places": [],
+    "funFact": "The capital of Iraq is Baghdad, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "352": {
+    "name": "Iceland",
+    "capital": "Reykjavik",
+    "currency": "Icelandic króna (kr)",
+    "cities": [
+      "Reykjavik"
+    ],
+    "places": [
+      "Blue Lagoon (geothermal spa)"
+    ],
+    "funFact": "Because of its geothermal activity, Iceland technically generates 100% of its electricity from renewable resources.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/00/Blue_Lagoon_Main_Building.JPG"
+  },
+  "376": {
+    "name": "Israel",
+    "capital": "Jerusalem",
+    "currency": "Israeli new shekel (₪)",
+    "cities": [
+      "Jerusalem"
+    ],
+    "places": [],
+    "funFact": "The capital of Israel is Jerusalem, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "380": {
+    "name": "Italy",
+    "capital": "Rome",
+    "currency": "Euro (€)",
+    "cities": [
+      "Rome"
+    ],
+    "places": [
+      "Colosseum"
+    ],
+    "funFact": "Italy has more UNESCO World Heritage Sites than any other country, with 58 locations reflecting its rich history.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/de/Colosseo_2020.jpg"
+  },
+  "388": {
+    "name": "Jamaica",
+    "capital": "Kingston",
+    "currency": "Jamaican dollar ($)",
+    "cities": [
+      "Kingston"
+    ],
+    "places": [],
+    "funFact": "The capital of Jamaica is Kingston, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "832": {
+    "name": "Jersey",
+    "capital": "Saint Helier",
+    "currency": "British pound (£)",
+    "cities": [
+      "Saint Helier"
+    ],
+    "places": [],
+    "funFact": "The capital of Jersey is Saint Helier, a fascinating cultural hub in Northern Europe.",
+    "imageUrl": ""
+  },
+  "400": {
+    "name": "Jordan",
+    "capital": "Amman",
+    "currency": "Jordanian dinar (د.ا)",
+    "cities": [
+      "Amman"
+    ],
+    "places": [],
+    "funFact": "The capital of Jordan is Amman, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "392": {
+    "name": "Japan",
+    "capital": "Tokyo",
+    "currency": "Japanese yen (¥)",
+    "cities": [
+      "Tokyo"
+    ],
+    "places": [
+      "Mount Fuji"
+    ],
+    "funFact": "Japan blends ancient traditions with futuristic technology, featuring over 10,000 torii gates at the Fushimi Inari Shrine.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/View_of_Mount_Fuji_from_%C5%8Cwakudani_20211202.jpg"
+  },
+  "398": {
+    "name": "Kazakhstan",
+    "capital": "Astana",
+    "currency": "Kazakhstani tenge (₸)",
+    "cities": [
+      "Astana"
+    ],
+    "places": [],
+    "funFact": "The capital of Kazakhstan is Astana, a fascinating cultural hub in Central Asia.",
+    "imageUrl": ""
+  },
+  "404": {
+    "name": "Kenya",
+    "capital": "Nairobi",
+    "currency": "Kenyan shilling (Sh)",
+    "cities": [
+      "Nairobi"
+    ],
+    "places": [],
+    "funFact": "The capital of Kenya is Nairobi, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "417": {
+    "name": "Kyrgyzstan",
+    "capital": "Bishkek",
+    "currency": "Kyrgyzstani som (с)",
+    "cities": [
+      "Bishkek"
+    ],
+    "places": [],
+    "funFact": "The capital of Kyrgyzstan is Bishkek, a fascinating cultural hub in Central Asia.",
+    "imageUrl": ""
+  },
+  "116": {
+    "name": "Cambodia",
+    "capital": "Phnom Penh",
+    "currency": "Cambodian riel (៛)",
+    "cities": [
+      "Phnom Penh"
+    ],
+    "places": [],
+    "funFact": "The capital of Cambodia is Phnom Penh, a fascinating cultural hub in South-Eastern Asia.",
+    "imageUrl": ""
+  },
+  "296": {
+    "name": "Kiribati",
+    "capital": "South Tarawa",
+    "currency": "Australian dollar ($)",
+    "cities": [
+      "South Tarawa"
+    ],
+    "places": [],
+    "funFact": "The capital of Kiribati is South Tarawa, a fascinating cultural hub in Micronesia.",
+    "imageUrl": ""
+  },
+  "659": {
+    "name": "Saint Kitts and Nevis",
+    "capital": "Basseterre",
+    "currency": "Eastern Caribbean dollar ($)",
+    "cities": [
+      "Basseterre"
+    ],
+    "places": [],
+    "funFact": "The capital of Saint Kitts and Nevis is Basseterre, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "410": {
+    "name": "South Korea",
+    "capital": "Seoul",
+    "currency": "South Korean won (₩)",
+    "cities": [
+      "Seoul"
+    ],
+    "places": [
+      "Gyeongbokgung"
+    ],
+    "funFact": "South Korea boasts the world's fastest average internet connection speed and incredible high-tech infrastructure.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/63/%EA%B4%91%ED%99%94%EB%AC%B8_%EC%9B%94%EB%8C%80.jpg"
+  },
+  "414": {
+    "name": "Kuwait",
+    "capital": "Kuwait City",
+    "currency": "Kuwaiti dinar (د.ك)",
+    "cities": [
+      "Kuwait City"
+    ],
+    "places": [],
+    "funFact": "The capital of Kuwait is Kuwait City, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "418": {
+    "name": "Laos",
+    "capital": "Vientiane",
+    "currency": "Lao kip (₭)",
+    "cities": [
+      "Vientiane"
+    ],
+    "places": [],
+    "funFact": "The capital of Laos is Vientiane, a fascinating cultural hub in South-Eastern Asia.",
+    "imageUrl": ""
+  },
+  "422": {
+    "name": "Lebanon",
+    "capital": "Beirut",
+    "currency": "Lebanese pound (ل.ل)",
+    "cities": [
+      "Beirut"
+    ],
+    "places": [],
+    "funFact": "The capital of Lebanon is Beirut, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "430": {
+    "name": "Liberia",
+    "capital": "Monrovia",
+    "currency": "Liberian dollar ($)",
+    "cities": [
+      "Monrovia"
+    ],
+    "places": [],
+    "funFact": "The capital of Liberia is Monrovia, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "434": {
+    "name": "Libya",
+    "capital": "Tripoli",
+    "currency": "Libyan dinar (ل.د)",
+    "cities": [
+      "Tripoli"
+    ],
+    "places": [],
+    "funFact": "The capital of Libya is Tripoli, a fascinating cultural hub in Northern Africa.",
+    "imageUrl": ""
+  },
+  "662": {
+    "name": "Saint Lucia",
+    "capital": "Castries",
+    "currency": "Eastern Caribbean dollar ($)",
+    "cities": [
+      "Castries"
+    ],
+    "places": [],
+    "funFact": "The capital of Saint Lucia is Castries, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "438": {
+    "name": "Liechtenstein",
+    "capital": "Vaduz",
+    "currency": "Swiss franc (Fr)",
+    "cities": [
+      "Vaduz"
+    ],
+    "places": [],
+    "funFact": "The capital of Liechtenstein is Vaduz, a fascinating cultural hub in Western Europe.",
+    "imageUrl": ""
+  },
+  "144": {
+    "name": "Sri Lanka",
+    "capital": "Colombo",
+    "currency": "Sri Lankan rupee (Rs රු)",
+    "cities": [
+      "Colombo"
+    ],
+    "places": [],
+    "funFact": "The capital of Sri Lanka is Colombo, a fascinating cultural hub in Southern Asia.",
+    "imageUrl": ""
+  },
+  "426": {
+    "name": "Lesotho",
+    "capital": "Maseru",
+    "currency": "Lesotho loti (L)",
+    "cities": [
+      "Maseru"
+    ],
+    "places": [],
+    "funFact": "The capital of Lesotho is Maseru, a fascinating cultural hub in Southern Africa.",
+    "imageUrl": ""
+  },
+  "440": {
+    "name": "Lithuania",
+    "capital": "Vilnius",
+    "currency": "Euro (€)",
+    "cities": [
+      "Vilnius"
+    ],
+    "places": [],
+    "funFact": "The capital of Lithuania is Vilnius, a fascinating cultural hub in Northern Europe.",
+    "imageUrl": ""
+  },
+  "442": {
+    "name": "Luxembourg",
+    "capital": "Luxembourg",
+    "currency": "Euro (€)",
+    "cities": [
+      "Luxembourg"
+    ],
+    "places": [],
+    "funFact": "The capital of Luxembourg is Luxembourg, a fascinating cultural hub in Western Europe.",
+    "imageUrl": ""
+  },
+  "428": {
+    "name": "Latvia",
+    "capital": "Riga",
+    "currency": "Euro (€)",
+    "cities": [
+      "Riga"
+    ],
+    "places": [],
+    "funFact": "The capital of Latvia is Riga, a fascinating cultural hub in Northern Europe.",
+    "imageUrl": ""
+  },
+  "446": {
+    "name": "Macau",
+    "capital": "Unknown",
+    "currency": "Macanese pataca (P)",
+    "cities": [],
+    "places": [],
+    "funFact": "Located in Eastern Asia, Macau is waiting to be explored.",
+    "imageUrl": ""
+  },
+  "663": {
+    "name": "Saint Martin",
+    "capital": "Marigot",
+    "currency": "Euro (€)",
+    "cities": [
+      "Marigot"
+    ],
+    "places": [],
+    "funFact": "The capital of Saint Martin is Marigot, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "504": {
+    "name": "Morocco",
+    "capital": "Rabat",
+    "currency": "Moroccan dirham (د.م.)",
+    "cities": [
+      "Rabat"
+    ],
+    "places": [
+      "Chefchaouen"
+    ],
+    "funFact": "Morocco is famous for Chefchaouen, the 'Blue Pearl' city where almost all buildings are painted entirely in shades of blue.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/25/Chefchaouen_%2852189357475%29.jpg"
+  },
+  "492": {
+    "name": "Monaco",
+    "capital": "Monaco",
+    "currency": "Euro (€)",
+    "cities": [
+      "Monaco"
+    ],
+    "places": [],
+    "funFact": "The capital of Monaco is Monaco, a fascinating cultural hub in Western Europe.",
+    "imageUrl": ""
+  },
+  "498": {
+    "name": "Moldova",
+    "capital": "Chișinău",
+    "currency": "Moldovan leu (L)",
+    "cities": [
+      "Chișinău"
+    ],
+    "places": [],
+    "funFact": "The capital of Moldova is Chișinău, a fascinating cultural hub in Eastern Europe.",
+    "imageUrl": ""
+  },
+  "450": {
+    "name": "Madagascar",
+    "capital": "Antananarivo",
+    "currency": "Malagasy ariary (Ar)",
+    "cities": [
+      "Antananarivo"
+    ],
+    "places": [],
+    "funFact": "The capital of Madagascar is Antananarivo, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "462": {
+    "name": "Maldives",
+    "capital": "Malé",
+    "currency": "Maldivian rufiyaa (.ރ)",
+    "cities": [
+      "Malé"
+    ],
+    "places": [],
+    "funFact": "The capital of Maldives is Malé, a fascinating cultural hub in Southern Asia.",
+    "imageUrl": ""
+  },
+  "484": {
+    "name": "Mexico",
+    "capital": "Mexico City",
+    "currency": "Mexican peso ($)",
+    "cities": [
+      "Mexico City"
+    ],
+    "places": [
+      "Chichen Itza"
+    ],
+    "funFact": "Mexico City is built over the ruins of a great Aztec city, Tenochtitlán, and is slowly sinking.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/51/Chichen_Itza_3.jpg"
+  },
+  "584": {
+    "name": "Marshall Islands",
+    "capital": "Majuro",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Majuro"
+    ],
+    "places": [],
+    "funFact": "The capital of Marshall Islands is Majuro, a fascinating cultural hub in Micronesia.",
+    "imageUrl": ""
+  },
+  "807": {
+    "name": "North Macedonia",
+    "capital": "Skopje",
+    "currency": "denar (den)",
+    "cities": [
+      "Skopje"
+    ],
+    "places": [],
+    "funFact": "The capital of North Macedonia is Skopje, a fascinating cultural hub in Southeast Europe.",
+    "imageUrl": ""
+  },
+  "466": {
+    "name": "Mali",
+    "capital": "Bamako",
+    "currency": "West African CFA franc (Fr)",
+    "cities": [
+      "Bamako"
+    ],
+    "places": [],
+    "funFact": "The capital of Mali is Bamako, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "470": {
+    "name": "Malta",
+    "capital": "Valletta",
+    "currency": "Euro (€)",
+    "cities": [
+      "Valletta"
+    ],
+    "places": [],
+    "funFact": "The capital of Malta is Valletta, a fascinating cultural hub in Southern Europe.",
+    "imageUrl": ""
+  },
+  "104": {
+    "name": "Myanmar",
+    "capital": "Naypyidaw",
+    "currency": "Burmese kyat (Ks)",
+    "cities": [
+      "Naypyidaw"
+    ],
+    "places": [],
+    "funFact": "The capital of Myanmar is Naypyidaw, a fascinating cultural hub in South-Eastern Asia.",
+    "imageUrl": ""
+  },
+  "499": {
+    "name": "Montenegro",
+    "capital": "Podgorica",
+    "currency": "Euro (€)",
+    "cities": [
+      "Podgorica"
+    ],
+    "places": [],
+    "funFact": "The capital of Montenegro is Podgorica, a fascinating cultural hub in Southeast Europe.",
+    "imageUrl": ""
+  },
+  "496": {
+    "name": "Mongolia",
+    "capital": "Ulan Bator",
+    "currency": "Mongolian tögrög (₮)",
+    "cities": [
+      "Ulan Bator"
+    ],
+    "places": [],
+    "funFact": "The capital of Mongolia is Ulan Bator, a fascinating cultural hub in Eastern Asia.",
+    "imageUrl": ""
+  },
+  "580": {
+    "name": "Northern Mariana Islands",
+    "capital": "Saipan",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Saipan"
+    ],
+    "places": [],
+    "funFact": "The capital of Northern Mariana Islands is Saipan, a fascinating cultural hub in Micronesia.",
+    "imageUrl": ""
+  },
+  "508": {
+    "name": "Mozambique",
+    "capital": "Maputo",
+    "currency": "Mozambican metical (MT)",
+    "cities": [
+      "Maputo"
+    ],
+    "places": [],
+    "funFact": "The capital of Mozambique is Maputo, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "478": {
+    "name": "Mauritania",
+    "capital": "Nouakchott",
+    "currency": "Mauritanian ouguiya (UM)",
+    "cities": [
+      "Nouakchott"
+    ],
+    "places": [],
+    "funFact": "The capital of Mauritania is Nouakchott, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "500": {
+    "name": "Montserrat",
+    "capital": "Plymouth",
+    "currency": "Eastern Caribbean dollar ($)",
+    "cities": [
+      "Plymouth"
+    ],
+    "places": [],
+    "funFact": "The capital of Montserrat is Plymouth, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "474": {
+    "name": "Martinique",
+    "capital": "Fort-de-France",
+    "currency": "Euro (€)",
+    "cities": [
+      "Fort-de-France"
+    ],
+    "places": [],
+    "funFact": "The capital of Martinique is Fort-de-France, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "480": {
+    "name": "Mauritius",
+    "capital": "Port Louis",
+    "currency": "Mauritian rupee (₨)",
+    "cities": [
+      "Port Louis"
+    ],
+    "places": [],
+    "funFact": "The capital of Mauritius is Port Louis, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "454": {
+    "name": "Malawi",
+    "capital": "Lilongwe",
+    "currency": "Malawian kwacha (MK)",
+    "cities": [
+      "Lilongwe"
+    ],
+    "places": [],
+    "funFact": "The capital of Malawi is Lilongwe, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "458": {
+    "name": "Malaysia",
+    "capital": "Kuala Lumpur",
+    "currency": "Malaysian ringgit (RM)",
+    "cities": [
+      "Kuala Lumpur"
+    ],
+    "places": [
+      "Petronas Towers"
+    ],
+    "funFact": "Malaysia's Gunung Mulu National Park features an underground cave chamber large enough to fit 40 Boeing 747s.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Petronas_Towers_Logo.svg"
+  },
+  "175": {
+    "name": "Mayotte",
+    "capital": "Mamoudzou",
+    "currency": "Euro (€)",
+    "cities": [
+      "Mamoudzou"
+    ],
+    "places": [],
+    "funFact": "The capital of Mayotte is Mamoudzou, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "516": {
+    "name": "Namibia",
+    "capital": "Windhoek",
+    "currency": "Namibian dollar ($)",
+    "cities": [
+      "Windhoek"
+    ],
+    "places": [],
+    "funFact": "The capital of Namibia is Windhoek, a fascinating cultural hub in Southern Africa.",
+    "imageUrl": ""
+  },
+  "540": {
+    "name": "New Caledonia",
+    "capital": "Nouméa",
+    "currency": "CFP franc (₣)",
+    "cities": [
+      "Nouméa"
+    ],
+    "places": [],
+    "funFact": "The capital of New Caledonia is Nouméa, a fascinating cultural hub in Melanesia.",
+    "imageUrl": ""
+  },
+  "562": {
+    "name": "Niger",
+    "capital": "Niamey",
+    "currency": "West African CFA franc (Fr)",
+    "cities": [
+      "Niamey"
+    ],
+    "places": [],
+    "funFact": "The capital of Niger is Niamey, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "574": {
+    "name": "Norfolk Island",
+    "capital": "Kingston",
+    "currency": "Australian dollar ($)",
+    "cities": [
+      "Kingston"
+    ],
+    "places": [],
+    "funFact": "The capital of Norfolk Island is Kingston, a fascinating cultural hub in Australia and New Zealand.",
+    "imageUrl": ""
+  },
+  "566": {
+    "name": "Nigeria",
+    "capital": "Abuja",
+    "currency": "Nigerian naira (₦)",
+    "cities": [
+      "Abuja"
+    ],
+    "places": [],
+    "funFact": "The capital of Nigeria is Abuja, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "558": {
+    "name": "Nicaragua",
+    "capital": "Managua",
+    "currency": "Nicaraguan córdoba (C$)",
+    "cities": [
+      "Managua"
+    ],
+    "places": [],
+    "funFact": "The capital of Nicaragua is Managua, a fascinating cultural hub in Central America.",
+    "imageUrl": ""
+  },
+  "570": {
+    "name": "Niue",
+    "capital": "Alofi",
+    "currency": "New Zealand dollar ($)",
+    "cities": [
+      "Alofi"
+    ],
+    "places": [],
+    "funFact": "The capital of Niue is Alofi, a fascinating cultural hub in Polynesia.",
+    "imageUrl": ""
+  },
+  "528": {
+    "name": "Netherlands",
+    "capital": "Amsterdam",
+    "currency": "Euro (€)",
+    "cities": [
+      "Amsterdam"
+    ],
+    "places": [
+      "Keukenhof"
+    ],
+    "funFact": "There are more bicycles in the Netherlands than residents, making it the most bike-friendly nation globally.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/39/Keukenhof_340.JPG"
+  },
+  "578": {
+    "name": "Norway",
+    "capital": "Oslo",
+    "currency": "Norwegian krone (kr)",
+    "cities": [
+      "Oslo"
+    ],
+    "places": [
+      "Geirangerfjord"
+    ],
+    "funFact": "Norway's Laerdal Tunnel is the world's longest road tunnel, stretching for 15 miles with colorful lighting inside.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/46/Geirangerfjord_.jpg"
+  },
+  "524": {
+    "name": "Nepal",
+    "capital": "Kathmandu",
+    "currency": "Nepalese rupee (₨)",
+    "cities": [
+      "Kathmandu"
+    ],
+    "places": [],
+    "funFact": "The capital of Nepal is Kathmandu, a fascinating cultural hub in Southern Asia.",
+    "imageUrl": ""
+  },
+  "520": {
+    "name": "Nauru",
+    "capital": "Yaren",
+    "currency": "Australian dollar ($)",
+    "cities": [
+      "Yaren"
+    ],
+    "places": [],
+    "funFact": "The capital of Nauru is Yaren, a fascinating cultural hub in Micronesia.",
+    "imageUrl": ""
+  },
+  "554": {
+    "name": "New Zealand",
+    "capital": "Wellington",
+    "currency": "New Zealand dollar ($)",
+    "cities": [
+      "Wellington"
+    ],
+    "places": [
+      "Milford Sound"
+    ],
+    "funFact": "New Zealand was the last major landmass to be settled by humans, and there are about 9 sheep for every person there.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Milford_Sound_%28New_Zealand%29.JPG"
+  },
+  "512": {
+    "name": "Oman",
+    "capital": "Muscat",
+    "currency": "Omani rial (ر.ع.)",
+    "cities": [
+      "Muscat"
+    ],
+    "places": [],
+    "funFact": "The capital of Oman is Muscat, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "586": {
+    "name": "Pakistan",
+    "capital": "Islamabad",
+    "currency": "Pakistani rupee (₨)",
+    "cities": [
+      "Islamabad"
+    ],
+    "places": [],
+    "funFact": "The capital of Pakistan is Islamabad, a fascinating cultural hub in Southern Asia.",
+    "imageUrl": ""
+  },
+  "591": {
+    "name": "Panama",
+    "capital": "Panama City",
+    "currency": "Panamanian balboa (B/.)",
+    "cities": [
+      "Panama City"
+    ],
+    "places": [],
+    "funFact": "The capital of Panama is Panama City, a fascinating cultural hub in Central America.",
+    "imageUrl": ""
+  },
+  "612": {
+    "name": "Pitcairn Islands",
+    "capital": "Adamstown",
+    "currency": "New Zealand dollar ($)",
+    "cities": [
+      "Adamstown"
+    ],
+    "places": [],
+    "funFact": "The capital of Pitcairn Islands is Adamstown, a fascinating cultural hub in Polynesia.",
+    "imageUrl": ""
+  },
+  "604": {
+    "name": "Peru",
+    "capital": "Lima",
+    "currency": "Peruvian sol (S/.)",
+    "cities": [
+      "Lima"
+    ],
+    "places": [
+      "Machu Picchu"
+    ],
+    "funFact": "Peru's mysterious Nazca Lines are enormous geoglyphs carved into the desert that are best viewed from the air.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Machu_Picchu%2C_2023_%28012%29.jpg"
+  },
+  "608": {
+    "name": "Philippines",
+    "capital": "Manila",
+    "currency": "Philippine peso (₱)",
+    "cities": [
+      "Manila"
+    ],
+    "places": [
+      "Chocolate Hills"
+    ],
+    "funFact": "The Philippines is a breathtaking archipelago comprising 7,641 individual islands.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/af/Chocolate_Hills_Bohol.JPG"
+  },
+  "585": {
+    "name": "Palau",
+    "capital": "Ngerulmud",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Ngerulmud"
+    ],
+    "places": [],
+    "funFact": "The capital of Palau is Ngerulmud, a fascinating cultural hub in Micronesia.",
+    "imageUrl": ""
+  },
+  "598": {
+    "name": "Papua New Guinea",
+    "capital": "Port Moresby",
+    "currency": "Papua New Guinean kina (K)",
+    "cities": [
+      "Port Moresby"
+    ],
+    "places": [],
+    "funFact": "The capital of Papua New Guinea is Port Moresby, a fascinating cultural hub in Melanesia.",
+    "imageUrl": ""
+  },
+  "616": {
+    "name": "Poland",
+    "capital": "Warsaw",
+    "currency": "Polish złoty (zł)",
+    "cities": [
+      "Warsaw"
+    ],
+    "places": [],
+    "funFact": "The capital of Poland is Warsaw, a fascinating cultural hub in Central Europe.",
+    "imageUrl": ""
+  },
+  "630": {
+    "name": "Puerto Rico",
+    "capital": "San Juan",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "San Juan"
+    ],
+    "places": [],
+    "funFact": "The capital of Puerto Rico is San Juan, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "408": {
+    "name": "North Korea",
+    "capital": "Pyongyang",
+    "currency": "North Korean won (₩)",
+    "cities": [
+      "Pyongyang"
+    ],
+    "places": [],
+    "funFact": "The capital of North Korea is Pyongyang, a fascinating cultural hub in Eastern Asia.",
+    "imageUrl": ""
+  },
+  "620": {
+    "name": "Portugal",
+    "capital": "Lisbon",
+    "currency": "Euro (€)",
+    "cities": [
+      "Lisbon"
+    ],
+    "places": [
+      "Belém Tower"
+    ],
+    "funFact": "Portugal is the world's largest producer of cork, responsible for over 50% of the global supply.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/65/Torre_Bel%C3%A9m_April_2009-4a.jpg"
+  },
+  "600": {
+    "name": "Paraguay",
+    "capital": "Asunción",
+    "currency": "Paraguayan guaraní (₲)",
+    "cities": [
+      "Asunción"
+    ],
+    "places": [],
+    "funFact": "The capital of Paraguay is Asunción, a fascinating cultural hub in South America.",
+    "imageUrl": ""
+  },
+  "275": {
+    "name": "Palestine",
+    "capital": "Ramallah",
+    "currency": "Egyptian pound (E£)",
+    "cities": [
+      "Ramallah"
+    ],
+    "places": [],
+    "funFact": "The capital of Palestine is Ramallah, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "258": {
+    "name": "French Polynesia",
+    "capital": "Papeetē",
+    "currency": "CFP franc (₣)",
+    "cities": [
+      "Papeetē"
+    ],
+    "places": [],
+    "funFact": "The capital of French Polynesia is Papeetē, a fascinating cultural hub in Polynesia.",
+    "imageUrl": ""
+  },
+  "634": {
+    "name": "Qatar",
+    "capital": "Doha",
+    "currency": "Qatari riyal (ر.ق)",
+    "cities": [
+      "Doha"
+    ],
+    "places": [],
+    "funFact": "The capital of Qatar is Doha, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "638": {
+    "name": "Réunion",
+    "capital": "Saint-Denis",
+    "currency": "Euro (€)",
+    "cities": [
+      "Saint-Denis"
+    ],
+    "places": [],
+    "funFact": "The capital of Réunion is Saint-Denis, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "642": {
+    "name": "Romania",
+    "capital": "Bucharest",
+    "currency": "Romanian leu (lei)",
+    "cities": [
+      "Bucharest"
+    ],
+    "places": [],
+    "funFact": "The capital of Romania is Bucharest, a fascinating cultural hub in Southeast Europe.",
+    "imageUrl": ""
+  },
+  "643": {
+    "name": "Russia",
+    "capital": "Moscow",
+    "currency": "Russian ruble (₽)",
+    "cities": [
+      "Moscow"
+    ],
+    "places": [],
+    "funFact": "The capital of Russia is Moscow, a fascinating cultural hub in Eastern Europe.",
+    "imageUrl": ""
+  },
+  "646": {
+    "name": "Rwanda",
+    "capital": "Kigali",
+    "currency": "Rwandan franc (Fr)",
+    "cities": [
+      "Kigali"
+    ],
+    "places": [],
+    "funFact": "The capital of Rwanda is Kigali, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "682": {
+    "name": "Saudi Arabia",
+    "capital": "Riyadh",
+    "currency": "Saudi riyal (ر.س)",
+    "cities": [
+      "Riyadh"
+    ],
+    "places": [],
+    "funFact": "The capital of Saudi Arabia is Riyadh, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "729": {
+    "name": "Sudan",
+    "capital": "Khartoum",
+    "currency": "Sudanese pound (PT)",
+    "cities": [
+      "Khartoum"
+    ],
+    "places": [],
+    "funFact": "The capital of Sudan is Khartoum, a fascinating cultural hub in Northern Africa.",
+    "imageUrl": ""
+  },
+  "686": {
+    "name": "Senegal",
+    "capital": "Dakar",
+    "currency": "West African CFA franc (Fr)",
+    "cities": [
+      "Dakar"
+    ],
+    "places": [],
+    "funFact": "The capital of Senegal is Dakar, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "702": {
+    "name": "Singapore",
+    "capital": "Singapore",
+    "currency": "Singapore dollar ($)",
+    "cities": [
+      "Singapore"
+    ],
+    "places": [
+      "Marina Bay Sands"
+    ],
+    "funFact": "Singapore is one of only three surviving city-states in the world, alongside Monaco and Vatican City.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Marina_Bay_Sands_%28I%29.jpg"
+  },
+  "239": {
+    "name": "South Georgia",
+    "capital": "King Edward Point",
+    "currency": "Saint Helena pound (£)",
+    "cities": [
+      "King Edward Point"
+    ],
+    "places": [],
+    "funFact": "The capital of South Georgia is King Edward Point, a fascinating cultural hub in .",
+    "imageUrl": ""
+  },
+  "744": {
+    "name": "Svalbard and Jan Mayen",
+    "capital": "Longyearbyen",
+    "currency": "krone (kr)",
+    "cities": [
+      "Longyearbyen"
+    ],
+    "places": [],
+    "funFact": "The capital of Svalbard and Jan Mayen is Longyearbyen, a fascinating cultural hub in Northern Europe.",
+    "imageUrl": ""
+  },
+  "090": {
+    "name": "Solomon Islands",
+    "capital": "Honiara",
+    "currency": "Solomon Islands dollar ($)",
+    "cities": [
+      "Honiara"
+    ],
+    "places": [],
+    "funFact": "The capital of Solomon Islands is Honiara, a fascinating cultural hub in Melanesia.",
+    "imageUrl": ""
+  },
+  "694": {
+    "name": "Sierra Leone",
+    "capital": "Freetown",
+    "currency": "Sierra Leonean leone (Le)",
+    "cities": [
+      "Freetown"
+    ],
+    "places": [],
+    "funFact": "The capital of Sierra Leone is Freetown, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "222": {
+    "name": "El Salvador",
+    "capital": "San Salvador",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "San Salvador"
+    ],
+    "places": [],
+    "funFact": "The capital of El Salvador is San Salvador, a fascinating cultural hub in Central America.",
+    "imageUrl": ""
+  },
+  "674": {
+    "name": "San Marino",
+    "capital": "City of San Marino",
+    "currency": "Euro (€)",
+    "cities": [
+      "City of San Marino"
+    ],
+    "places": [],
+    "funFact": "The capital of San Marino is City of San Marino, a fascinating cultural hub in Southern Europe.",
+    "imageUrl": ""
+  },
+  "706": {
+    "name": "Somalia",
+    "capital": "Mogadishu",
+    "currency": "Somali shilling (Sh)",
+    "cities": [
+      "Mogadishu"
+    ],
+    "places": [],
+    "funFact": "The capital of Somalia is Mogadishu, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "666": {
+    "name": "Saint Pierre and Miquelon",
+    "capital": "Saint-Pierre",
+    "currency": "Euro (€)",
+    "cities": [
+      "Saint-Pierre"
+    ],
+    "places": [],
+    "funFact": "The capital of Saint Pierre and Miquelon is Saint-Pierre, a fascinating cultural hub in North America.",
+    "imageUrl": ""
+  },
+  "688": {
+    "name": "Serbia",
+    "capital": "Belgrade",
+    "currency": "Serbian dinar (дин.)",
+    "cities": [
+      "Belgrade"
+    ],
+    "places": [],
+    "funFact": "The capital of Serbia is Belgrade, a fascinating cultural hub in Southeast Europe.",
+    "imageUrl": ""
+  },
+  "728": {
+    "name": "South Sudan",
+    "capital": "Juba",
+    "currency": "South Sudanese pound (£)",
+    "cities": [
+      "Juba"
+    ],
+    "places": [],
+    "funFact": "The capital of South Sudan is Juba, a fascinating cultural hub in Middle Africa.",
+    "imageUrl": ""
+  },
+  "678": {
+    "name": "São Tomé and Príncipe",
+    "capital": "São Tomé",
+    "currency": "São Tomé and Príncipe dobra (Db)",
+    "cities": [
+      "São Tomé"
+    ],
+    "places": [],
+    "funFact": "The capital of São Tomé and Príncipe is São Tomé, a fascinating cultural hub in Middle Africa.",
+    "imageUrl": ""
+  },
+  "740": {
+    "name": "Suriname",
+    "capital": "Paramaribo",
+    "currency": "Surinamese dollar ($)",
+    "cities": [
+      "Paramaribo"
+    ],
+    "places": [],
+    "funFact": "The capital of Suriname is Paramaribo, a fascinating cultural hub in South America.",
+    "imageUrl": ""
+  },
+  "703": {
+    "name": "Slovakia",
+    "capital": "Bratislava",
+    "currency": "Euro (€)",
+    "cities": [
+      "Bratislava"
+    ],
+    "places": [],
+    "funFact": "The capital of Slovakia is Bratislava, a fascinating cultural hub in Central Europe.",
+    "imageUrl": ""
+  },
+  "705": {
+    "name": "Slovenia",
+    "capital": "Ljubljana",
+    "currency": "Euro (€)",
+    "cities": [
+      "Ljubljana"
+    ],
+    "places": [],
+    "funFact": "The capital of Slovenia is Ljubljana, a fascinating cultural hub in Central Europe.",
+    "imageUrl": ""
+  },
+  "752": {
+    "name": "Sweden",
+    "capital": "Stockholm",
+    "currency": "Swedish krona (kr)",
+    "cities": [
+      "Stockholm"
+    ],
+    "places": [
+      "Vasa Museum"
+    ],
+    "funFact": "Sweden's Icehotel in Jukkasjärvi is the world's first hotel made entirely of ice, rebuilt every single winter.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/43/Stockholm_Vasa_Museum_and_Nordic_Museum_09.jpg"
+  },
+  "748": {
+    "name": "Eswatini",
+    "capital": "Lobamba",
+    "currency": "Swazi lilangeni (L)",
+    "cities": [
+      "Lobamba"
+    ],
+    "places": [],
+    "funFact": "The capital of Eswatini is Lobamba, a fascinating cultural hub in Southern Africa.",
+    "imageUrl": ""
+  },
+  "534": {
+    "name": "Sint Maarten",
+    "capital": "Philipsburg",
+    "currency": "Netherlands Antillean guilder (ƒ)",
+    "cities": [
+      "Philipsburg"
+    ],
+    "places": [],
+    "funFact": "The capital of Sint Maarten is Philipsburg, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "690": {
+    "name": "Seychelles",
+    "capital": "Victoria",
+    "currency": "Seychellois rupee (₨)",
+    "cities": [
+      "Victoria"
+    ],
+    "places": [],
+    "funFact": "The capital of Seychelles is Victoria, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "760": {
+    "name": "Syria",
+    "capital": "Damascus",
+    "currency": "Syrian pound (£)",
+    "cities": [
+      "Damascus"
+    ],
+    "places": [],
+    "funFact": "The capital of Syria is Damascus, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "796": {
+    "name": "Turks and Caicos Islands",
+    "capital": "Cockburn Town",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Cockburn Town"
+    ],
+    "places": [],
+    "funFact": "The capital of Turks and Caicos Islands is Cockburn Town, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "148": {
+    "name": "Chad",
+    "capital": "N'Djamena",
+    "currency": "Central African CFA franc (Fr)",
+    "cities": [
+      "N'Djamena"
+    ],
+    "places": [],
+    "funFact": "The capital of Chad is N'Djamena, a fascinating cultural hub in Middle Africa.",
+    "imageUrl": ""
+  },
+  "768": {
+    "name": "Togo",
+    "capital": "Lomé",
+    "currency": "West African CFA franc (Fr)",
+    "cities": [
+      "Lomé"
+    ],
+    "places": [],
+    "funFact": "The capital of Togo is Lomé, a fascinating cultural hub in Western Africa.",
+    "imageUrl": ""
+  },
+  "764": {
+    "name": "Thailand",
+    "capital": "Bangkok",
+    "currency": "Thai baht (฿)",
+    "cities": [
+      "Bangkok"
+    ],
+    "places": [
+      "Grand Palace"
+    ],
+    "funFact": "Bangkok is the world's most visited city, famous for its ornate shrines and vibrant street life.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/0005574_-_Wat_Phra_Kaew_006.jpg"
+  },
+  "762": {
+    "name": "Tajikistan",
+    "capital": "Dushanbe",
+    "currency": "Tajikistani somoni (ЅМ)",
+    "cities": [
+      "Dushanbe"
+    ],
+    "places": [],
+    "funFact": "The capital of Tajikistan is Dushanbe, a fascinating cultural hub in Central Asia.",
+    "imageUrl": ""
+  },
+  "772": {
+    "name": "Tokelau",
+    "capital": "Fakaofo",
+    "currency": "New Zealand dollar ($)",
+    "cities": [
+      "Fakaofo"
+    ],
+    "places": [],
+    "funFact": "The capital of Tokelau is Fakaofo, a fascinating cultural hub in Polynesia.",
+    "imageUrl": ""
+  },
+  "795": {
+    "name": "Turkmenistan",
+    "capital": "Ashgabat",
+    "currency": "Turkmenistan manat (m)",
+    "cities": [
+      "Ashgabat"
+    ],
+    "places": [],
+    "funFact": "The capital of Turkmenistan is Ashgabat, a fascinating cultural hub in Central Asia.",
+    "imageUrl": ""
+  },
+  "626": {
+    "name": "Timor-Leste",
+    "capital": "Dili",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Dili"
+    ],
+    "places": [],
+    "funFact": "The capital of Timor-Leste is Dili, a fascinating cultural hub in South-Eastern Asia.",
+    "imageUrl": ""
+  },
+  "776": {
+    "name": "Tonga",
+    "capital": "Nuku'alofa",
+    "currency": "Tongan paʻanga (T$)",
+    "cities": [
+      "Nuku'alofa"
+    ],
+    "places": [],
+    "funFact": "The capital of Tonga is Nuku'alofa, a fascinating cultural hub in Polynesia.",
+    "imageUrl": ""
+  },
+  "780": {
+    "name": "Trinidad and Tobago",
+    "capital": "Port of Spain",
+    "currency": "Trinidad and Tobago dollar ($)",
+    "cities": [
+      "Port of Spain"
+    ],
+    "places": [],
+    "funFact": "The capital of Trinidad and Tobago is Port of Spain, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "788": {
+    "name": "Tunisia",
+    "capital": "Tunis",
+    "currency": "Tunisian dinar (د.ت)",
+    "cities": [
+      "Tunis"
+    ],
+    "places": [],
+    "funFact": "The capital of Tunisia is Tunis, a fascinating cultural hub in Northern Africa.",
+    "imageUrl": ""
+  },
+  "792": {
+    "name": "Türkiye",
+    "capital": "Ankara",
+    "currency": "Turkish lira (₺)",
+    "cities": [
+      "Ankara"
+    ],
+    "places": [
+      "Hagia Sophia"
+    ],
+    "funFact": "Istanbul is the only city in the world that stretches across two continents: Europe and Asia.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Hagia_Sophia_%28228968325%29.jpeg"
+  },
+  "798": {
+    "name": "Tuvalu",
+    "capital": "Funafuti",
+    "currency": "Australian dollar ($)",
+    "cities": [
+      "Funafuti"
+    ],
+    "places": [],
+    "funFact": "The capital of Tuvalu is Funafuti, a fascinating cultural hub in Polynesia.",
+    "imageUrl": ""
+  },
+  "158": {
+    "name": "Taiwan",
+    "capital": "Taipei",
+    "currency": "New Taiwan dollar ($)",
+    "cities": [
+      "Taipei"
+    ],
+    "places": [],
+    "funFact": "The capital of Taiwan is Taipei, a fascinating cultural hub in Eastern Asia.",
+    "imageUrl": ""
+  },
+  "834": {
+    "name": "Tanzania",
+    "capital": "Dodoma",
+    "currency": "Tanzanian shilling (Sh)",
+    "cities": [
+      "Dodoma"
+    ],
+    "places": [],
+    "funFact": "The capital of Tanzania is Dodoma, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "800": {
+    "name": "Uganda",
+    "capital": "Kampala",
+    "currency": "Ugandan shilling (Sh)",
+    "cities": [
+      "Kampala"
+    ],
+    "places": [],
+    "funFact": "The capital of Uganda is Kampala, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "804": {
+    "name": "Ukraine",
+    "capital": "Kyiv",
+    "currency": "Ukrainian hryvnia (₴)",
+    "cities": [
+      "Kyiv"
+    ],
+    "places": [],
+    "funFact": "The capital of Ukraine is Kyiv, a fascinating cultural hub in Eastern Europe.",
+    "imageUrl": ""
+  },
+  "581": {
+    "name": "United States Minor Outlying Islands",
+    "capital": "Unknown",
+    "currency": "United States dollar ($)",
+    "cities": [],
+    "places": [],
+    "funFact": "Located in North America, United States Minor Outlying Islands is waiting to be explored.",
+    "imageUrl": ""
+  },
+  "858": {
+    "name": "Uruguay",
+    "capital": "Montevideo",
+    "currency": "Uruguayan peso ($)",
+    "cities": [
+      "Montevideo"
+    ],
+    "places": [],
+    "funFact": "The capital of Uruguay is Montevideo, a fascinating cultural hub in South America.",
+    "imageUrl": ""
+  },
+  "840": {
+    "name": "United States",
+    "capital": "Washington D.C.",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Washington D.C."
+    ],
+    "places": [
+      "Statue of Liberty"
+    ],
+    "funFact": "The United States is home to the world's first national park, Yellowstone, established in 1872.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/89/Front_view_of_Statue_of_Liberty_%28cropped%29.jpg"
+  },
+  "860": {
+    "name": "Uzbekistan",
+    "capital": "Tashkent",
+    "currency": "Uzbekistani soʻm (so'm)",
+    "cities": [
+      "Tashkent"
+    ],
+    "places": [],
+    "funFact": "The capital of Uzbekistan is Tashkent, a fascinating cultural hub in Central Asia.",
+    "imageUrl": ""
+  },
+  "336": {
+    "name": "Vatican City",
+    "capital": "Vatican City",
+    "currency": "Euro (€)",
+    "cities": [
+      "Vatican City"
+    ],
+    "places": [],
+    "funFact": "The capital of Vatican City is Vatican City, a fascinating cultural hub in Southern Europe.",
+    "imageUrl": ""
+  },
+  "670": {
+    "name": "Saint Vincent and the Grenadines",
+    "capital": "Kingstown",
+    "currency": "Eastern Caribbean dollar ($)",
+    "cities": [
+      "Kingstown"
+    ],
+    "places": [],
+    "funFact": "The capital of Saint Vincent and the Grenadines is Kingstown, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "862": {
+    "name": "Venezuela",
+    "capital": "Caracas",
+    "currency": "Venezuelan bolívar soberano (Bs.S.)",
+    "cities": [
+      "Caracas"
+    ],
+    "places": [],
+    "funFact": "The capital of Venezuela is Caracas, a fascinating cultural hub in South America.",
+    "imageUrl": ""
+  },
+  "092": {
+    "name": "British Virgin Islands",
+    "capital": "Road Town",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Road Town"
+    ],
+    "places": [],
+    "funFact": "The capital of British Virgin Islands is Road Town, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "850": {
+    "name": "United States Virgin Islands",
+    "capital": "Charlotte Amalie",
+    "currency": "United States dollar ($)",
+    "cities": [
+      "Charlotte Amalie"
+    ],
+    "places": [],
+    "funFact": "The capital of United States Virgin Islands is Charlotte Amalie, a fascinating cultural hub in Caribbean.",
+    "imageUrl": ""
+  },
+  "704": {
+    "name": "Vietnam",
+    "capital": "Hanoi",
+    "currency": "Vietnamese đồng (₫)",
+    "cities": [
+      "Hanoi"
+    ],
+    "places": [
+      "Ha Long Bay"
+    ],
+    "funFact": "Vietnam is home to Sơn Đoòng Cave, the largest natural cave in the world, which has its own localized weather system.",
+    "imageUrl": ""
+  },
+  "548": {
+    "name": "Vanuatu",
+    "capital": "Port Vila",
+    "currency": "Vanuatu vatu (Vt)",
+    "cities": [
+      "Port Vila"
+    ],
+    "places": [],
+    "funFact": "The capital of Vanuatu is Port Vila, a fascinating cultural hub in Melanesia.",
+    "imageUrl": ""
+  },
+  "876": {
+    "name": "Wallis and Futuna",
+    "capital": "Mata-Utu",
+    "currency": "CFP franc (₣)",
+    "cities": [
+      "Mata-Utu"
+    ],
+    "places": [],
+    "funFact": "The capital of Wallis and Futuna is Mata-Utu, a fascinating cultural hub in Polynesia.",
+    "imageUrl": ""
+  },
+  "882": {
+    "name": "Samoa",
+    "capital": "Apia",
+    "currency": "Samoan tālā (T)",
+    "cities": [
+      "Apia"
+    ],
+    "places": [],
+    "funFact": "The capital of Samoa is Apia, a fascinating cultural hub in Polynesia.",
+    "imageUrl": ""
+  },
+  "887": {
+    "name": "Yemen",
+    "capital": "Sana'a",
+    "currency": "Yemeni rial (﷼)",
+    "cities": [
+      "Sana'a"
+    ],
+    "places": [],
+    "funFact": "The capital of Yemen is Sana'a, a fascinating cultural hub in Western Asia.",
+    "imageUrl": ""
+  },
+  "710": {
+    "name": "South Africa",
+    "capital": "Pretoria",
+    "currency": "South African rand (R)",
+    "cities": [
+      "Pretoria"
+    ],
+    "places": [
+      "Table Mountain"
+    ],
+    "funFact": "South Africa is the only country in the world to host three capital cities, each serving a different branch of government.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Table_Mountain_DanieVDM.jpg"
+  },
+  "894": {
+    "name": "Zambia",
+    "capital": "Lusaka",
+    "currency": "Zambian kwacha (ZK)",
+    "cities": [
+      "Lusaka"
+    ],
+    "places": [],
+    "funFact": "The capital of Zambia is Lusaka, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  },
+  "716": {
+    "name": "Zimbabwe",
+    "capital": "Harare",
+    "currency": "Botswana pula (P)",
+    "cities": [
+      "Harare"
+    ],
+    "places": [],
+    "funFact": "The capital of Zimbabwe is Harare, a fascinating cultural hub in Eastern Africa.",
+    "imageUrl": ""
+  }
+}

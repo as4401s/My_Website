@@ -4,6 +4,7 @@ import {
     Geographies,
     Geography,
     ZoomableGroup,
+    Marker
 } from 'react-simple-maps';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -132,8 +133,8 @@ export default function TravelMap() {
                                             onClick={() => handleCountryClick(geo)}
                                             style={{
                                                 default: {
-                                                    fill: isSelected ? "#22d3ee" : (isCurated ? "#1e293b" : "#0f172a"),
-                                                    stroke: "#334155",
+                                                    fill: isSelected ? "#22d3ee" : (isCurated ? "#334155" : "#1e293b"),
+                                                    stroke: "#475569",
                                                     strokeWidth: 0.5,
                                                     outline: "none",
                                                 },
@@ -156,6 +157,27 @@ export default function TravelMap() {
                                 })
                             }
                         </Geographies>
+
+                        {/* Add Markers for curated countries */}
+                        <Marker coordinates={[78.9629, 20.5937]}>
+                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.5, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
+                        </Marker>
+                        <Marker coordinates={[2.2137, 46.2276]}>
+                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.6, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
+                        </Marker>
+                        <Marker coordinates={[138.2529, 36.2048]}>
+                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.7, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
+                        </Marker>
+                        <Marker coordinates={[-95.7129, 37.0902]}>
+                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.8, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
+                        </Marker>
+                        <Marker coordinates={[-51.9253, -14.2350]}>
+                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.9, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
+                        </Marker>
+                        <Marker coordinates={[133.7751, -25.2744]}>
+                            <motion.circle initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.0, type: 'spring' }} r={3} fill="#22d3ee" stroke="#fff" strokeWidth={1} />
+                        </Marker>
+
                     </ZoomableGroup>
                 </ComposableMap>
 
@@ -183,8 +205,24 @@ export default function TravelMap() {
                             <X size={20} />
                         </button>
 
-                        <div className="flex-1 overflow-y-auto px-10 pb-16 space-y-10 scrollbar-hide">
-                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                        <div className="flex-1 overflow-y-auto px-10 pb-16 space-y-8 scrollbar-hide">
+                            {selectedCountry.imageUrl && (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.1 }}
+                                    className="w-full h-56 rounded-2xl overflow-hidden mt-6 border border-white/10 shadow-2xl relative"
+                                >
+                                    <img
+                                        src={selectedCountry.imageUrl}
+                                        alt={`Landmark in ${selectedCountry.name}`}
+                                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent pointer-events-none" />
+                                </motion.div>
+                            )}
+
+                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className={!selectedCountry.imageUrl ? "mt-6" : ""}>
                                 <h2 className="text-5xl font-display font-black text-white mb-2 tracking-tight">
                                     {selectedCountry.name}
                                 </h2>

@@ -22,7 +22,6 @@ const experiences = [
     company: 'Leibniz-HKI & Uni Jena',
     date: '2021 - 2025',
     description: 'Topic: Artificial Intelligence driven Bioimage analysis in Infection Research.',
-    achievement: 'Deep learning pipelines for rapid antibiotic susceptibility testing.',
     icon: GraduationCap,
     current: false,
     details: [
@@ -220,13 +219,6 @@ export default function Experience() {
                           <p className="text-gray-300 text-base leading-relaxed">
                             {exp.description}
                           </p>
-                          {exp.achievement && (
-                            <div className="mt-4 p-3 rounded-lg bg-brand-accent/5 border border-brand-accent/20">
-                              <p className="text-sm text-brand-accent/90">
-                                <span className="font-semibold text-brand-accent">Highlight:</span> {exp.achievement}
-                              </p>
-                            </div>
-                          )}
                         </div>
                       </div>
                     </div>
@@ -264,13 +256,6 @@ export default function Experience() {
                         <p className="text-gray-400 text-sm mt-3 leading-relaxed">
                           {exp.description}
                         </p>
-                        {exp.achievement && (
-                          <div className="mt-3 p-3 rounded-lg bg-brand-accent/5 border border-brand-accent/20">
-                            <p className="text-xs text-brand-accent/90">
-                              <span className="font-semibold text-brand-accent">Highlight:</span> {exp.achievement}
-                            </p>
-                          </div>
-                        )}
                         {exp.details && (
                           <div className="mt-3 flex items-center gap-1 text-brand-accent text-sm">
                             <span>Tap for details</span>
@@ -315,14 +300,6 @@ export default function Experience() {
             {/* Modal Content */}
             <div className="space-y-4">
               <p className="text-gray-300">{selectedExp.description}</p>
-
-              {selectedExp.achievement && (
-                <div className="p-4 rounded-lg bg-brand-accent/10 border border-brand-accent/30">
-                  <p className="text-sm text-brand-accent">
-                    <span className="font-semibold">Key Achievement:</span> {selectedExp.achievement}
-                  </p>
-                </div>
-              )}
 
               <div>
                 <h4 className="text-lg font-semibold text-white mb-3">Highlights</h4>

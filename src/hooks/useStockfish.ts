@@ -6,14 +6,15 @@ interface StockfishHook {
     stop: () => void;
 }
 
-// Map our level 1-6 to Stockfish Skill Level (0-20) and depth
-const LEVEL_CONFIG: Record<number, { skill: number; depth: number }> = {
-    1: { skill: 0, depth: 1 },
-    2: { skill: 3, depth: 3 },
-    3: { skill: 6, depth: 5 },
-    4: { skill: 10, depth: 8 },
-    5: { skill: 15, depth: 10 },
-    6: { skill: 20, depth: 12 },
+// Use UCI_LimitStrength + UCI_Elo for accurate level simulation
+// Also use movetime to give natural "thinking" pauses
+const LEVEL_CONFIG: Record<number, { elo: number; depth: number; moveTimeMs: number }> = {
+    1: { elo: 600, depth: 1, moveTimeMs: 200 },
+    2: { elo: 900, depth: 3, moveTimeMs: 400 },
+    3: { elo: 1200, depth: 5, moveTimeMs: 600 },
+    4: { elo: 1500, depth: 8, moveTimeMs: 1000 },
+    5: { elo: 1800, depth: 12, moveTimeMs: 1500 },
+    6: { elo: 2200, depth: 16, moveTimeMs: 2000 },
 };
 
 export function useStockfish(): StockfishHook {
@@ -26,7 +27,6 @@ export function useStockfish(): StockfishHook {
 
         const initEngine = () => {
             try {
-                // Load Stockfish from the public directory (copied during build)
                 const worker = new Worker('/stockfish.js');
                 workerRef.current = worker;
 
@@ -108,18 +108,21 @@ export function useStockfish(): StockfishHook {
             const config = LEVEL_CONFIG[level] || LEVEL_CONFIG[3];
             resolveRef.current = resolve;
 
-            // Set skill level and then issue position + go
+            // Configure engine strength
             worker.postMessage('ucinewgame');
-            worker.postMessage(`setoption name Skill Level value ${config.skill}`);
+            worker.postMessage(`setoption name UCI_LimitStrength value true`);
+            worker.postMessage(`setoption name UCI_Elo value ${config.elo}`);
             worker.postMessage(`position fen ${fen}`);
-            worker.postMessage(`go depth ${config.depth}`);
 
-            // Timeout after 15s
+            // Use movetime for a natural thinking pause, capped by depth
+            worker.postMessage(`go depth ${config.depth} movetime ${config.moveTimeMs}`);
+
+            // Safety timeout after 20s — force engine to return whatever it has
             setTimeout(() => {
                 if (resolveRef.current === resolve) {
-                    worker.postMessage('stop'); // Force engine to return best move found so far
+                    worker.postMessage('stop');
                 }
-            }, 15000);
+            }, 20000);
         });
     }, []);
 

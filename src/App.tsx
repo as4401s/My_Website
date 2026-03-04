@@ -11,6 +11,7 @@ const Skills = lazy(() => import('./sections/Skills'));
 const Publications = lazy(() => import('./sections/Publications'));
 const Hobbies = lazy(() => import('./sections/Hobbies'));
 const Lab = lazy(() => import('./sections/Lab'));
+const Blog = lazy(() => import('./sections/Blog'));
 const Footer = lazy(() => import('./sections/Footer'));
 const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
 
@@ -80,6 +81,7 @@ function App() {
           <Skills />
           <Publications />
           <Lab />
+          <Blog />
           <Hobbies />
         </Suspense>
       </main>

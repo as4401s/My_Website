@@ -8,6 +8,7 @@ const navLinks = [
   { href: '#skills', label: 'Skills' },
   { href: '#publications', label: 'Publications' },
   { href: '#lab', label: 'AI Lab' },
+  { href: '#blog', label: 'Blog' },
   { href: '#hobbies', label: 'Hobbies' },
 ];
 

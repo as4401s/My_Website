@@ -1,103 +1,46 @@
-import { useMemo, useState, useEffect } from 'react';
-import { Chess, type Square } from 'chess.js';
+import { useMemo } from 'react';
 import * as THREE from 'three';
-import { useThree } from '@react-three/fiber';
 import { Pawn, Rook, Knight, Bishop, Queen, King } from './ChessPieces';
 
-interface ChessBoard3DProps {
-    currentFen: string;
-    onMoveAttempt: (from: string, to: string) => boolean;
+interface PieceData {
+    type: string;
+    color: string;
 }
 
-// Convert algebraic coordinate 'a1'-'h8' to 3D grid space
-const getSquarePosition = (square: string): [number, number, number] => {
-    const file = square.charCodeAt(0) - 'a'.charCodeAt(0);
-    const rank = parseInt(square.charAt(1)) - 1;
-    // Center board at [0,0,0], tile width = 1
-    return [file - 3.5, 0, rank - 3.5];
-};
+interface ChessBoard3DProps {
+    board: (PieceData | null)[][];
+    selectedSquare: string | null;
+    onSquareClick: (algebraic: string) => void;
+}
 
-export default function ChessBoard3D({ currentFen, onMoveAttempt }: ChessBoard3DProps) {
-    useThree();
-    const [game, setGame] = useState(new Chess(currentFen));
-    const [selectedSquare, setSelectedSquare] = useState<string | null>(null);
+export default function ChessBoard3D({ board, selectedSquare, onSquareClick }: ChessBoard3DProps) {
+    const materials = useMemo(() => ({
+        lightSquare: new THREE.MeshStandardMaterial({
+            color: '#d4a76a',
+            roughness: 0.65,
+            metalness: 0.05,
+        }),
+        darkSquare: new THREE.MeshStandardMaterial({
+            color: '#8b5e3c',
+            roughness: 0.55,
+            metalness: 0.08,
+        }),
+        selected: new THREE.MeshStandardMaterial({
+            color: '#4ade80',
+            emissive: '#22c55e',
+            emissiveIntensity: 0.4,
+            roughness: 0.5,
+        }),
+        frame: new THREE.MeshStandardMaterial({
+            color: '#2a1a0e',
+            metalness: 0.3,
+            roughness: 0.4,
+        }),
+    }), []);
 
-    // Sync internal engine when props FEN alters (puzzle changes)
-    useEffect(() => {
-        try {
-            setGame(new Chess(currentFen));
-            setSelectedSquare(null); // Reset selection
-        } catch (e) { /* Catch bad FEN during hot reloads */ }
-    }, [currentFen]);
-
-    const board = game.board();
-
-    // Procedural Materials
-    const materials = useMemo(() => {
-        return {
-            lightSquare: new THREE.MeshStandardMaterial({
-                color: '#2a2a35',
-                roughness: 0.8,
-                metalness: 0.2,
-            }),
-            darkSquare: new THREE.MeshStandardMaterial({
-                color: '#13131a',
-                roughness: 0.6,
-                metalness: 0.4,
-            }),
-            highlight: new THREE.MeshStandardMaterial({
-                color: '#22d3ee', // Brand accent cyan
-                emissive: '#22d3ee',
-                emissiveIntensity: 0.5,
-                transparent: true,
-                opacity: 0.5,
-            }),
-            edgeFrame: new THREE.MeshPhysicalMaterial({
-                color: '#0d0d12',
-                metalness: 0.9,
-                roughness: 0.1,
-                clearcoat: 1.0,
-            }),
-        };
-    }, []);
-
-    const handleSquareClick = (algebraic: string) => {
-        // If we've selected nothing, try grabbing a piece
-        if (!selectedSquare) {
-            const piece = game.get(algebraic as Square);
-            // Puzzles are explicitly White-only interactions
-            if (piece && piece.color === 'w') {
-                setSelectedSquare(algebraic);
-            }
-            return;
-        }
-
-        // Try moving if clicking again
-        if (selectedSquare === algebraic) {
-            // Deselect if clicking same square again
-            setSelectedSquare(null);
-        } else {
-            const attemptSuccess = onMoveAttempt(selectedSquare, algebraic);
-            if (!attemptSuccess) {
-                // If move failed but the square clicked has another White piece, swap selection natively
-                const targetPiece = game.get(algebraic as Square);
-                if (targetPiece && targetPiece.color === 'w') {
-                    setSelectedSquare(algebraic);
-                } else {
-                    setSelectedSquare(null);
-                }
-            } else {
-                // Legal move pushed through callback cleanly
-                setSelectedSquare(null);
-                // Re-sync local virtual board to new prop state
-                setGame(new Chess(game.fen()));
-            }
-        }
-    };
-
-    const renderPiece = (piece: any, indexKey: string, pos: [number, number, number]) => {
+    const renderPiece = (piece: PieceData, square: string) => {
         const isWhite = piece.color === 'w';
-        const props = { key: indexKey, isWhite, position: pos };
+        const props = { key: `p-${square}`, isWhite, position: [0, 0, 0] as [number, number, number] };
 
         switch (piece.type) {
             case 'p': return <Pawn {...props} />;
@@ -112,44 +55,48 @@ export default function ChessBoard3D({ currentFen, onMoveAttempt }: ChessBoard3D
 
     return (
         <group>
-            {/* 8x8 Tile Loop */}
-            {board.map((row, rankIndex) => {
-                // board mapping returns rank from 8 down to 1
-                const realRank = 8 - rankIndex;
-                return row.map((piece, fileIndex) => {
-                    const fileChar = String.fromCharCode('a'.charCodeAt(0) + fileIndex);
-                    const algebraic = `${fileChar}${realRank}`;
-                    const isDark = (rankIndex + fileIndex) % 2 === 1;
-                    const pos = getSquarePosition(algebraic);
+            {/* Frame base (sits below the tiles) */}
+            <mesh position={[0, -0.55, 0]} receiveShadow material={materials.frame}>
+                <boxGeometry args={[9, 0.3, 9]} />
+            </mesh>
+
+            {/* 8x8 Board */}
+            {board.map((row, rankIdx) => {
+                // chess.js board(): rankIdx 0 = rank 8, rankIdx 7 = rank 1
+                // We want rank 1 (White) closest to camera (positive Z)
+                const rank = 8 - rankIdx; // rank 8..1
+                return row.map((piece, fileIdx) => {
+                    const fileChar = String.fromCharCode(97 + fileIdx); // a..h
+                    const algebraic = `${fileChar}${rank}`;
+                    const isDark = (rankIdx + fileIdx) % 2 === 1;
                     const isSelected = selectedSquare === algebraic;
 
+                    // Position: file a=0..h=7 mapped to x, rank 8..1 mapped to z
+                    // Center the board so origin is in the middle
+                    const x = fileIdx - 3.5;
+                    const z = rankIdx - 3.5; // rank 8 at z=-3.5 (back), rank 1 at z=3.5 (front/camera)
+
                     return (
-                        <group key={algebraic} position={pos}>
-                            {/* Tile Base */}
+                        <group key={algebraic} position={[x, 0, z]}>
+                            {/* Tile */}
                             <mesh
                                 position={[0, -0.25, 0]}
                                 receiveShadow
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    handleSquareClick(algebraic);
+                                    onSquareClick(algebraic);
                                 }}
-                                material={isSelected ? materials.highlight : (isDark ? materials.darkSquare : materials.lightSquare)}
+                                material={isSelected ? materials.selected : (isDark ? materials.darkSquare : materials.lightSquare)}
                             >
-                                <boxGeometry args={[1, 0.5, 1]} />
+                                <boxGeometry args={[0.95, 0.15, 0.95]} />
                             </mesh>
 
-                            {/* Spawn Piece if exists */}
-                            {piece && renderPiece(piece, `piece-${algebraic}`, [0, 0, 0])}
-
+                            {/* Piece */}
+                            {piece && renderPiece(piece, algebraic)}
                         </group>
                     );
                 });
             })}
-
-            {/* Decorative Outer Metal Frame Border */}
-            <mesh position={[0, -0.3, 0]} receiveShadow material={materials.edgeFrame}>
-                <boxGeometry args={[8.4, 0.6, 8.4]} />
-            </mesh>
         </group>
     );
 }

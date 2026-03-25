@@ -112,7 +112,7 @@ export default function Hero() {
                 Hi, I'm
               </span>
               <span className="hero-name block text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-gradient">
-                Arjun Sarkar.
+                Dr. Arjun Sarkar.
               </span>
             </h1>
 

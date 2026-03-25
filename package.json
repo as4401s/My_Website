@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:travel-db": "python3 scripts/build_country_travel_db.py",
+    "build:travel-db:full": "python3 scripts/merge_restcountries_practical_fields.py",
     "lint": "eslint .",
     "preview": "vite preview"
   },

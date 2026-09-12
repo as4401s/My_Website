@@ -117,7 +117,7 @@ function ConnectionLines({ count = 60 }: { count?: number }) {
     return pos;
   });
 
-  useFrame(() => {
+  useEffect(() => {
     if (!lineRef.current) return;
 
     const positions: number[] = [];
@@ -144,7 +144,7 @@ function ConnectionLines({ count = 60 }: { count?: number }) {
       'position',
       new THREE.Float32BufferAttribute(positions, 3)
     );
-  });
+  }, [count, particles]);
 
   return (
     <lineSegments ref={lineRef}>

@@ -10,58 +10,26 @@ interface GameTimerProps {
 export default function GameTimer({ initialTime, isWhiteTurn, isGameActive, onTimeout }: GameTimerProps) {
     const [whiteTime, setWhiteTime] = useState(initialTime);
     const [blackTime, setBlackTime] = useState(initialTime);
-    const lastTickRef = useRef<number>(Date.now());
-    const rafRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const remainingRef = useRef({ white: initialTime, black: initialTime });
 
-    // Reset timers when initialTime changes (new game)
     useEffect(() => {
-        setWhiteTime(initialTime);
-        setBlackTime(initialTime);
-    }, [initialTime]);
-
-    // High-precision timer using Date.now() delta tracking
-    useEffect(() => {
-        if (rafRef.current) {
-            clearInterval(rafRef.current);
-            rafRef.current = null;
-        }
-
         if (!isGameActive) return;
-
-        // Reset the last-tick reference each time the active turn switches
-        lastTickRef.current = Date.now();
-
-        rafRef.current = setInterval(() => {
-            const now = Date.now();
-            const elapsed = (now - lastTickRef.current) / 1000;
-            lastTickRef.current = now;
-
-            if (isWhiteTurn) {
-                setWhiteTime(prev => {
-                    const next = prev - elapsed;
-                    if (next <= 0) {
-                        clearInterval(rafRef.current!);
-                        onTimeout('white');
-                        return 0;
-                    }
-                    return next;
-                });
-            } else {
-                setBlackTime(prev => {
-                    const next = prev - elapsed;
-                    if (next <= 0) {
-                        clearInterval(rafRef.current!);
-                        onTimeout('black');
-                        return 0;
-                    }
-                    return next;
-                });
+        let lastTick = performance.now();
+        const color = isWhiteTurn ? 'white' : 'black';
+        const tick = () => {
+            const now = performance.now();
+            remainingRef.current[color] = Math.max(0, remainingRef.current[color] - (now - lastTick) / 1000);
+            lastTick = now;
+            const remaining = remainingRef.current[color];
+            if (isWhiteTurn) setWhiteTime(remaining);
+            else setBlackTime(remaining);
+            if (remaining === 0) {
+                clearInterval(interval);
+                onTimeout(color);
             }
-        }, 100); // Tick every 100ms for precise tracking
-
-        return () => {
-            if (rafRef.current) clearInterval(rafRef.current);
         };
+        const interval = setInterval(tick, 100);
+        return () => { clearInterval(interval); };
     }, [isWhiteTurn, isGameActive, onTimeout]);
 
     const formatTime = (seconds: number) => {

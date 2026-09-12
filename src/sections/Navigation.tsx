@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Menu, X } from 'lucide-react';
 
@@ -13,6 +13,7 @@ const navLinks = [
 ];
 
 export default function Navigation() {
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -22,7 +23,7 @@ export default function Navigation() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -39,12 +40,19 @@ export default function Navigation() {
       { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out', stagger: 0.08, delay: 0.2 }
     );
 
-    gsap.fromTo(
-      '.nav-lab',
-      { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.7)', delay: 0.6 }
-    );
   }, []);
+
+    useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const close = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', close);
+    return () => document.removeEventListener('keydown', close);
+  }, [isMobileMenuOpen]);
 
   return (
     <nav
@@ -81,7 +89,10 @@ export default function Navigation() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden text-gray-300 hover:text-white transition-colors p-2"
-            aria-label="Toggle menu"
+            ref={menuButtonRef}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -90,6 +101,8 @@ export default function Navigation() {
 
       {/* Mobile Menu Panel */}
       <div
+        id="mobile-navigation"
+        inert={!isMobileMenuOpen}
         className={`md:hidden absolute top-full left-0 right-0 bg-brand-dark/98 backdrop-blur-xl border-b border-white/10 transition-all duration-300 ${isMobileMenuOpen
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 -translate-y-4 pointer-events-none'

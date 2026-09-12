@@ -28,3 +28,7 @@ ENV/
 
 # Vite
 .vite/
+
+# Browser verification artifacts
+.playwright-cli/
+output/playwright/

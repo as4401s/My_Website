@@ -83,7 +83,6 @@ export default function TravelMap() {
   useEffect(() => {
     let isActive = true;
 
-    setIsDatabaseLoading(true);
     loadCountryTravelRecords()
       .then((records) => {
         if (!isActive) return;
@@ -152,9 +151,9 @@ export default function TravelMap() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="relative flex h-screen w-full flex-col overflow-hidden bg-slate-950 font-sans"
+      className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-slate-950 font-sans"
     >
-      <div className="pointer-events-none absolute left-0 right-0 top-0 z-[1000] flex items-start justify-between p-6">
+      <div className="pointer-events-none absolute left-0 right-0 top-0 z-[1000] flex items-start justify-between gap-3 p-3 sm:p-6">
         <button
           onClick={() => navigate('/')}
           className="pointer-events-auto flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/80 px-4 py-2 text-white shadow-lg backdrop-blur-md transition-all hover:bg-slate-800"
@@ -163,14 +162,16 @@ export default function TravelMap() {
           <span className="text-sm font-medium">Portfolio</span>
         </button>
 
-        <div className="pointer-events-auto relative">
+        <div className="pointer-events-auto relative min-w-0 flex-1 max-w-80">
           <div className="relative">
             <Search
               size={18}
               className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
             />
             <input
-              type="text"
+              type="search"
+              aria-label="Search countries"
+              onKeyDown={(event) => { if (event.key === 'Escape') setIsSearching(false); }}
               placeholder={isDatabaseLoading ? 'Loading country database...' : 'Search country...'}
               value={searchQuery}
               onChange={(event) => {
@@ -178,12 +179,13 @@ export default function TravelMap() {
                 setIsSearching(true);
               }}
               onFocus={() => setIsSearching(true)}
-              className="w-64 rounded-full border border-slate-700 bg-slate-900/80 px-11 py-2.5 text-white shadow-lg backdrop-blur-md transition-all focus:outline-none focus:ring-2 focus:ring-cyan-500/50 md:w-80"
+              className="w-full rounded-full border border-slate-700 bg-slate-900/80 px-11 py-2.5 text-white shadow-lg backdrop-blur-md transition-all focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
               disabled={isDatabaseLoading}
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
+                aria-label="Clear country search"
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
               >
                 <X size={16} />
@@ -239,8 +241,8 @@ export default function TravelMap() {
           worldCopyJump
         >
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
           <MapController center={mapCenter} zoom={mapZoom} selectedCountry={selectedCountry} />
@@ -248,6 +250,8 @@ export default function TravelMap() {
           {curatedCountries.map((country) => (
             <Marker
               key={`marker-${country.id}`}
+              title={country.name}
+              alt={country.name}
               position={[country.lat!, country.lng!]}
               icon={customIcon}
               eventHandlers={{ click: () => handleCountrySelect(country) }}
@@ -285,6 +289,7 @@ export default function TravelMap() {
         {databaseError && (
           <div className="absolute bottom-6 left-6 z-[1000] max-w-sm rounded-2xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-100 shadow-xl backdrop-blur-xl">
             {databaseError}
+            <button className="block mt-2 underline" onClick={() => window.location.reload()}>Retry loading</button>
           </div>
         )}
       </div>
@@ -302,6 +307,7 @@ export default function TravelMap() {
 
             <button
               onClick={handleClosePanel}
+              aria-label="Close country details"
               className="absolute right-6 top-6 z-10 rounded-full bg-slate-800/50 p-2 text-slate-300 transition-colors hover:bg-slate-700 hover:text-white"
             >
               <X size={20} />

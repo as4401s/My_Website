@@ -2,6 +2,7 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 
 interface StockfishHook {
     isReady: boolean;
+    error: string | null;
     getBestMove: (fen: string, level: number) => Promise<string>;
     stop: () => void;
 }
@@ -20,115 +21,81 @@ const LEVEL_CONFIG: Record<number, { elo: number; depth: number; moveTimeMs: num
 export function useStockfish(): StockfishHook {
     const workerRef = useRef<Worker | null>(null);
     const [isReady, setIsReady] = useState(false);
-    const resolveRef = useRef<((move: string) => void) | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const pendingRef = useRef<{ resolve: (move: string) => void; reject: (error: Error) => void; timer: ReturnType<typeof setTimeout> } | null>(null);
+    const queueRef = useRef<Promise<unknown>>(Promise.resolve());
 
     useEffect(() => {
-        let cancelled = false;
-
-        const initEngine = () => {
-            try {
-                const worker = new Worker('/stockfish.js');
-                workerRef.current = worker;
-
-                worker.onmessage = (e: MessageEvent) => {
-                    const line = typeof e.data === 'string' ? e.data : '';
-
-                    if (line.includes('readyok') && !cancelled) {
-                        setIsReady(true);
-                    }
-
-                    if (line.startsWith('bestmove')) {
-                        const move = line.split(' ')[1];
-                        if (move && resolveRef.current) {
-                            resolveRef.current(move);
-                            resolveRef.current = null;
-                        }
-                    }
-                };
-
-                worker.onerror = (err) => {
-                    console.warn('Stockfish worker error, trying CDN fallback...', err);
-                    worker.terminate();
-                    initCDNFallback();
-                };
-
-                worker.postMessage('uci');
-                worker.postMessage('isready');
-            } catch (err) {
-                console.warn('Local Stockfish failed, trying CDN...', err);
-                initCDNFallback();
+        let worker: Worker | null = null;
+        const fail = () => {
+            setIsReady(false);
+            setError('Could not load the chess engine. Reload this page to try again.');
+            if (pendingRef.current) {
+                clearTimeout(pendingRef.current.timer);
+                pendingRef.current.reject(new Error('Engine unavailable'));
+                pendingRef.current = null;
             }
-        };
-
-        const initCDNFallback = () => {
-            try {
-                const blob = new Blob(
-                    [`importScripts('https://cdn.jsdelivr.net/npm/stockfish@16.0.0/src/stockfish-nnue-16-single.js');`],
-                    { type: 'application/javascript' }
-                );
-                const worker = new Worker(URL.createObjectURL(blob));
-                workerRef.current = worker;
-
-                worker.onmessage = (e: MessageEvent) => {
-                    const line = typeof e.data === 'string' ? e.data : '';
-                    if (line.includes('readyok') && !cancelled) setIsReady(true);
-                    if (line.startsWith('bestmove')) {
-                        const move = line.split(' ')[1];
-                        if (move && resolveRef.current) {
-                            resolveRef.current(move);
-                            resolveRef.current = null;
-                        }
-                    }
-                };
-
-                worker.postMessage('uci');
-                worker.postMessage('isready');
-            } catch (err2) {
-                console.error('All Stockfish init methods failed:', err2);
-            }
-        };
-
-        initEngine();
-
-        return () => {
-            cancelled = true;
-            workerRef.current?.terminate();
+            worker?.terminate();
             workerRef.current = null;
+        };
+        const initTimeout = setTimeout(fail, 30000);
+        try {
+            worker = new Worker('/stockfish.js');
+            workerRef.current = worker;
+            worker.onmessage = (event: MessageEvent) => {
+                const line = typeof event.data === 'string' ? event.data : '';
+                if (line === 'readyok') {
+                    clearTimeout(initTimeout);
+                    setIsReady(true);
+                }
+                if (line.startsWith('bestmove ') && pendingRef.current) {
+                    const pending = pendingRef.current;
+                    pendingRef.current = null;
+                    clearTimeout(pending.timer);
+                    pending.resolve(line.split(' ')[1]);
+                }
+            };
+            worker.onerror = fail;
+            worker.postMessage('uci');
+            worker.postMessage('isready');
+        } catch { fail(); }
+        return () => {
+            clearTimeout(initTimeout);
+            worker?.terminate();
+            workerRef.current = null;
+            if (pendingRef.current) {
+                clearTimeout(pendingRef.current.timer);
+                pendingRef.current.reject(new Error('Engine closed'));
+                pendingRef.current = null;
+            }
         };
     }, []);
 
     const getBestMove = useCallback((fen: string, level: number): Promise<string> => {
-        return new Promise((resolve, reject) => {
+        // UCI responses carry no request ID, so searches must be serialized.
+        const request = queueRef.current.then(() => new Promise<string>((resolve, reject) => {
             const worker = workerRef.current;
-            if (!worker) {
-                reject(new Error('Engine not initialized'));
-                return;
-            }
-
+            if (!worker) { reject(new Error('Engine unavailable')); return; }
             const config = LEVEL_CONFIG[level] || LEVEL_CONFIG[3];
-            resolveRef.current = resolve;
-
-            // Configure engine strength
+            const timer = setTimeout(() => {
+                pendingRef.current = null;
+                worker.terminate();
+                workerRef.current = null;
+                setIsReady(false);
+                setError('The chess engine timed out. Reload this page to try again.');
+                reject(new Error('Engine timed out'));
+            }, 20000);
+            pendingRef.current = { resolve, reject, timer };
             worker.postMessage('ucinewgame');
-            worker.postMessage(`setoption name UCI_LimitStrength value true`);
+            worker.postMessage('setoption name UCI_LimitStrength value true');
             worker.postMessage(`setoption name UCI_Elo value ${config.elo}`);
             worker.postMessage(`position fen ${fen}`);
-
-            // Use movetime for a natural thinking pause, capped by depth
             worker.postMessage(`go depth ${config.depth} movetime ${config.moveTimeMs}`);
-
-            // Safety timeout after 20s — force engine to return whatever it has
-            setTimeout(() => {
-                if (resolveRef.current === resolve) {
-                    worker.postMessage('stop');
-                }
-            }, 20000);
-        });
+        }));
+        queueRef.current = request.catch(() => undefined);
+        return request;
     }, []);
 
-    const stop = useCallback(() => {
-        workerRef.current?.postMessage('stop');
-    }, []);
-
-    return { isReady, getBestMove, stop };
+    const stop = useCallback(() => { workerRef.current?.postMessage('stop'); }, []);
+    return { isReady, error, getBestMove, stop };
 }

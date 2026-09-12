@@ -81,13 +81,13 @@ export default function Hero() {
       if (index < text.length) {
         element.textContent += text.charAt(index);
         index++;
-        setTimeout(type, 100);
+        timeout = setTimeout(type, 100);
       } else {
         setIsTypingComplete(true);
       }
     };
 
-    const timeout = setTimeout(type, 1400);
+    let timeout = setTimeout(type, 1400);
     return () => clearTimeout(timeout);
   }, []);
 

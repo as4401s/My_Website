@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import { Chess, type Square, type Move } from 'chess.js';
 import ChessBoard2D from '../components/chess/ChessBoard2D';
 import GameTimer from '../components/chess/GameTimer';
@@ -33,7 +33,7 @@ export default function ChessGame() {
     // Game state
     const [gameState, setGameState] = useState<GameState>('lobby');
     const gameRef = useRef(new Chess());
-    const [fen, setFen] = useState(gameRef.current.fen());
+    const [fen, setFen] = useState(() => new Chess().fen());
     const [selectedSquare, setSelectedSquare] = useState<string | null>(null);
     const [legalMoves, setLegalMoves] = useState<string[]>([]);
     const [lastMove, setLastMove] = useState<{ from: string; to: string } | null>(null);
@@ -41,16 +41,17 @@ export default function ChessGame() {
     const [moveHistory, setMoveHistory] = useState<string[]>([]);
     const [isThinking, setIsThinking] = useState(false);
 
-    const { isReady: engineReady, getBestMove } = useStockfish();
+    const { isReady: engineReady, error: engineError, getBestMove } = useStockfish();
 
-    const isWhiteTurn = gameRef.current.turn() === 'w';
-    const isInCheck = gameRef.current.isCheck();
+    const position = useMemo(() => new Chess(fen), [fen]);
+    const isWhiteTurn = position.turn() === 'w';
+    const isInCheck = position.isCheck();
 
     // Find king square for check highlight
     const getCheckSquare = (): string | null => {
         if (!isInCheck) return null;
-        const board = gameRef.current.board();
-        const kingColor = gameRef.current.turn();
+        const board = position.board();
+        const kingColor = position.turn();
         for (let r = 0; r < 8; r++) {
             for (let f = 0; f < 8; f++) {
                 const p = board[r][f];
@@ -89,30 +90,38 @@ export default function ChessGame() {
         return false;
     }, []);
 
-    // Make Stockfish play
-    const makeStockfishMove = useCallback(async () => {
-        if (gameState !== 'playing') return;
-        setIsThinking(true);
-        try {
-            const bestMove = await getBestMove(gameRef.current.fen(), selectedLevel);
-            if (bestMove && bestMove !== '(none)' && gameState === 'playing') {
-                const from = bestMove.substring(0, 2);
-                const to = bestMove.substring(2, 4);
-                const promotion = bestMove.length > 4 ? bestMove[4] : undefined;
-
-                const move = gameRef.current.move({ from, to, promotion });
-                if (move) {
-                    setFen(gameRef.current.fen());
-                    setLastMove({ from, to });
-                    setMoveHistory(prev => [...prev, move.san]);
-                    checkGameEnd();
+    // Each search belongs to this position; cleanup ignores late worker replies.
+    useEffect(() => {
+        if (gameState !== 'playing' || isWhiteTurn || !engineReady) return;
+        let cancelled = false;
+        const timeout = setTimeout(async () => {
+            setIsThinking(true);
+            try {
+                const bestMove = await getBestMove(fen, selectedLevel);
+                if (cancelled) return;
+                const move = gameRef.current.move({
+                    from: bestMove.slice(0, 2),
+                    to: bestMove.slice(2, 4),
+                    promotion: bestMove[4],
+                });
+                setFen(gameRef.current.fen());
+                setLastMove({ from: move.from, to: move.to });
+                setMoveHistory(prev => [...prev, move.san]);
+                checkGameEnd();
+            } catch {
+                if (!cancelled) {
+                    setResult('The chess engine stopped responding. Please start a new game.');
+                    setGameState('gameover');
                 }
+            } finally {
+                if (!cancelled) setIsThinking(false);
             }
-        } catch (e) {
-            console.error('Stockfish error:', e);
-        }
-        setIsThinking(false);
-    }, [gameState, getBestMove, selectedLevel, checkGameEnd]);
+        }, 300);
+        return () => {
+            cancelled = true;
+            clearTimeout(timeout);
+        };
+    }, [gameState, isWhiteTurn, engineReady, fen, selectedLevel, getBestMove, checkGameEnd]);
 
     // Handle square clicks on the board
     const handleSquareClick = useCallback((square: string) => {
@@ -162,10 +171,7 @@ export default function ChessGame() {
                     setLastMove({ from: selectedSquare, to: square });
                     setMoveHistory(prev => [...prev, move.san]);
 
-                    if (!checkGameEnd()) {
-                        // Trigger Stockfish after a brief delay
-                        setTimeout(() => makeStockfishMove(), 300);
-                    }
+                    checkGameEnd();
                 }
             } catch {
                 setSelectedSquare(null);
@@ -175,7 +181,7 @@ export default function ChessGame() {
             setSelectedSquare(null);
             setLegalMoves([]);
         }
-    }, [gameState, isWhiteTurn, isThinking, selectedSquare, legalMoves, checkGameEnd, makeStockfishMove]);
+    }, [gameState, isWhiteTurn, isThinking, selectedSquare, legalMoves, checkGameEnd]);
 
     // Start a new game
     const startGame = () => {
@@ -274,14 +280,15 @@ export default function ChessGame() {
                     {/* Start Button */}
                     <button
                         onClick={startGame}
-                        className="w-full py-4 rounded-2xl bg-brand-accent text-brand-dark font-bold text-lg hover:bg-cyan-300 transition-all duration-200 shadow-xl shadow-brand-accent/20 flex items-center justify-center gap-3"
+                        disabled={!engineReady}
+                        className="w-full disabled:opacity-50 disabled:cursor-wait py-4 rounded-2xl bg-brand-accent text-brand-dark font-bold text-lg hover:bg-cyan-300 transition-all duration-200 shadow-xl shadow-brand-accent/20 flex items-center justify-center gap-3"
                     >
                         <Zap className="w-6 h-6" />
                         Start Game
                     </button>
 
                     {!engineReady && (
-                        <p className="text-center text-gray-500 text-sm mt-4 animate-pulse">Loading Stockfish engine...</p>
+                        <p className="text-center text-gray-500 text-sm mt-4 animate-pulse">{engineError || 'Loading Stockfish engine...'}</p>
                     )}
                 </div>
             </div>
@@ -317,7 +324,7 @@ export default function ChessGame() {
                 {/* Main Layout */}
                 <div className="flex flex-col lg:flex-row gap-6 items-start justify-center">
                     {/* Board */}
-                    <div className="flex-shrink-0 w-full lg:w-auto">
+                    <div className="w-full lg:max-w-[640px]">
                         <ChessBoard2D
                             fen={fen}
                             selectedSquare={selectedSquare}

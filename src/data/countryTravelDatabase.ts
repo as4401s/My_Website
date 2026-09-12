@@ -55,6 +55,9 @@ export async function loadCountryTravelDatabase(): Promise<CountryTravelDatabase
       }
 
       return response.json() as Promise<CountryTravelDatabase>;
+    }).catch((error) => {
+      databasePromise = null;
+      throw error;
     });
   }
 

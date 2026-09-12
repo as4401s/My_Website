@@ -1,5 +1,5 @@
 import { useEffect, useState, Suspense, lazy } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navigation from './sections/Navigation';
@@ -49,7 +49,7 @@ function Home({ isMobile }: { isMobile: boolean }) {
 }
 
 function App() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
   const location = useLocation();
 
   useEffect(() => {
@@ -60,31 +60,29 @@ function App() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    // Smooth scroll behavior
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const anchor = target.closest('a[href^="#"]');
-      if (anchor) {
-        // Only run logic if we are on the homepage avoiding routing issues, OR if the anchor is just a hash on the same page
-        if (location.pathname === '/' || anchor.getAttribute('href')?.startsWith('#')) {
-          e.preventDefault();
-          const id = anchor.getAttribute('href')?.slice(1);
-          if (id) {
-            const element = document.getElementById(id);
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }
-      }
-    };
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
-    document.addEventListener('click', handleAnchorClick);
-    return () => {
-      document.removeEventListener('click', handleAnchorClick);
-      window.removeEventListener('resize', checkMobile);
+  useEffect(() => {
+    const titles: Record<string, string> = {
+      '/': 'Arjun Sarkar - AI Data Scientist',
+      '/chess': 'Play Chess | Arjun Sarkar',
+      '/travel': 'Explore the World | Arjun Sarkar',
     };
-  }, [location]);
+    document.title = titles[location.pathname] || 'Page not found | Arjun Sarkar';
+    if (!location.hash) window.scrollTo(0, 0);
+    else {
+      const scrollToHash = () => {
+        const target = document.getElementById(location.hash.slice(1));
+        if (target) { target.scrollIntoView(); return true; }
+        return false;
+      };
+      if (scrollToHash()) return;
+      const observer = new MutationObserver(() => { if (scrollToHash()) observer.disconnect(); });
+      observer.observe(document.body, { childList: true, subtree: true });
+      return () => observer.disconnect();
+    }
+  }, [location.pathname, location.hash]);
 
   return (
     <div className="relative min-h-screen bg-brand-dark text-brand-text overflow-x-hidden">
@@ -92,20 +90,29 @@ function App() {
       {location.pathname === '/' && <ScrollProgress />}
 
       {/* Particle Background */}
-      <Suspense fallback={null}>
-        <ParticleBackground />
-      </Suspense>
+      {location.pathname === '/' && !isMobile && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && (
+        <Suspense fallback={null}><ParticleBackground /></Suspense>
+      )}
 
       {/* Navigation Layer - Hidden on full-screen pages */}
       {location.pathname === '/' && <Navigation />}
 
       {/* Main Routing Layer */}
-      <main className="relative z-10">
+      <a href="#main-content" className="skip-link">Skip to content</a>
+      <main id="main-content" tabIndex={-1} className="relative z-10">
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-4 border-brand-accent border-t-transparent rounded-full animate-spin"></div></div>}>
           <Routes>
             <Route path="/" element={<Home isMobile={isMobile} />} />
             <Route path="/chess" element={<ChessGame />} />
             <Route path="/travel" element={<TravelMap />} />
+            <Route path="*" element={
+              <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center gap-6">
+                <p className="font-mono text-brand-accent">404</p>
+                <h1 className="text-4xl font-display font-bold">Page not found</h1>
+                <p className="text-gray-400">This address doesn’t lead to a page. Explore the portfolio instead.</p>
+                <Link to="/" className="rounded-xl bg-brand-accent px-6 py-3 text-brand-dark font-semibold">Back to portfolio</Link>
+              </div>
+            } />
           </Routes>
         </Suspense>
       </main>

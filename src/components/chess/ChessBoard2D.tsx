@@ -53,7 +53,10 @@ export default function ChessBoard2D({
             }
 
             squares.push(
-                <div
+                <button
+                    type="button"
+                    aria-label={`${sq}${piece ? ` ${piece.color === 'w' ? 'White' : 'Black'} ${{ p: 'pawn', n: 'knight', b: 'bishop', r: 'rook', q: 'queen', k: 'king' }[piece.type]}` : ' empty'}${isLegalTarget ? ', legal move' : ''}`}
+                    aria-pressed={isSelected}
                     key={sq}
                     className={`relative flex items-center justify-center cursor-pointer select-none ${bgClass} transition-colors duration-100`}
                     style={{ aspectRatio: '1' }}
@@ -96,7 +99,7 @@ export default function ChessBoard2D({
                     {isLegalTarget && piece && (
                         <div className="absolute inset-[5%] border-[4px] border-black/20 rounded-full z-20" />
                     )}
-                </div>
+                </button>
             );
         }
     }

@@ -1,12 +1,25 @@
 import { Plus, Minus, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 import CareerVisual from '../components/CareerVisual';
+import FinanceWorkflow from '../components/FinanceWorkflow';
 
 const experiences = [
   {
     id: 1, title: 'AI Data Scientist', company: 'HKCM', date: 'Nov 2025 – Present',
-    description: 'Applying advanced AI methodologies to solve complex data challenges in finance.',
-    current: true, details: null,
+    description: 'Building AI-powered financial tools, automated content workflows, and web applications.',
+    current: true,
+    details: {
+      visual: 'finance' as const, focus: 'APPLIED AI → FINANCIAL TOOLS', headline: 'Turning financial ideas into working products.',
+      summary: 'Researching and building tools that connect financial information, language models, and practical workflows at HKCM.',
+      highlights: [
+        { title: 'Automated articles & breaking news', text: 'Building internal tools for automated article and breaking-news generation, turning financial information into structured content workflows.' },
+        { title: 'LLMs & agents for stock analysis', text: 'Using language models and agents to automate stock analysis and ranking, making financial research easier to organize and compare.' },
+        { title: 'Financial R&D & new ideas', text: 'Researching financial tools, prototyping novel ideas, and implementing useful approaches for the company.' },
+        { title: 'Web applications for real workflows', text: 'Building websites and applications for internal teams and external users, bringing AI capabilities into accessible interfaces.' },
+      ],
+      tools: ['LLMs & AI agents', 'Content automation', 'Stock analysis & ranking', 'Financial R&D', 'Web applications'],
+      publication: null,
+    },
   },
   {
     id: 2, title: 'Ph.D. Researcher', company: 'Leibniz-HKI & Uni Jena', date: '2021 – 2025',
@@ -77,7 +90,7 @@ export default function Experience() {
               {exp.details && <div id={`career-details-${exp.id}`} className="career-details" role="region" aria-labelledby={`career-heading-${exp.id}`} hidden={expanded !== exp.id}>
                 <div className="career-story">
                   <div className="career-visual-column">
-                    <figure className="career-visual"><CareerVisual kind={exp.details.visual}/><figcaption>Illustrated overview of the work</figcaption></figure>
+                    <figure className="career-visual">{exp.details.visual === 'finance' ? <FinanceWorkflow/> : <CareerVisual kind={exp.details.visual}/>}<figcaption>{exp.details.visual === 'finance' ? 'Explore the four workstreams · illustrative workflows' : 'Illustrated overview of the work'}</figcaption></figure>
                     <div className="career-toolkit"><h4>Tools & focus</h4><ul>{exp.details.tools.map(tool => <li key={tool}>{tool}</li>)}</ul></div>
                     {exp.details.publication && <a className="career-publication" href={exp.details.publication.href} target="_blank" rel="noopener noreferrer">{exp.details.publication.label}<ExternalLink size={14}/></a>}
                   </div>

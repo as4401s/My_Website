@@ -20,8 +20,9 @@ export default function Lab() {
   return (
     <section id="lab" className="lab-section">
       <div className="section-shell">
-        <div className="section-heading"><div><p className="eyebrow">04 / THE AI LAB</p><h2>Less theory.<br/>More discovery.</h2></div><p>Seven hands-on experiments to make deep learning tangible. Pick a question. Change a parameter. See what happens.</p></div>
+        <div className="section-heading"><div><p className="eyebrow">04 / THE AI LAB</p><h2>The AI playground.</h2></div><p>Seven experiments. Change a parameter and watch AI at work.</p></div>
         <div className="lab-workspace">
+          <label className="experiment-picker">Choose an experiment<select aria-label="Choose an experiment" value={active} onChange={event => setActive(Number(event.target.value))}>{demos.map((item, index) => <option key={item.id} value={index}>{String(index + 1).padStart(2, '0')} · {item.title}</option>)}</select></label>
           <div className="experiment-tabs" role="tablist" aria-label="AI experiments">{demos.map((item, index) => <button key={item.id} id={`tab-${item.id}`} role="tab" type="button" aria-selected={active === index} aria-controls="experiment-panel" tabIndex={active === index ? 0 : -1} ref={node => {tabs.current[index] = node;}} onClick={()=>setActive(index)} onKeyDown={event => {
             let next: number | undefined;
             if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index+1)%demos.length;
@@ -32,8 +33,8 @@ export default function Lab() {
           }}><item.icon size={18} strokeWidth={1.5}/><span>{item.title}</span><small>{String(index+1).padStart(2,'0')}</small></button>)}</div>
           <div id="experiment-panel" className="experiment-panel" role="tabpanel" aria-labelledby={`tab-${demo.id}`} tabIndex={0}>
             <div className="experiment-heading"><div><p className="eyebrow">{demo.category}</p><h3>{demo.title}</h3><p>{demo.description}</p></div><span className="experiment-counter">{String(active+1).padStart(2,'0')} / 07</span></div>
-            <Suspense fallback={<div className="experiment-loading" role="status">Loading experiment…</div>}><ActiveDemo key={demo.id}/></Suspense>
-            <div className="experiment-challenge"><ArrowUpRight size={18}/><p><strong>Try this</strong>{demo.challenge}</p></div>
+            <div className="experiment-demo"><Suspense fallback={<div className="experiment-loading" role="status">Loading experiment…</div>}><ActiveDemo key={demo.id}/></Suspense></div>
+            <details className="experiment-challenge"><summary><ArrowUpRight size={15}/>Try a challenge</summary><p>{demo.challenge}</p></details>
             <p className="experiment-reset-note">Switching experiments resets the current run.</p>
           </div>
         </div>

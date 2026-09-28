@@ -2,7 +2,7 @@
 
 A modern, interactive portfolio website showcasing AI/ML expertise, research publications, and hands-on demos. Built with React, TypeScript, and advanced web technologies to deliver a smooth, engaging user experience.
 
-![Portfolio Preview](https://img.shields.io/badge/React-18.3-blue?logo=react) ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?logo=typescript) ![Vite](https://img.shields.io/badge/Vite-7.3-purple?logo=vite) ![Three.js](https://img.shields.io/badge/Three.js-0.172-black?logo=three.js)
+![Portfolio Preview](https://img.shields.io/badge/React-19.2-blue?logo=react) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript) ![Vite](https://img.shields.io/badge/Vite-7.3-purple?logo=vite)
 
 ## 🚀 Features
 
@@ -19,16 +19,17 @@ A modern, interactive portfolio website showcasing AI/ML expertise, research pub
 
 ### Modern UI/UX
 - Restrained dark palette, editorial typography, and spacious layouts
-- Three.js neural-network hero with animated forward-pass signals
-- Pause controls, reduced-motion support, and a static WebGL fallback
+- Large interactive portrait with a movable computer-vision lens: seven edge/feature views, interactive object annotations, and imaging-inspired illustrations
+- Mouse, touch, and keyboard lens controls, original-image toggle, and reduced-motion support
+- Inter body text, Manrope headings, and a grouped education/toolkit section
 - Accessible experiment tabs, step controls, and inline career details
 - Responsive desktop and mobile layouts
 - Subtle section reveals and scroll progress
 
 ### Performance Optimizations
-- **Mobile-first optimizations**: Reduced particle count, optimized blur effects
+- **Bounded image processing**: Filters run on a 576 × 576 canvas; lens movement updates only the clipping position
 - **Image optimization**: 87% reduction in image sizes (489KB → 60KB)
-- **Code splitting**: Separate vendor bundles for React, Three.js, and GSAP
+- **Code splitting**: Separate vendor bundles for React and GSAP; no Three.js in the homepage bundle
 - **GPU acceleration**: Hardware-accelerated transforms and animations
 - **Lazy loading**: On-demand component rendering
 - **Build optimization**: ESBuild minification with tree-shaking
@@ -36,15 +37,14 @@ A modern, interactive portfolio website showcasing AI/ML expertise, research pub
 ## 🛠️ Tech Stack
 
 ### Core Technologies
-- **React 18.3** - Modern UI framework with hooks
-- **TypeScript 5.6** - Type-safe development
+- **React 19.2** - Modern UI framework with hooks
+- **TypeScript 5.9** - Type-safe development
 - **Vite 7.3** - Lightning-fast build tool and dev server
 - **Tailwind CSS 3.4** - Utility-first CSS framework
 
-### Animation & 3D
-- **Three.js 0.172** - 3D graphics library
-- **@react-three/fiber** - React renderer for Three.js
-- **GSAP 3.12** - Professional-grade animation library
+### Animation & image processing
+- **Canvas 2D** - Local portrait filtering and a CSS-clipped lens
+- **GSAP 3.14** - Professional-grade animation library
 - **ScrollTrigger** - Scroll-based animations
 
 ### UI Components
@@ -128,20 +128,15 @@ The optimized production build will be in the `dist/` directory.
 npm run preview
 ```
 
-## 📊 Performance Metrics
-
-- **Lighthouse Score**: 95+ (Performance)
-- **First Contentful Paint**: < 1.2s
-- **Time to Interactive**: < 2.5s
-- **Bundle Size**:
-  - Main: ~374KB (gzipped: ~111KB)
-  - Three.js vendor: ~879KB (gzipped: ~237KB)
-  - React vendor: ~11KB (gzipped: ~4KB)
-
 ## 🎨 Key Features Explained
 
-### Animated Skill Proficiency Bars
-Visual representation of technical skills with animated progress bars that fill on scroll, showing proficiency percentages for each technology.
+### Interactive Portrait Lens
+Move or tap the portrait to compare Sobel, Prewitt, Laplacian, Canny-style, horizontal/vertical edges, and HOG-style orientation features. Keyboard users can move the lens with arrow keys and reset with Home.
+
+- **Detect:** curated hover/tap annotations for person, shirt, face, hair, glasses, and watch. Nested regions prioritize the smallest object under the pointer. Buttons and arrow keys make every annotation available without a mouse.
+- **Imaging:** pre-generated X-ray, CT, and MRI-inspired illustrations, with a movable lens and full-image view. These are clearly labeled conceptual illustrations, not actual scans or inferred anatomy.
+
+All assets ship with the website. No model downloads, live model inference, upload controls, or image uploads are used. Edge calculations run on a bounded local canvas; annotations and illustrations are prepared in advance.
 
 ### Interactive Neural Network Playground
 Users can:
@@ -160,12 +155,10 @@ Demonstrates optimization algorithms navigating loss landscapes with:
 - Adjustable learning rates
 
 ### Mobile Optimizations
-Automatic detection and optimization for mobile devices:
-- Reduced particle count (60 → 20)
-- Disabled expensive animations
-- Reduced blur radius (128px → 40px)
-- Lower device pixel ratio for 3D rendering
-- Simplified visual effects
+- Responsive portrait and controls with vertical touch scrolling preserved
+- Stacked content and accessible experiment tabs on narrow screens
+- Reduced-motion preferences respected by entrance and section animations
+- No continuously running animation loop for the portrait
 
 ## 🌐 Deployment
 
@@ -204,9 +197,9 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 🙏 Acknowledgments
 
 - UI Design inspired by modern portfolio best practices
-- Animations powered by GSAP and Three.js
+- Animations powered by GSAP
 - Icons from Lucide React
-- Fonts from Google Fonts (Inter, Space Grotesk)
+- Fonts from Google Fonts (Inter, Manrope)
 
 ## 🤝 Contributing
 
@@ -221,7 +214,7 @@ While this is a personal portfolio, suggestions and feedback are welcome! Feel f
 
 ## Lab calculation checks
 
-With Node.js 22.18 or newer, run `node --test scripts/verify-lab.mjs`.
+With Node.js 22.18 or newer, run `node --test scripts/verify-lab.mjs scripts/verify-vision.mjs`.
 The checks cover numerical backpropagation gradients, XOR convergence, each loss
-function's derivative, Adam moment updates, convolution padding, and fact integrity.
+function's derivative, Adam moment updates, convolution padding, fact integrity, and portrait filter calculations.
 `npm run build` and `npm run lint` validate the application.

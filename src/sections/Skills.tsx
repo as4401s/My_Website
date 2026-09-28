@@ -59,65 +59,68 @@ export default function Skills() {
   const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
-    if (window.innerWidth < 768) return;
-    const ctx = gsap.context(() => {
-      // Section title animation
-      const titleTrigger = ScrollTrigger.create({
-        trigger: '.skills-section-title',
-        start: 'top 80%',
-        onEnter: () => {
-          gsap.fromTo(
-            '.skills-section-title',
-            { opacity: 0, y: 40 },
-            { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }
-          );
-        },
-        once: true,
-      });
-      triggersRef.current.push(titleTrigger);
+    const media = gsap.matchMedia();
+    media.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+      const ctx = gsap.context(() => {
+        // Section title animation
+        const titleTrigger = ScrollTrigger.create({
+          trigger: '.skills-section-title',
+          start: 'top 80%',
+          onEnter: () => {
+            gsap.fromTo(
+              '.skills-section-title',
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }
+            );
+          },
+          once: true,
+        });
+        triggersRef.current.push(titleTrigger);
 
-      // Education cards animation
-      const eduTrigger = ScrollTrigger.create({
-        trigger: '.education-container',
-        start: 'top 75%',
-        onEnter: () => {
-          gsap.fromTo(
-            '.education-card',
-            { opacity: 0, y: 40, scale: 0.95 },
-            { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'expo.out', stagger: 0.12 }
-          );
-        },
-        once: true,
-      });
-      triggersRef.current.push(eduTrigger);
+        // Education cards animation
+        const eduTrigger = ScrollTrigger.create({
+          trigger: '.education-container',
+          start: 'top 75%',
+          onEnter: () => {
+            gsap.fromTo(
+              '.education-card',
+              { opacity: 0, y: 20, scale: 0.95 },
+              { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'expo.out', stagger: 0.12 }
+            );
+          },
+          once: true,
+        });
+        triggersRef.current.push(eduTrigger);
 
-      // Skills animation
-      const skillsTrigger = ScrollTrigger.create({
-        trigger: '.tech-stack-container',
-        start: 'top 75%',
-        onEnter: () => {
-          gsap.fromTo(
-            '.skill-tag',
-            { opacity: 0, scale: 0.8 },
-            { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.7)', stagger: 0.04 }
-          );
+        // Skills animation
+        const skillsTrigger = ScrollTrigger.create({
+          trigger: '.tech-stack-container',
+          start: 'top 75%',
+          onEnter: () => {
+            gsap.fromTo(
+              '.skill-tag',
+              { opacity: 0, scale: 0.8 },
+              { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out', stagger: 0.04 }
+            );
 
-          gsap.fromTo(
-            '.domain-tag',
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out', stagger: 0.05, delay: 0.5 }
-          );
-        },
-        once: true,
-      });
-      triggersRef.current.push(skillsTrigger);
-    }, sectionRef);
+            gsap.fromTo(
+              '.domain-tag',
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out', stagger: 0.05, delay: 0.5 }
+            );
+          },
+          once: true,
+        });
+        triggersRef.current.push(skillsTrigger);
+      }, sectionRef);
 
-    return () => {
-      triggersRef.current.forEach(trigger => trigger.kill());
-      triggersRef.current = [];
-      ctx.revert();
-    };
+      return () => {
+        triggersRef.current.forEach(trigger => trigger.kill());
+        triggersRef.current = [];
+        ctx.revert();
+      };
+    });
+    return () => media.revert();
   }, []);
 
   return (
@@ -128,7 +131,8 @@ export default function Skills() {
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title - Centered */}
-        <h2 className="skills-section-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-20 text-center md:opacity-0">
+        <p className="eyebrow">02 / EXPERTISE</p>
+        <h2 className="skills-section-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-20 text-center ">
           Education & <span className="text-gradient">Tech Stack</span>
         </h2>
 

@@ -1,9 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Briefcase, GraduationCap, Building2, Rocket, X, ChevronRight } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
+import { ArrowUpRight, Plus, Minus } from 'lucide-react';
+import { useState } from 'react';
 
 const experiences = [
   {
@@ -12,7 +8,6 @@ const experiences = [
     company: 'HKCM',
     date: 'Nov 2025 - Present',
     description: 'Applying advanced AI methodologies to solve complex data challenges in finance.',
-    icon: Rocket,
     current: true,
     details: null, // No details for current role as requested
   },
@@ -22,7 +17,6 @@ const experiences = [
     company: 'Leibniz-HKI & Uni Jena',
     date: '2021 - 2025',
     description: 'Topic: Artificial Intelligence driven Bioimage analysis in Infection Research.',
-    icon: GraduationCap,
     current: false,
     details: [
       'Engineered AI-driven bioimage analysis pipelines, applying CNNs to classify infection images and Transformers to analyze time-series microscopy videos.',
@@ -40,7 +34,6 @@ const experiences = [
     company: 'Cognex Corporation',
     date: '2020 - 2021',
     description: 'Benchmarking VisionPro Deep Learning vs TensorFlow for medical imaging.',
-    icon: Building2,
     current: false,
     details: [
       'Benchmarked Cognex VisionPro Deep Learning software against open-source CNN models on public datasets: Diabetic Retinopathy Detection and Intracranial Hemorrhage Detection.',
@@ -57,7 +50,6 @@ const experiences = [
     company: 'India',
     date: '2014 - 2018',
     description: 'Medical imaging systems and healthcare technology.',
-    icon: Briefcase,
     current: false,
     details: [
       'Product Specialist at KARL STORZ: Demonstrated and installed 3D, HD, and SD Laparoscopic and Endoscopy Imaging Solutions across Eastern India. Trained doctors and hospital staff on KARL STORZ imaging systems.',
@@ -68,254 +60,29 @@ const experiences = [
 ];
 
 export default function Experience() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const triggersRef = useRef<ScrollTrigger[]>([]);
-  const [selectedExp, setSelectedExp] = useState<typeof experiences[0] | null>(null);
-
-  useEffect(() => {
-    if (window.innerWidth < 768) return;
-
-    const ctx = gsap.context(() => {
-      // Section title animation
-      const titleTrigger = ScrollTrigger.create({
-        trigger: '.experience-title',
-        start: 'top 80%',
-        onEnter: () => {
-          gsap.fromTo(
-            '.experience-title',
-            { opacity: 0, y: 50 },
-            { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }
-          );
-        },
-        once: true,
-      });
-      triggersRef.current.push(titleTrigger);
-
-      // Timeline line draw animation
-      const lineTrigger = ScrollTrigger.create({
-        trigger: '.timeline-line',
-        start: 'top 70%',
-        onEnter: () => {
-          gsap.fromTo(
-            '.timeline-line',
-            { scaleY: 0 },
-            { scaleY: 1, duration: 1.5, ease: 'power2.out', transformOrigin: 'top' }
-          );
-        },
-        once: true,
-      });
-      triggersRef.current.push(lineTrigger);
-
-      // Experience items animation
-      experiences.forEach((_, index) => {
-        const trigger = ScrollTrigger.create({
-          trigger: `.experience-item-${index}`,
-          start: 'top 80%',
-          onEnter: () => {
-            // Node pop
-            gsap.fromTo(
-              `.experience-node-${index}`,
-              { scale: 0 },
-              { scale: 1, duration: 0.4, ease: 'back.out(1.7)', delay: index * 0.1 }
-            );
-
-            // Left Card slide in (Job Title)
-            gsap.fromTo(
-              `.experience-item-${index} .text-right .experience-card-${index}`,
-              { opacity: 0, x: -50 },
-              { opacity: 1, x: 0, duration: 0.7, ease: 'expo.out', delay: index * 0.1 + 0.1 }
-            );
-
-            // Right Card slide in (Description)
-            gsap.fromTo(
-              `.experience-item-${index} .text-left .experience-card-${index}`,
-              { opacity: 0, x: 50 },
-              { opacity: 1, x: 0, duration: 0.7, ease: 'expo.out', delay: index * 0.1 + 0.2 }
-            );
-          },
-          once: true,
-        });
-        triggersRef.current.push(trigger);
-      });
-    }, sectionRef);
-
-    return () => {
-      triggersRef.current.forEach(trigger => trigger.kill());
-      triggersRef.current = [];
-      ctx.revert();
-    };
-  }, []);
-
+  const [expanded, setExpanded] = useState<number | null>(null);
   return (
-    <section
-      id="experience"
-      ref={sectionRef}
-      className="py-24 relative"
-    >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Title */}
-        <h2 className="experience-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-20 text-center md:opacity-0">
-          Professional <span className="text-gradient">Journey</span>
-        </h2>
-
-        {/* Timeline */}
-        <div className="relative">
-          {/* Vertical Line - Hidden on mobile */}
-          <div className="timeline-line hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-brand-accent via-brand-purple to-brand-accent/30 transform -translate-x-1/2 origin-top" />
-
-          {/* Experience Items */}
-          <div className="space-y-12 md:space-y-16">
-            {experiences.map((exp, index) => {
-              const Icon = exp.icon;
-
-              return (
-                <div
-                  key={exp.id}
-                  className={`experience-item-${index} relative`}
-                >
-                  <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_48px_minmax(0,1fr)] md:gap-8 items-center w-full">
-                    {/* Left Content (Title, Company, Date) */}
-                    <div className="text-right flex justify-end">
-                      <div className={`experience-card-${index} md:opacity-0 w-full xl:w-4/5`}>
-                        <div
-                          className={`glass-card p-6 rounded-xl transition-all duration-300 hover:border-brand-accent/50 hover:bg-brand-accent/5 cursor-pointer group ${exp.details ? 'hover:shadow-lg hover:shadow-brand-accent/10' : ''
-                            }`}
-                          onClick={() => exp.details && setSelectedExp(exp)}
-                        >
-                          <div className="inline-block px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-xs font-mono mb-3">
-                            {exp.date}
-                          </div>
-                          <h3 className="text-2xl font-bold text-white group-hover:text-brand-accent transition-colors">
-                            {exp.title}
-                          </h3>
-                          <p className="text-gray-400 text-base mt-2 font-medium">{exp.company}</p>
-
-                          {exp.details && (
-                            <div className="mt-3 flex items-center gap-1 text-brand-accent text-sm md:opacity-0 group-hover:opacity-100 transition-opacity">
-                              <span>View details</span>
-                              <ChevronRight className="w-4 h-4" />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Center Node */}
-                    <div className="relative flex justify-center z-10">
-                      <div
-                        className={`experience-node-${index} w-12 h-12 rounded-full flex items-center justify-center border-4 border-brand-dark transition-all duration-300 ${exp.current
-                          ? 'bg-brand-accent shadow-lg shadow-brand-accent/50'
-                          : 'bg-gray-700'
-                          }`}
-                      >
-                        <Icon className="w-5 h-5 text-white" />
-                      </div>
-                    </div>
-
-                    {/* Right Content (Description, Highlights) */}
-                    <div className="text-left flex justify-start">
-                      <div className={`experience-card-${index} md:opacity-0 w-full xl:w-4/5`}>
-                        <div className="glass-card p-6 rounded-xl h-full flex flex-col justify-center">
-                          <p className="text-gray-300 text-base leading-relaxed">
-                            {exp.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Mobile Layout */}
-                  <div className="md:hidden flex gap-4">
-                    {/* Timeline Node */}
-                    <div className="flex flex-col items-center">
-                      <div
-                        className={`experience-node-${index} w-10 h-10 rounded-full flex items-center justify-center border-4 border-brand-dark flex-shrink-0 ${exp.current
-                          ? 'bg-brand-accent shadow-lg shadow-brand-accent/50'
-                          : 'bg-gray-700'
-                          }`}
-                      >
-                        <Icon className="w-4 h-4 text-white" />
-                      </div>
-                      {index < experiences.length - 1 && (
-                        <div className="w-0.5 flex-1 bg-gradient-to-b from-brand-accent/50 to-brand-accent/10 mt-2" />
-                      )}
-                    </div>
-
-                    {/* Content Card */}
-                    <div className={`experience-card-${index} flex-1 md:opacity-0 pb-8`}>
-                      <div
-                        className={`glass-card p-5 rounded-xl ${exp.details ? 'cursor-pointer hover:border-brand-accent/50 hover:bg-brand-accent/5 transition-all' : ''
-                          }`}
-                        onClick={() => exp.details && setSelectedExp(exp)}
-                      >
-                        <div className="inline-block px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-xs font-mono mb-3">
-                          {exp.date}
-                        </div>
-                        <h3 className="text-xl font-bold text-white mb-1">{exp.title}</h3>
-                        <p className="text-gray-300 text-base font-medium">{exp.company}</p>
-                        <p className="text-gray-400 text-sm mt-3 leading-relaxed">
-                          {exp.description}
-                        </p>
-                        {exp.details && (
-                          <div className="mt-3 flex items-center gap-1 text-brand-accent text-sm">
-                            <span>Tap for details</span>
-                            <ChevronRight className="w-4 h-4" />
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+    <section id="experience" className="career-section">
+      <div className="section-shell">
+        <div className="section-heading">
+          <div><p className="eyebrow">01 / EXPERIENCE</p><h2>A journey from research<br />to real-world impact.</h2></div>
+          <p>Building on a foundation in biomedical engineering to solve challenges with AI.</p>
+        </div>
+        <div className="career-list">
+          {experiences.map((exp) => (
+            <article key={exp.id} className={`career-row ${expanded === exp.id ? 'is-expanded' : ''}`}>
+              <div className="career-meta"><span>{exp.date}</span>{exp.current && <span className="current-role"><i /> Current role</span>}</div>
+              <div className="career-body"><p className="career-company">{exp.company}</p><h3>{exp.title}</h3><p className="career-description">{exp.description}</p>
+                {exp.details && <>
+                  <button className="career-toggle" aria-expanded={expanded === exp.id} aria-controls={`career-details-${exp.id}`} onClick={() => setExpanded(expanded === exp.id ? null : exp.id)}>{expanded === exp.id ? 'Less detail' : 'Explore this role'}{expanded === exp.id ? <Minus size={15} /> : <Plus size={15} />}</button>
+                  <div id={`career-details-${exp.id}`} className="career-details" hidden={expanded !== exp.id}><ul>{exp.details.map(detail => <li key={detail}>{detail}</li>)}</ul></div>
+                </>}
+              </div>
+              <ArrowUpRight className="career-arrow" size={24} aria-hidden="true" />
+            </article>
+          ))}
         </div>
       </div>
-
-      {/* Details Modal */}
-      {selectedExp && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-          onClick={() => setSelectedExp(null)}
-        >
-          <div
-            className="glass-card max-w-2xl w-full max-h-[80vh] overflow-y-auto rounded-2xl p-6 md:p-8 animate-in fade-in zoom-in duration-300"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header */}
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <h3 className="text-2xl font-display font-bold text-white">{selectedExp.title}</h3>
-                <p className="text-brand-accent mt-1">{selectedExp.company}</p>
-                <p className="text-gray-500 text-sm font-mono">{selectedExp.date}</p>
-              </div>
-              <button
-                onClick={() => setSelectedExp(null)}
-                className="p-2 rounded-full hover:bg-white/10 transition-colors"
-              >
-                <X className="w-6 h-6 text-gray-400" />
-              </button>
-            </div>
-
-            {/* Modal Content */}
-            <div className="space-y-4">
-              <p className="text-gray-300">{selectedExp.description}</p>
-
-              <div>
-                <h4 className="text-lg font-semibold text-white mb-3">Highlights</h4>
-                <ul className="space-y-3">
-                  {selectedExp.details?.map((detail, idx) => (
-                    <li key={idx} className="flex gap-3 text-gray-400 text-sm leading-relaxed">
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand-accent flex-shrink-0 mt-2" />
-                      <span>{detail}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

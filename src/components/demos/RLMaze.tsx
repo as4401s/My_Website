@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Play, Pause, RotateCcw, Zap, Target, Brain } from 'lucide-react';
 
 const MAZE_SIZE = 8;
-const CELL_SIZE = 40;
 
 interface Cell {
   x: number;
@@ -68,9 +67,13 @@ export default function RLMaze() {
 
   const getBestAction = useCallback((x: number, y: number): string => {
     const cell = maze[y][x];
-    const actions = Object.entries(cell.qValues);
+    const actions = Object.entries(cell.qValues).filter(([action]) => {
+      const direction = DIRECTIONS.find(d => d.action === action)!;
+      const neighbour = maze[y + direction.dy]?.[x + direction.dx];
+      return !!neighbour && !neighbour.isWall;
+    });
     actions.sort((a, b) => b[1] - a[1]);
-    return actions[0][0];
+    return actions[0]?.[0] ?? 'up';
   }, [maze]);
 
   const chooseAction = useCallback((x: number, y: number): string => {
@@ -87,7 +90,8 @@ export default function RLMaze() {
   }, [epsilon, maze, getBestAction]);
 
   const step = useCallback(() => {
-    setAgent((prevAgent) => {
+    const prevAgent = agent;
+    const performTransition = () => {
       const action = chooseAction(prevAgent.x, prevAgent.y);
       const dir = DIRECTIONS.find(d => d.action === action);
 
@@ -113,10 +117,14 @@ export default function RLMaze() {
 
       // Update Q-value
       setMaze((prevMaze) => {
-        const newMaze = prevMaze.map(row => row.map(cell => ({ ...cell })));
+        const newMaze = prevMaze.map(row => row.map(cell => ({ ...cell, qValues: { ...cell.qValues } })));
         const cell = newMaze[prevAgent.y][prevAgent.x];
         const nextCell = newMaze[newY][newX];
-        const bestNextQ = Math.max(...Object.values(nextCell.qValues));
+        const validNext = DIRECTIONS.filter(d => {
+          const neighbour = newMaze[newY + d.dy]?.[newX + d.dx];
+          return !!neighbour && !neighbour.isWall;
+        });
+        const bestNextQ = nextCell.isGoal ? 0 : Math.max(...validNext.map(d => nextCell.qValues[d.action]));
 
         cell.qValues[action as keyof typeof cell.qValues] =
           (1 - learningRate) * cell.qValues[action as keyof typeof cell.qValues] +
@@ -136,12 +144,13 @@ export default function RLMaze() {
       }
 
       return { x: newX, y: newY };
-    });
-  }, [maze, learningRate, chooseAction]);
+    };
+    setAgent(performTransition());
+  }, [maze, learningRate, chooseAction, agent]);
 
   useEffect(() => {
     if (isTraining) {
-      intervalRef.current = setInterval(step, speed);
+      intervalRef.current = setInterval(() => { if (!document.hidden) step(); }, speed);
     }
 
     return () => {
@@ -195,6 +204,7 @@ export default function RLMaze() {
               min="0.01"
               max="0.5"
               step="0.01"
+              aria-label="Maze learning rate"
               value={learningRate}
               onChange={(e) => setLearningRate(Number(e.target.value))}
               className="w-full accent-brand-accent"
@@ -211,6 +221,7 @@ export default function RLMaze() {
               min="0"
               max="1"
               step="0.05"
+              aria-label="Exploration rate"
               value={epsilon}
               onChange={(e) => setEpsilon(Number(e.target.value))}
               className="w-full accent-brand-accent"
@@ -227,6 +238,7 @@ export default function RLMaze() {
               min="50"
               max="500"
               step="50"
+              aria-label="Training speed"
               value={speed}
               onChange={(e) => setSpeed(Number(e.target.value))}
               className="w-full accent-brand-accent"
@@ -296,9 +308,9 @@ export default function RLMaze() {
       {/* Maze */}
       <div className="glass-card p-4 rounded-xl overflow-x-auto">
         <div
-          className="inline-grid gap-0.5 mx-auto"
+          className="grid gap-0.5 mx-auto w-full max-w-[334px]"
           style={{
-            gridTemplateColumns: `repeat(${MAZE_SIZE}, ${CELL_SIZE}px)`,
+            gridTemplateColumns: `repeat(${MAZE_SIZE}, minmax(0, 1fr))`,
           }}
         >
           {maze.map((row, y) =>
@@ -316,8 +328,7 @@ export default function RLMaze() {
                       : ''
                     }`}
                   style={{
-                    width: CELL_SIZE,
-                    height: CELL_SIZE,
+                    aspectRatio: '1',
                     backgroundColor: !cell.isWall && !cell.isGoal && showQValues
                       ? getQValueColor(cell.qValues[bestAction as keyof typeof cell.qValues])
                       : undefined,

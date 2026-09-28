@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Play, Pause, RotateCcw, Mountain, Zap } from 'lucide-react';
+import { Play, Pause, RotateCcw, Mountain, Zap, StepForward } from 'lucide-react';
+
+import { optimize, initialOptimizer } from '../../lib/lab/optimizer';
 
 type OptimizationType = 'sgd' | 'momentum' | 'adam';
 type FunctionType = 'quadratic' | 'rosenbrock' | 'himmelblau';
@@ -13,8 +15,7 @@ export default function GradientDescentVisualizer() {
   const [iteration, setIteration] = useState(0);
   const [path, setPath] = useState<{ x: number; y: number }[]>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const velocityRef = useRef({ x: 0, y: 0 });
-  const momentumRef = useRef({ x: 0, y: 0, v: 0 });
+  const optimizerRef = useRef(initialOptimizer());
 
   // Objective functions
   const functions = {
@@ -61,33 +62,14 @@ export default function GradientDescentVisualizer() {
     const offsetX = width / 2;
     const offsetY = height / 2;
 
-    // Draw contour lines
-    const levels = 20;
-    for (let level = 0; level < levels; level++) {
-      ctx.strokeStyle = `rgba(59, 130, 246, ${0.1 + (level / levels) * 0.2})`;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-
-      for (let i = 0; i < 100; i++) {
-        const angle = (i / 100) * Math.PI * 2;
-        const radius = (level + 1) * 0.5;
-        const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius;
-
-        const value = currentFunc.f(x, y);
-        const targetValue = level * 2;
-
-        if (Math.abs(value - targetValue) < 1) {
-          const px = offsetX + x * scale;
-          const py = offsetY + y * scale;
-          if (i === 0) {
-            ctx.moveTo(px, py);
-          } else {
-            ctx.lineTo(px, py);
-          }
-        }
+    // Sample the actual objective to display its loss landscape.
+    for (let px = 0; px < width; px += 5) {
+      for (let py = 0; py < height; py += 5) {
+        const value = currentFunc.f((px - offsetX) / scale, (py - offsetY) / scale);
+        const intensity = Math.min(1, Math.log1p(value) / (functionType === 'quadratic' ? 5 : 12));
+        ctx.fillStyle = `rgba(70, 145, 138, ${0.06 + (1-intensity) * 0.32})`;
+        ctx.fillRect(px, py, 5, 5);
       }
-      ctx.stroke();
     }
 
     // Draw gradient field (arrows)
@@ -189,38 +171,13 @@ export default function GradientDescentVisualizer() {
     ctx.strokeStyle = '#ffffff';
     ctx.lineWidth = 2;
     ctx.stroke();
-  }, [currentFunc, position, path]);
+  }, [currentFunc, position, path, functionType]);
 
   const performStep = useCallback(() => {
     const grad = currentFunc.grad(position.x, position.y);
-    const newPos = { ...position };
-
-    if (optimizer === 'sgd') {
-      newPos.x -= learningRate * grad.x;
-      newPos.y -= learningRate * grad.y;
-    } else if (optimizer === 'momentum') {
-      const momentum = 0.9;
-      velocityRef.current.x = momentum * velocityRef.current.x - learningRate * grad.x;
-      velocityRef.current.y = momentum * velocityRef.current.y - learningRate * grad.y;
-      newPos.x += velocityRef.current.x;
-      newPos.y += velocityRef.current.y;
-    } else if (optimizer === 'adam') {
-      const beta1 = 0.9;
-      const beta2 = 0.999;
-      const epsilon = 1e-8;
-
-      momentumRef.current.x = beta1 * momentumRef.current.x + (1 - beta1) * grad.x;
-      momentumRef.current.y = beta1 * momentumRef.current.y + (1 - beta1) * grad.y;
-      momentumRef.current.v =
-        beta2 * momentumRef.current.v + (1 - beta2) * (grad.x ** 2 + grad.y ** 2);
-
-      const m_hat_x = momentumRef.current.x / (1 - beta1);
-      const m_hat_y = momentumRef.current.y / (1 - beta1);
-      const v_hat = momentumRef.current.v / (1 - beta2);
-
-      newPos.x -= (learningRate * m_hat_x) / (Math.sqrt(v_hat) + epsilon);
-      newPos.y -= (learningRate * m_hat_y) / (Math.sqrt(v_hat) + epsilon);
-    }
+    const result = optimize(position, grad, learningRate, optimizer, optimizerRef.current);
+    const newPos = result.position;
+    optimizerRef.current = result.state;
 
     // Bounds checking
     newPos.x = Math.max(-5, Math.min(5, newPos.x));
@@ -231,10 +188,8 @@ export default function GradientDescentVisualizer() {
     setIteration((prev) => prev + 1);
 
     // Stop if converged
-    const distance = Math.sqrt(
-      (newPos.x - currentFunc.minima.x) ** 2 + (newPos.y - currentFunc.minima.y) ** 2
-    );
-    if (distance < 0.01) {
+    const nextGradient = currentFunc.grad(newPos.x, newPos.y);
+    if (Math.hypot(nextGradient.x, nextGradient.y) < 0.01) {
       setIsRunning(false);
     }
   }, [position, optimizer, learningRate, currentFunc]);
@@ -246,7 +201,7 @@ export default function GradientDescentVisualizer() {
   useEffect(() => {
     if (isRunning) {
       const interval = setInterval(() => {
-        performStep();
+        if (!document.hidden) performStep();
       }, 50);
       return () => clearInterval(interval);
     }
@@ -257,8 +212,7 @@ export default function GradientDescentVisualizer() {
     setPosition({ x: 4, y: 4 });
     setPath([]);
     setIteration(0);
-    velocityRef.current = { x: 0, y: 0 };
-    momentumRef.current = { x: 0, y: 0, v: 0 };
+    optimizerRef.current = initialOptimizer();
   };
 
   const currentLoss = currentFunc.f(position.x, position.y);
@@ -267,7 +221,7 @@ export default function GradientDescentVisualizer() {
     <div className="space-y-6">
       {/* Canvas */}
       <div className="relative bg-black/40 rounded-lg p-4 border border-white/10">
-        <canvas ref={canvasRef} width={500} height={500} className="w-full h-auto" />
+        <canvas role="img" aria-label="Loss landscape, gradient directions, and optimizer path" ref={canvasRef} width={500} height={500} className="w-full h-auto" />
 
         {/* Stats Overlay */}
         <div className="absolute top-6 right-6 glass-card px-4 py-2 rounded-lg">
@@ -292,7 +246,7 @@ export default function GradientDescentVisualizer() {
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-green-500" />
-              <span className="text-gray-400">Global Minimum</span>
+              <span className="text-gray-400">Known Minimum</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-6 h-0.5 bg-amber-500" />
@@ -315,9 +269,11 @@ export default function GradientDescentVisualizer() {
             <div>
               <label className="text-xs text-gray-400 mb-2 block">Function Type</label>
               <select
+                aria-label="Loss landscape"
                 value={functionType}
                 onChange={(e) => {
                   setFunctionType(e.target.value as FunctionType);
+                  setLearningRate(e.target.value === 'rosenbrock' ? .001 : e.target.value === 'himmelblau' ? .01 : .1);
                   reset();
                 }}
                 className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
@@ -330,13 +286,14 @@ export default function GradientDescentVisualizer() {
 
             <div>
               <label className="text-xs text-gray-400 mb-2 block">
-                Learning Rate: {learningRate.toFixed(3)}
+                Learning Rate: {learningRate.toFixed(4)}
               </label>
               <input
+                aria-label="Optimizer learning rate"
                 type="range"
-                min="0.01"
+                min="0.0001"
                 max="0.5"
-                step="0.01"
+                step="0.0001"
                 value={learningRate}
                 onChange={(e) => setLearningRate(parseFloat(e.target.value))}
                 className="w-full accent-brand-accent"
@@ -348,7 +305,7 @@ export default function GradientDescentVisualizer() {
               <div className="text-sm text-white font-mono">
                 x: {position.x.toFixed(2)}, y: {position.y.toFixed(2)}
               </div>
-              <div className="text-xs text-gray-400 mt-2 mb-1">Target:</div>
+              <div className="text-xs text-gray-400 mt-2 mb-1">One minimum:</div>
               <div className="text-sm text-green-400 font-mono">
                 x: {currentFunc.minima.x.toFixed(2)}, y: {currentFunc.minima.y.toFixed(2)}
               </div>
@@ -404,8 +361,9 @@ export default function GradientDescentVisualizer() {
               </button>
             </div>
 
+            <button disabled={isRunning} onClick={performStep} className="flex items-center gap-2 text-sm text-brand-accent disabled:opacity-40"><StepForward size={15} />One step</button>
             <div className="text-xs text-gray-500 leading-relaxed">
-              Visualize how different optimizers navigate loss landscapes. Watch gradient descent find the minimum!
+              Visualize how different optimizers navigate loss landscapes. Brighter regions have lower loss. Paths are clipped at the plotting boundary; reduce the learning rate if updates bounce at the edges.
             </div>
           </div>
         </div>

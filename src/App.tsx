@@ -1,4 +1,4 @@
-import { useEffect, useState, Suspense, lazy } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, useLocation, Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -14,7 +14,6 @@ const Hobbies = lazy(() => import('./sections/Hobbies'));
 const Lab = lazy(() => import('./sections/Lab'));
 const Blog = lazy(() => import('./sections/Blog'));
 const Footer = lazy(() => import('./sections/Footer'));
-const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
 
 // New Pages
 const ChessGame = lazy(() => import('./pages/ChessGame'));
@@ -22,19 +21,9 @@ const TravelMap = lazy(() => import('./pages/TravelMap'));
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Home({ isMobile }: { isMobile: boolean }) {
+function Home() {
   return (
-    <>
-      {/* Animated Gradient Background - Performance friendly */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-mesh animate-gradient-shift opacity-40" />
-        <div className="absolute inset-0 bg-grid opacity-[0.12]" />
-        <div className="absolute inset-0 bg-grain opacity-[0.18]" />
-        <div className={`hidden md:block absolute top-0 left-1/4 w-96 h-96 bg-brand-accent/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob'}`} />
-        <div className={`hidden md:block absolute top-10 right-1/4 w-96 h-96 bg-brand-purple/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob animation-delay-2000'}`} />
-        <div className={`hidden md:block absolute -bottom-32 left-1/3 w-96 h-96 bg-teal-900/20 rounded-full mix-blend-screen filter ${isMobile ? 'blur-[32px]' : 'blur-[64px]'} ${isMobile ? '' : 'animate-blob animation-delay-4000'}`} />
-      </div>
-
+    <div className="portfolio-home">
       <Hero />
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-4 border-brand-accent border-t-transparent rounded-full animate-spin"></div></div>}>
         <Experience />
@@ -44,24 +33,12 @@ function Home({ isMobile }: { isMobile: boolean }) {
         <Blog />
         <Hobbies />
       </Suspense>
-    </>
+    </div>
   );
 }
 
 function App() {
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
   const location = useLocation();
-
-  useEffect(() => {
-    // Detect mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   useEffect(() => {
     const titles: Record<string, string> = {
@@ -89,11 +66,6 @@ function App() {
       {/* Scroll Progress Indicator ONLY on the main page */}
       {location.pathname === '/' && <ScrollProgress />}
 
-      {/* Particle Background */}
-      {location.pathname === '/' && !isMobile && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && (
-        <Suspense fallback={null}><ParticleBackground /></Suspense>
-      )}
-
       {/* Navigation Layer - Hidden on full-screen pages */}
       {location.pathname === '/' && <Navigation />}
 
@@ -102,7 +74,7 @@ function App() {
       <main id="main-content" tabIndex={-1} className="relative z-10">
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-4 border-brand-accent border-t-transparent rounded-full animate-spin"></div></div>}>
           <Routes>
-            <Route path="/" element={<Home isMobile={isMobile} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/chess" element={<ChessGame />} />
             <Route path="/travel" element={<TravelMap />} />
             <Route path="*" element={

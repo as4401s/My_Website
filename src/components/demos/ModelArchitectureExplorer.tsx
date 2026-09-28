@@ -141,6 +141,7 @@ export default function ModelArchitectureExplorer() {
         </div>
       </div>
 
+      <p className="lab-note mb-4">Schematic overview: blocks are abbreviated and the displayed shapes and parameter counts are illustrative, not a complete implementation specification.</p>
       {/* Architecture Diagram */}
       <div className="glass-card p-4 rounded-xl">
         <div className="flex flex-col gap-2">
@@ -152,6 +153,10 @@ export default function ModelArchitectureExplorer() {
               )}
               
               <div
+                role="button"
+                tabIndex={0}
+                aria-pressed={selectedLayer?.id === layer.id}
+                onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelectedLayer(layer); } }}
                 onClick={() => setSelectedLayer(layer)}
                 className={`flex items-center gap-4 p-3 rounded-lg border cursor-pointer transition-all hover:scale-[1.02] ${
                   selectedLayer?.id === layer.id
@@ -188,6 +193,7 @@ export default function ModelArchitectureExplorer() {
           <div className="flex items-center justify-between mb-3">
             <h4 className="font-bold text-white">{selectedLayer.name}</h4>
             <button
+              aria-label="Close layer details"
               onClick={() => setSelectedLayer(null)}
               className="text-gray-500 hover:text-white"
             >

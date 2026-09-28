@@ -1,48 +1,41 @@
 import { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
 
 const navLinks = [
   { href: '#about', label: 'About' },
   { href: '#experience', label: 'Experience' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#publications', label: 'Publications' },
+  { href: '#skills', label: 'Expertise' },
+  { href: '#publications', label: 'Research' },
   { href: '#lab', label: 'AI Lab' },
-  { href: '#blog', label: 'Blog' },
-  { href: '#hobbies', label: 'Hobbies' },
+  { href: '#blog', label: 'Writing' },
+  { href: '#hobbies', label: 'Beyond work' },
 ];
 
 export default function Navigation() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [active, setActive] = useState('#about');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    const update = () => {
+      setIsScrolled(window.scrollY > 24);
+      const current = [...navLinks].reverse().find(link => {
+        const section = document.getElementById(link.href.slice(1));
+        return section && section.getBoundingClientRect().top <= 180;
+      });
+      if (current) setActive(current.href);
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-  return () => window.removeEventListener('scroll', handleScroll);
+    let frame = 0;
+    const scroll = () => {
+      if (!frame) frame = requestAnimationFrame(() => { update(); frame = 0; });
+    };
+    update();
+    window.addEventListener('scroll', scroll, { passive: true });
+    return () => { window.removeEventListener('scroll', scroll); cancelAnimationFrame(frame); };
   }, []);
 
   useEffect(() => {
-    // Entrance animation
-    gsap.fromTo(
-      '.nav-logo',
-      { opacity: 0, y: -20 },
-      { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out', delay: 0.1 }
-    );
-
-    gsap.fromTo(
-      '.nav-link',
-      { opacity: 0, y: -15 },
-      { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out', stagger: 0.08, delay: 0.2 }
-    );
-
-  }, []);
-
-    useEffect(() => {
     if (!isMobileMenuOpen) return;
     const close = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -55,72 +48,15 @@ export default function Navigation() {
   }, [isMobileMenuOpen]);
 
   return (
-    <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${isScrolled
-        ? 'bg-brand-dark/95 backdrop-blur-xl border-b border-white/5 py-3'
-        : 'bg-transparent py-4'
-        }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <a
-            href="#about"
-            className="nav-logo font-display font-bold text-xl tracking-tighter transition-transform duration-300 hover:scale-105"
-          >
-            AS<span className="text-brand-accent">.</span>
-          </a>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="nav-link relative text-sm font-medium text-gray-400 hover:text-brand-accent transition-colors duration-250 group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-brand-accent transition-all duration-250 group-hover:w-full group-hover:left-0" />
-              </a>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-gray-300 hover:text-white transition-colors p-2"
-            ref={menuButtonRef}
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-navigation"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
+    <nav aria-label="Main navigation" className={`site-nav ${isScrolled || isMobileMenuOpen ? 'is-scrolled' : ''}`}>
+      <div className="nav-inner">
+        <a href="#about" className="nav-wordmark" aria-label="Arjun Sarkar, home">as<span>.</span></a>
+        <div className="desktop-links">{navLinks.map(link => <a key={link.href} href={link.href} aria-current={active === link.href ? 'location' : undefined}>{link.label}</a>)}</div>
+        <a href="mailto:arjun.sarkar786@gmail.com" className="nav-contact">Get in touch <ArrowUpRight size={15} /></a>
+        <button onClick={() => setIsMobileMenuOpen(value => !value)} className="mobile-menu-toggle" ref={menuButtonRef} aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={isMobileMenuOpen} aria-controls="mobile-navigation">{isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}</button>
       </div>
-
-      {/* Mobile Menu Panel */}
-      <div
-        id="mobile-navigation"
-        inert={!isMobileMenuOpen}
-        className={`md:hidden absolute top-full left-0 right-0 bg-brand-dark/98 backdrop-blur-xl border-b border-white/10 transition-all duration-300 ${isMobileMenuOpen
-          ? 'opacity-100 translate-y-0'
-          : 'opacity-0 -translate-y-4 pointer-events-none'
-          }`}
-      >
-        <div className="px-4 py-4 space-y-2">
-          {navLinks.map((link, index) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-3 rounded-lg text-base font-medium text-gray-300 hover:bg-white/5 hover:text-brand-accent transition-all duration-200"
-              style={{ animationDelay: `${index * 50}ms` }}
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
+      <div id="mobile-navigation" inert={!isMobileMenuOpen} className={`mobile-navigation ${isMobileMenuOpen ? 'is-open' : ''}`}>
+        {navLinks.map(link => <a key={link.href} href={link.href} onClick={() => setIsMobileMenuOpen(false)} aria-current={active === link.href ? 'location' : undefined}>{link.label}<ArrowUpRight size={16} /></a>)}
       </div>
     </nav>
   );

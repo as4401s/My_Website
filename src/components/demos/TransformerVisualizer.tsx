@@ -24,14 +24,9 @@ export default function TransformerVisualizer() {
 
   // Generate attention weights based on position
   const generateAttention = (tokenIndex: number) => {
-    return tokens.map((_, i) => {
-      // Self-attention: tokens attend to themselves and nearby tokens
-      const distance = Math.abs(i - tokenIndex);
-      if (i === tokenIndex) return 0.5; // Self attention
-      if (distance === 1) return 0.25; // Adjacent
-      if (distance === 2) return 0.15; // Near
-      return 0.05 + Math.random() * 0.05; // Far
-    });
+    const scores = tokens.map((_, i) => Math.exp(-Math.abs(i - tokenIndex) * 0.7));
+    const total = scores.reduce((sum, value) => sum + value, 0);
+    return scores.map(value => value / total);
   };
 
   const tokenData: Token[] = tokens.map((text, id) => ({
@@ -69,7 +64,7 @@ export default function TransformerVisualizer() {
   const getAttentionColor = (weight: number) => {
     // Gradient from low (blue) to high (purple/pink)
     const intensity = Math.min(1, weight * 2);
-    return `rgba(139, 92, 246, ${0.2 + intensity * 0.8})`;
+    return `rgba(80, 155, 145, ${0.2 + intensity * 0.8})`;
   };
 
   return (
@@ -77,6 +72,7 @@ export default function TransformerVisualizer() {
       {/* Controls */}
       <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
         <select
+          aria-label="Example sentence"
           value={selectedSentence}
           onChange={(e) => {
             setSelectedSentence(Number(e.target.value));
@@ -90,7 +86,7 @@ export default function TransformerVisualizer() {
         </select>
 
         <button
-          onClick={() => setIsPlaying(!isPlaying)}
+          onClick={() => { if (!isPlaying && currentStep === tokens.length - 1) setCurrentStep(0); setIsPlaying(!isPlaying); }}
           className="flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-accent text-white text-sm font-medium hover:bg-brand-accent/80 transition-colors"
         >
           {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
@@ -121,7 +117,11 @@ export default function TransformerVisualizer() {
       {/* Token Row */}
       <div className="flex flex-wrap justify-center gap-2 mb-8">
         {tokenData.map((token, i) => (
-          <div
+          <button
+            type="button"
+            aria-pressed={hoveredToken === i}
+            onClick={() => {setHoveredToken(i);setCurrentStep(i);}}
+            onFocus={() => setHoveredToken(i)}
             key={token.id}
             className={`relative px-4 py-3 rounded-xl transition-all duration-300 cursor-pointer ${
               i === currentStep && isPlaying
@@ -137,21 +137,21 @@ export default function TransformerVisualizer() {
             {i === currentStep && isPlaying && (
               <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse" />
             )}
-          </div>
+          </button>
         ))}
       </div>
 
       {/* Attention Matrix */}
       <div className="glass-card p-4 rounded-xl">
         <h4 className="text-sm font-medium text-gray-400 mb-4 text-center">
-          Attention Heatmap {hoveredToken !== null && `(Hovering: "${tokens[hoveredToken]}")`}
+          Attention Heatmap {hoveredToken !== null && `(Selected: "${tokens[hoveredToken]}")`}
         </h4>
         
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full">
             {/* Header row */}
             <div className="flex">
-              <div className="w-16" />
+              <div className="flex-shrink-0 w-16" />
               {tokens.map((token, i) => (
                 <div
                   key={i}
@@ -176,13 +176,12 @@ export default function TransformerVisualizer() {
                 </div>
                 {token.attention.map((weight, colIdx) => {
                   const isHighlighted = hoveredToken === rowIdx || hoveredToken === colIdx;
-                  const displayWeight = hoveredToken === rowIdx ? weight : 
-                                       hoveredToken === colIdx ? tokenData[colIdx].attention[rowIdx] : weight;
+                  const displayWeight = weight;
                   
                   return (
                     <div
                       key={colIdx}
-                      className="w-14 h-10 flex items-center justify-center p-1"
+                      className="flex-shrink-0 w-14 h-10 flex items-center justify-center p-1"
                     >
                       <div
                         className={`w-full h-full rounded flex items-center justify-center text-xs font-mono transition-all duration-200 ${
@@ -206,7 +205,7 @@ export default function TransformerVisualizer() {
         {/* Legend */}
         <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-500">
           <span>Low Attention</span>
-          <div className="w-24 h-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-amber-500" />
+          <div className="w-24 h-2 rounded-full bg-gradient-to-r from-teal-900 to-teal-300" />
           <span>High Attention</span>
         </div>
       </div>
@@ -214,9 +213,9 @@ export default function TransformerVisualizer() {
       {/* Explanation */}
       <div className="mt-6 text-center text-sm text-gray-400">
         <p>
-          Watch how each token attends to others during the self-attention mechanism.
+          Illustrative attention weights, normalized so each row sums to 100%. These are not outputs from a trained transformer.
           <br />
-          Hover over tokens to see their attention patterns!
+          Select or focus a token to inspect its attention pattern.
         </p>
       </div>
     </div>

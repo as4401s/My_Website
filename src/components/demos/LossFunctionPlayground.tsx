@@ -7,7 +7,8 @@ interface DataPoint {
   predicted: number;
 }
 
-type LossType = 'mse' | 'mae' | 'huber' | 'crossentropy';
+import { sampleLoss, sigmoid } from '../../lib/lab/loss';
+import type { LossType } from '../../lib/lab/loss';
 
 const lossFunctions: Record<LossType, { name: string; formula: string; description: string }> = {
   mse: {
@@ -37,129 +38,35 @@ export default function LossFunctionPlayground() {
   const [learningRate, setLearningRate] = useState(0.1);
   const [isTraining, setIsTraining] = useState(false);
   const [epoch, setEpoch] = useState(0);
-  const [loss, setLoss] = useState(0);
   const [weight, setWeight] = useState(0.5);
   const [bias, setBias] = useState(0);
   const [lossHistory, setLossHistory] = useState<number[]>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null);
 
-  // Generate sample data
-  const [data, setData] = useState<DataPoint[]>(() => {
-    const points: DataPoint[] = [];
-    for (let i = 0; i < 20; i++) {
-      const x = i / 19;
-      // Fixed purely for initial render
-      const noise = (Math.random() - 0.5) * 0.3;
-      points.push({ x, y: 0.5 + 0.3 * x + noise, predicted: 0 });
-    }
-    return points;
-  }); // Only generate on mount
-
-  const calculateLoss = useCallback((w: number, b: number, points: DataPoint[]): number => {
-    let totalLoss = 0;
-
-    points.forEach((point) => {
-      const predicted = w * point.x + b;
-      const error = point.y - predicted; // y - ŷ
-
-      switch (lossType) {
-        case 'mse':
-          totalLoss += error * error;
-          break;
-        case 'mae':
-          totalLoss += Math.abs(error);
-          break;
-        case 'huber': {
-          const delta = 0.5; // This delta should ideally be configurable or part of the loss function definition
-          const absError = Math.abs(error);
-          if (absError < delta) {
-            totalLoss += 0.5 * error * error;
-          } else {
-            totalLoss += delta * absError - 0.5 * delta * delta;
-          }
-          break;
-        }
-        case 'crossentropy': {
-          // Simplified for demo, assuming y is 0 or 1 and predicted is a probability
-          const p = Math.max(0.001, Math.min(0.999, predicted)); // Clamp predicted to avoid log(0)
-          const y = point.y > 0.5 ? 1 : 0; // Convert continuous y to binary for classification
-          totalLoss += -(y * Math.log(p) + (1 - y) * Math.log(1 - p));
-          break;
-        }
-      }
-    });
-
-    return totalLoss / points.length;
-  }, [lossType]);
-
+  const data: DataPoint[] = Array.from({ length: 20 }, (_, i) => {
+    const x = 0.05 + i / 19 * 0.9;
+    return { x, y: lossType === 'crossentropy' ? Number(x > 0.5) : 0.2 + 0.6 * x + Math.sin(i * 2.3) * 0.08, predicted: 0 };
+  });
+  const calculateLoss = (w: number, b: number) => data.reduce((sum, point) => sum + sampleLoss(w * point.x + b, point.y, lossType).loss, 0) / data.length;
+  const loss = calculateLoss(weight, bias);
   const trainStep = useCallback(() => {
-    // Simple gradient descent for linear regression (y = wx + b)
-    // Note: The gradient calculation here is specific to MSE.
-    // For other loss functions, the gradient would be different.
-    // This is a simplification for the playground's current scope.
-
-    setWeight((prevW) => {
-      setBias((prevB) => {
-        let dw = 0; // Gradient for weight
-        let db = 0; // Gradient for bias
-
-        data.forEach((point) => {
-          const predicted = prevW * point.x + prevB;
-          const error = point.y - predicted; // (y - ŷ)
-
-          // Gradients for MSE:
-          // d(MSE)/dw = (1/n) * Σ(-2 * (y - ŷ) * x)
-          // d(MSE)/db = (1/n) * Σ(-2 * (y - ŷ))
-          dw += -2 * error * point.x;
-          db += -2 * error;
-        });
-
-        dw /= data.length;
-        db /= data.length;
-
-        const newW = prevW - learningRate * dw;
-        const newB = prevB - learningRate * db;
-
-        const newLoss = calculateLoss(newW, newB, data);
-        setLoss(newLoss);
-        setLossHistory((prev) => [...prev.slice(-49), newLoss]); // Keep last 50 loss values
-        setEpoch((e) => e + 1);
-
-        return newB;
-      });
-      // This part of the state update for weight is problematic as it recalculates dw
-      // and doesn't correctly use the updated bias from the inner setBias.
-      // For a correct update, both weight and bias should be updated in a single state update
-      // or derived from the same snapshot of previous state.
-      // However, to match the provided diff's structure, we'll keep it as is,
-      // acknowledging it's not ideal for simultaneous W and B updates.
-      return prevW - learningRate * (() => {
-        let dw = 0;
-        data.forEach((point) => {
-          const predicted = prevW * point.x + bias; // Using 'bias' from outer scope, not the 'prevB' from inner setBias
-          const error = point.y - predicted;
-          dw += -2 * error * point.x;
-        });
-        return dw / data.length;
-      })();
-    });
-  }, [learningRate, data, bias, calculateLoss]);
-
-  useEffect(() => {
-    if (isTraining) {
-      const animate = () => {
-        trainStep();
-        animationRef.current = requestAnimationFrame(animate);
-      };
-      animationRef.current = requestAnimationFrame(animate);
+    let dw = 0, db = 0;
+    for (let i = 0; i < 20; i++) {
+      const x = 0.05 + i / 19 * 0.9;
+      const y = lossType === 'crossentropy' ? Number(x > 0.5) : 0.2 + 0.6 * x + Math.sin(i * 2.3) * 0.08;
+      const { gradient } = sampleLoss(weight * x + bias, y, lossType);
+      dw += gradient * x / 20;
+      db += gradient / 20;
     }
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
+    setWeight(weight - learningRate * dw);
+    setBias(bias - learningRate * db);
+    setEpoch(value => value + 1);
+    setLossHistory(values => [...values.slice(-99), loss]);
+  }, [weight, bias, learningRate, lossType, loss]);
+  useEffect(() => {
+    if (!isTraining) return;
+    const timer = setInterval(() => { if (!document.hidden) trainStep(); }, 60);
+    return () => clearInterval(timer);
   }, [isTraining, trainStep]);
 
   // Draw canvas
@@ -208,16 +115,19 @@ export default function LossFunctionPlayground() {
     ctx.strokeStyle = '#f97316';
     ctx.lineWidth = 3;
     ctx.beginPath();
-    const y1 = height - (weight * 0 + bias) * height;
-    const y2 = height - (weight * 1 + bias) * height;
-    ctx.moveTo(0, y1);
-    ctx.lineTo(width, y2);
+    for (let i = 0; i <= 100; i++) {
+      const x = i / 100;
+      const prediction = lossType === 'crossentropy' ? sigmoid(weight * x + bias) : weight * x + bias;
+      if (i === 0) ctx.moveTo(x * width, height - prediction * height);
+      else ctx.lineTo(x * width, height - prediction * height);
+    }
     ctx.stroke();
 
     // Draw predicted points
     data.forEach((point) => {
       const px = point.x * width;
-      const py = height - (weight * point.x + bias) * height;
+      const predicted = lossType === 'crossentropy' ? sigmoid(weight * point.x + bias) : weight * point.x + bias;
+      const py = height - predicted * height;
 
       ctx.fillStyle = 'rgba(249, 115, 22, 0.45)';
       ctx.beginPath();
@@ -233,22 +143,15 @@ export default function LossFunctionPlayground() {
       ctx.lineTo(px, actualY);
       ctx.stroke();
     });
-  }, [data, weight, bias]);
+  }, [data, weight, bias, lossType]);
 
   const reset = () => {
     setIsTraining(false);
     setEpoch(0);
-    setLoss(0);
     setWeight(0.5);
     setBias(0);
     setLossHistory([]);
-    const points: DataPoint[] = [];
-    for (let i = 0; i < 20; i++) {
-      const x = i / 19;
-      const noise = (Math.random() - 0.5) * 0.3;
-      points.push({ x, y: 0.5 + 0.3 * x + noise, predicted: 0 });
-    }
-    setData(points);
+
   };
 
   return (
@@ -260,6 +163,7 @@ export default function LossFunctionPlayground() {
           <div>
             <label className="text-xs text-gray-500 mb-2 block">Loss Function</label>
             <select
+              aria-label="Loss function"
               value={lossType}
               onChange={(e) => {
                 setLossType(e.target.value as LossType);
@@ -279,6 +183,7 @@ export default function LossFunctionPlayground() {
               Learning Rate: {learningRate.toFixed(2)}
             </label>
             <input
+              aria-label="Loss learning rate"
               type="range"
               min="0.01"
               max="0.5"
@@ -339,6 +244,7 @@ export default function LossFunctionPlayground() {
           width={600}
           height={300}
           className="w-full h-auto rounded-lg"
+          role="img" aria-label="Training data and current model predictions"
         />
 
         <div className="flex items-center justify-center gap-6 mt-3 text-xs">

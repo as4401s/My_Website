@@ -14,7 +14,7 @@ const hobbies = [
     emoji: '♟️',
     description: 'Strategizing on the 64 squares. It keeps the mind sharp for algorithmic challenges.',
     routePath: '/chess',
-    linkLabel: 'Play to know your level vs Stockfish ♟️',
+    linkLabel: 'Play against Stockfish ↗',
     color: 'from-amber-500 to-orange-500',
   },
   {
@@ -24,7 +24,7 @@ const hobbies = [
     emoji: '📸',
     description: 'Capturing moments and perspectives. Finding patterns in the chaos of the real world.',
     link: 'https://ourtravelphotobook.netlify.app/#home',
-    linkLabel: 'Explore my visual journey 🌍',
+    linkLabel: 'Explore my photography ↗',
     color: 'from-rose-500 to-pink-500',
   },
   {
@@ -34,7 +34,7 @@ const hobbies = [
     emoji: '✈️',
     description: 'Exploring new cultures and landscapes. Every journey brings a new dataset of experiences.',
     routePath: '/travel',
-    linkLabel: 'Explore the world 🌏',
+    linkLabel: 'Explore the world ↗',
     color: 'from-teal-500 to-cyan-500',
   },
 ];
@@ -44,68 +44,70 @@ export default function Hobbies() {
   const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
-    if (window.innerWidth < 768) return;
-    const ctx = gsap.context(() => {
-      // Section title animation
-      const titleTrigger = ScrollTrigger.create({
-        trigger: '.hobbies-title',
-        start: 'top 80%',
-        onEnter: () => {
-          gsap.fromTo(
-            '.hobbies-title',
-            { opacity: 0, y: 40 },
-            { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }
-          );
-        },
-        once: true,
-      });
-      triggersRef.current.push(titleTrigger);
-
-      // Hobby cards animation
-      hobbies.forEach((_, index) => {
-        const trigger = ScrollTrigger.create({
-          trigger: `.hobby-card-${index}`,
+    const media = gsap.matchMedia();
+    media.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+      const ctx = gsap.context(() => {
+        // Section title animation
+        const titleTrigger = ScrollTrigger.create({
+          trigger: '.hobbies-title',
           start: 'top 80%',
           onEnter: () => {
             gsap.fromTo(
-              `.hobby-card-${index}`,
-              { opacity: 0, scale: 0, rotation: index % 2 === 0 ? -180 : 180 },
-              {
-                opacity: 1,
-                scale: 1,
-                rotation: 0,
-                duration: 0.8,
-                ease: 'expo.out',
-                delay: index * 0.2
-              }
+              '.hobbies-title',
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }
             );
           },
           once: true,
         });
-        triggersRef.current.push(trigger);
-      });
+        triggersRef.current.push(titleTrigger);
 
-      // Connecting lines animation
-      const linesTrigger = ScrollTrigger.create({
-        trigger: '.hobby-lines',
-        start: 'top 80%',
-        onEnter: () => {
-          gsap.fromTo(
-            '.hobby-line',
-            { strokeDashoffset: 200 },
-            { strokeDashoffset: 0, duration: 0.6, ease: 'power2.out', delay: 0.8 }
-          );
-        },
-        once: true,
-      });
-      triggersRef.current.push(linesTrigger);
-    }, sectionRef);
+        // Hobby cards animation
+        hobbies.forEach((_, index) => {
+          const trigger = ScrollTrigger.create({
+            trigger: `.hobby-card-${index}`,
+            start: 'top 80%',
+            onEnter: () => {
+              gsap.fromTo(
+                `.hobby-card-${index}`,
+                { opacity: 0, y: 20 },
+                {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.8,
+                  ease: 'expo.out',
+                  delay: index * 0.2
+                }
+              );
+            },
+            once: true,
+          });
+          triggersRef.current.push(trigger);
+        });
 
-    return () => {
-      triggersRef.current.forEach(trigger => trigger.kill());
-      triggersRef.current = [];
-      ctx.revert();
-    };
+        // Connecting lines animation
+        const linesTrigger = ScrollTrigger.create({
+          trigger: '.hobby-lines',
+          start: 'top 80%',
+          onEnter: () => {
+            gsap.fromTo(
+              '.hobby-line',
+              { strokeDashoffset: 200 },
+              { strokeDashoffset: 0, duration: 0.6, ease: 'power2.out', delay: 0.8 }
+            );
+          },
+          once: true,
+        });
+        triggersRef.current.push(linesTrigger);
+      }, sectionRef);
+
+      return () => {
+        triggersRef.current.forEach(trigger => trigger.kill());
+        triggersRef.current = [];
+        ctx.revert();
+      };
+    });
+    return () => media.revert();
   }, []);
 
   return (
@@ -116,7 +118,8 @@ export default function Hobbies() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <h2 className="hobbies-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-20 text-center md:opacity-0">
+        <p className="eyebrow">06 / BEYOND WORK</p>
+        <h2 className="hobbies-title text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-20 text-center ">
           Beyond the <span className="text-gradient">Code</span>
         </h2>
 
@@ -162,12 +165,12 @@ export default function Hobbies() {
             return (
               <div
                 key={hobby.id}
-                className={`hobby-card-${index} relative z-10 md:opacity-0`}
+                className={`hobby-card-${index} relative z-10 `}
               >
                 <div className="glass-card p-8 rounded-2xl text-center transition-all duration-350 hover:scale-105 hover:border-brand-accent/50 hover:bg-brand-accent/5 hover:shadow-xl hover:shadow-brand-accent/10 group cursor-default">
                   {/* Icon Container */}
                   <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${hobby.color} flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-                    <span className="text-4xl">{hobby.emoji}</span>
+                    <hobby.icon size={32} strokeWidth={1.25} aria-hidden="true" />
                   </div>
 
                   {/* Title */}

@@ -7,22 +7,23 @@ A modern, interactive portfolio website showcasing AI/ML expertise, research pub
 ## 🚀 Features
 
 ### Interactive AI Demos
-6 fully functional, browser-based AI demonstrations:
-- **Neural Network Playground** - Build and train custom neural networks with adjustable architectures
+7 interactive browser-based AI experiments:
+- **Neural Network Playground** - Train a real XOR network with backpropagation, inspect predictions, and adjust hidden layers
+- **Convolution Explorer** - Paint an image and inspect blur, sharpening, and edge-detection kernels pixel by pixel
 - **Gradient Descent Visualizer** - Compare SGD, Momentum, and Adam optimizers on different loss landscapes
-- **Transformer Visualizer** - Interactive attention mechanism visualization
+- **Transformer Visualizer** - Explore normalized illustrative attention weights
 - **Loss Function Playground** - Compare MSE, MAE, Huber, and Cross-Entropy functions
 - **Reinforcement Learning Maze** - Watch Q-Learning agents learn in real-time
-- **Model Architecture Explorer** - Visualize EfficientNetV2, MobileNet, and ResNet architectures
+- **Model Architecture Explorer** - Compare simplified EfficientNetV2, MobileNet, and ResNet diagrams
+- **AI field notes** - 144 educational facts across 12 filterable topics
 
 ### Modern UI/UX
-- **Glassmorphism design** with depth and blur effects
-- **3D particle background** with Three.js and React Three Fiber
-- **Scroll progress indicator** with live percentage tracking
-- **Animated skill proficiency bars** showing expertise levels
-- **Smooth scroll animations** powered by GSAP
-- **3D card hover effects** for enhanced interactivity
-- **Responsive design** optimized for all devices
+- Restrained dark palette, editorial typography, and spacious layouts
+- Three.js neural-network hero with animated forward-pass signals
+- Pause controls, reduced-motion support, and a static WebGL fallback
+- Accessible experiment tabs, step controls, and inline career details
+- Responsive desktop and mobile layouts
+- Subtle section reveals and scroll progress
 
 ### Performance Optimizations
 - **Mobile-first optimizations**: Reduced particle count, optimized blur effects
@@ -217,3 +218,10 @@ While this is a personal portfolio, suggestions and feedback are welcome! Feel f
 ---
 
 **Built with ❤️ ** | © 2026 Arjun Sarkar
+
+## Lab calculation checks
+
+With Node.js 22.18 or newer, run `node --test scripts/verify-lab.mjs`.
+The checks cover numerical backpropagation gradients, XOR convergence, each loss
+function's derivative, Adam moment updates, convolution padding, and fact integrity.
+`npm run build` and `npm run lint` validate the application.
